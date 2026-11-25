@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Little Museum — Personality Test | inner child</title>
+
+  <!-- Minimal Editorial Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- html2canvas สำหรับส่งออกภาพขนาด 9:16 (1080x1920) ลง IG Story -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <style>
+    /* =====================================================
+       MINIMALIST GALLERY DESIGN TOKENS
+    ===================================================== */
+    :root {
+      --bg-page: #f7f6f2;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f1efe9;
+      --ink-primary: #1a1918;
+      --ink-secondary: #68655f;
+      --ink-muted: #9a968e;
+      --line: #e4e1d8;
+      --line-strong: #1a1918;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'IBM Plex Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--ink-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ================= HEADER / NAVBAR ================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247, 246, 242, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink-primary);
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      background: var(--bg-surface);
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .brand-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink-secondary);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ink-primary);
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      color: var(--ink-primary);
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .site-header { padding: 12px 18px; }
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-surface);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        padding: 18px 20px;
+        gap: 14px;
+        align-items: flex-start;
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* ================= MAIN STAGE ================= */
+    .quiz-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px 48px;
+    }
+
+    .quiz-shell {
+      width: 100%;
+      max-width: 440px;
+      min-height: 660px;
+      background: var(--bg-surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      padding: 28px 26px 26px;
+      animation: fadeIn 0.35s ease forwards;
+    }
+
+    .screen.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ================= IMAGE FRAMES ================= */
+    .media-frame {
+      width: 100%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ================= 1. COVER SCREEN ================= */
+    .eyebrow {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .cover-frame {
+      aspect-ratio: 4 / 3;
+      margin-bottom: 24px;
+    }
+
+    .cover-title-en {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 500;
+      text-align: center;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .cover-title-th {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .cover-desc {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--ink-secondary);
+      text-align: center;
+      margin-bottom: 26px;
+      font-weight: 300;
+    }
+
+    .footnote {
+      margin-top: auto;
+      padding-top: 18px;
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ================= 2. TEASER STORY SLIDES ================= */
+    .story-screen {
+      cursor: pointer;
+      user-select: none;
+      justify-content: space-between;
+    }
+
+    .story-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .story-counter {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+    }
+
+    .story-bars {
+      display: flex;
+      gap: 6px;
+      width: 96px;
+    }
+
+    .story-bars span {
+      flex: 1;
+      height: 2px;
+      background: var(--line);
+      transition: background 0.25s;
+    }
+
+    .story-bars span.active {
+      background: var(--ink-primary);
+    }
+
+    .story-frame {
+      aspect-ratio: 4 / 3;
+      margin-bottom: 24px;
+    }
+
+    .story-text {
+      font-size: 0.96rem;
+      line-height: 1.9;
+      color: var(--ink-primary);
+      text-align: center;
+      white-space: pre-line;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .tap-hint {
+      text-align: center;
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ================= 3. QUESTION SCREEN ================= */
+    .quiz-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .btn-text-back {
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .btn-text-back:hover { color: var(--ink-primary); }
+
+    .progress-track {
+      flex: 1;
+      height: 2px;
+      background: var(--line);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--ink-primary);
+      transition: width 0.3s ease;
+    }
+
+    .progress-num {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      font-variant-numeric: tabular-nums;
+      min-width: 38px;
+      text-align: right;
+    }
+
+    .question-frame {
+      aspect-ratio: 16 / 9;
+      margin-bottom: 18px;
+    }
+
+    .question-caption {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .question-text {
+      font-size: 1.02rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--ink-primary);
+      margin-bottom: 18px;
+    }
+
+    .choices-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .choice-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--bg-surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      color: var(--ink-primary);
+      cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .choice-btn:hover {
+      border-color: var(--line-strong);
+      background: var(--bg-page);
+    }
+
+    .choice-btn.selected {
+      border-color: var(--line-strong);
+      background: var(--bg-subtle);
+    }
+
+    .choice-letter {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      min-width: 16px;
+      line-height: 1.4;
+    }
+
+    /* ================= 4. LOADING SCREEN ================= */
+    .loading-screen {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .minimal-line-loader {
+      width: 80px;
+      height: 1px;
+      background: var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .minimal-line-loader::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: 36px;
+      background: var(--ink-primary);
+      animation: slideLoader 1.1s ease-in-out infinite;
+    }
+
+    @keyframes slideLoader {
+      0% { transform: translateX(-36px); }
+      100% { transform: translateX(80px); }
+    }
+
+    .loading-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+
+    .loading-sub {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      font-weight: 300;
+    }
+
+    /* ================= 5. RESULT SCREEN ================= */
+    .result-preview-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 20px 18px;
+      background: var(--bg-page);
+      margin-bottom: 18px;
+    }
+
+    .result-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    .result-frame {
+      aspect-ratio: 4 / 3;
+      margin-bottom: 16px;
+    }
+
+    .result-room-en {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .result-room-th {
+      font-size: 0.86rem;
+      color: var(--ink-secondary);
+      margin-bottom: 12px;
+    }
+
+    .result-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tag-item {
+      font-size: 0.72rem;
+      color: var(--ink-secondary);
+      border: 1px solid var(--line);
+      background: var(--bg-surface);
+      padding: 3px 9px;
+      border-radius: 2px;
+    }
+
+    .result-section {
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      margin-top: 12px;
+    }
+
+    .result-section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .result-section p {
+      font-size: 0.83rem;
+      line-height: 1.7;
+      color: var(--ink-primary);
+      font-weight: 300;
+    }
+
+    /* ================= BUTTONS ================= */
+    .btn-primary {
+      width: 100%;
+      background: var(--ink-primary);
+      color: #ffffff;
+      border: 1px solid var(--ink-primary);
+      border-radius: var(--radius-sm);
+      padding: 13px 18px;
+      font-family: var(--font-sans);
+      font-size: 0.86rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary:hover { opacity: 0.86; }
+    .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+
+    .btn-outline {
+      width: 100%;
+      background: transparent;
+      color: var(--ink-primary);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 400;
+      cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--line-strong);
+      background: var(--bg-page);
+    }
+
+    .actions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* =====================================================
+       STORY EXPORT TEMPLATE (OFF-SCREEN 9:16 -> 1080x1920)
+       ขนาดตั้งต้น 540x960px + html2canvas scale: 2 = 1080x1920px
+    ===================================================== */
+    .story-export-stage {
+      position: fixed;
+      left: -9999px;
+      top: 0;
+      width: 540px;
+      height: 960px;
+      background: #f7f6f2;
+      color: #1a1918;
+      padding: 46px 40px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-family: var(--font-sans);
+    }
+
+    .story-card-inner {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #dfdcd3;
+      padding: 32px 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .st-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #8c887f;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e6e3da;
+      margin-bottom: 22px;
+    }
+
+    /* ใช้ background-image เพื่อป้องกันภาพยืดใน html2canvas */
+    .st-photo {
+      width: 100%;
+      height: 310px;
+      background-color: #efede7;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid #e6e3da;
+      margin-bottom: 24px;
+    }
+
+    .st-room-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #8c887f;
+      margin-bottom: 6px;
+    }
+
+    .st-title-en {
+      font-family: var(--font-serif);
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.08;
+      color: #1a1918;
+      margin-bottom: 6px;
+    }
+
+    .st-title-th {
+      font-size: 15px;
+      color: #5f5c56;
+      margin-bottom: 16px;
+    }
+
+    .st-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .st-tag {
+      font-size: 12px;
+      color: #4f4c46;
+      border: 1px solid #dfdcd3;
+      padding: 4px 10px;
+      background: #faf9f6;
+    }
+
+    .st-divider {
+      height: 1px;
+      background: #e6e3da;
+      margin-bottom: 18px;
+    }
+
+    .st-desc-title {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8c887f;
+      margin-bottom: 6px;
+    }
+
+    .st-desc {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #262523;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .st-meaning {
+      font-size: 12.5px;
+      line-height: 1.68;
+      color: #63605a;
+      font-weight: 300;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid #efede7;
+    }
+
+    .st-footer {
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: #7c7870;
+    }
+
+    .st-footer strong {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1918;
+      letter-spacing: 0.04em;
+    }
+
+    /* ================= STORY MODAL (PREVIEW & SAVE) ================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(26, 25, 24, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      width: 100%;
+      max-width: 360px;
+      background: var(--bg-surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 92vh;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.15rem;
+      color: var(--ink-primary);
+      cursor: pointer;
+      padding: 2px 6px;
+    }
+
+    .modal-preview-wrap {
+      width: 100%;
+      max-height: 58vh;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      background: var(--bg-page);
+      display: flex;
+      justify-content: center;
+    }
+
+    .modal-preview-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .modal-hint {
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="site-header">
+    <a href="index.html" class="brand">
+      <div class="brand-logo" id="brandLogo">
+        <img src="images/logo.png" alt="inner child" onerror="this.remove(); document.getElementById('brandLogo').textContent='ic';" />
+      </div>
+      <span class="brand-title">inner child</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">Menu</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">About Us</a>
+      <a href="main_menu.html">Main Menu</a>
+      <a href="art_show.html">Art Show</a>
+      <a href="personality_test.html" class="active">Personality Test</a>
+    </nav>
+  </header>
+
+  <!-- ================= MAIN QUIZ CONTAINER ================= -->
+  <main class="quiz-wrapper">
+    <div class="quiz-shell">
+
+      <!-- 1. COVER -->
+      <section class="screen active" id="screen-cover">
+        <div class="eyebrow">The Little Museum • Personality Test</div>
+
+        <div class="media-frame cover-frame">
+          <img id="coverImg" src="images/cover.jpg" alt="The Little Museum Cover" />
+        </div>
+
+        <h1 class="cover-title-en">The Little Museum</h1>
+        <p class="cover-title-th">พิพิธภัณฑ์ใบเล็กในกล่องความทรงจำ</p>
+        <p class="cover-desc">
+          คืนก่อนย้ายเข้าหอพัก เด็กสาวคนหนึ่งพบกล่องกระดาษใบเก่าที่ซ่อนอยู่ใต้เตียง
+          ร่วมเดินทางผ่านคำถาม 21 ข้อ เพื่อค้นหาว่าห้องแห่งความทรงจำใดสะท้อนตัวตนของคุณ
+        </p>
+
+        <button class="btn-primary" id="btnStart">เริ่มเปิดกล่องความทรงจำ</button>
+
+        <p class="footnote">
+          21 Questions • 7 Exhibition Rooms<br />
+          นิทรรศการศิลปะ inner child ชั้นมัธยมศึกษาปีที่ 6 ปีการศึกษา 2569
+        </p>
+      </section>
+
+      <!-- 2. TEASER STORY -->
+      <section class="screen story-screen" id="screen-story">
+        <div>
+          <div class="story-header">
+            <span class="story-counter" id="storyCounter">Prologue 01 / 03</span>
+            <div class="story-bars" id="storyBars"></div>
+          </div>
+
+          <div class="media-frame story-frame">
+            <img id="storyImg" src="" alt="Teaser scene" />
+          </div>
+
+          <p class="story-text" id="storyText"></p>
+        </div>
+
+        <div class="tap-hint">Tap anywhere to continue</div>
+      </section>
+
+      <!-- 3. QUIZ (21 QUESTIONS) -->
+      <section class="screen" id="screen-quiz">
+        <div class="quiz-topbar">
+          <button class="btn-text-back" id="btnBack">← ย้อนกลับ</button>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="progress-num" id="progressLabel">01 / 21</span>
+        </div>
+
+        <div class="media-frame question-frame">
+          <img id="questionImg" src="" alt="Question scene" />
+        </div>
+
+        <div class="question-caption" id="questionNarrative">Chapter 01</div>
+        <h2 class="question-text" id="questionText">คำถาม...</h2>
+
+        <div class="choices-list" id="choicesList"></div>
+      </section>
+
+      <!-- 4. LOADING -->
+      <section class="screen loading-screen" id="screen-loading">
+        <div class="minimal-line-loader"></div>
+        <h2 class="loading-title">Curating Your Room</h2>
+        <p class="loading-sub">กำลังจัดวางความทรงจำทั้ง 21 ชิ้นเข้าสู่พิพิธภัณฑ์ของคุณ</p>
+      </section>
+
+      <!-- 5. RESULT (1 FINAL ROOM) -->
+      <section class="screen" id="screen-result">
+        <div class="result-preview-card">
+          <div class="result-meta">
+            <span id="resZoneNo">ZONE 01</span>
+            <span id="resRoomCode">ROOM H</span>
+          </div>
+
+          <div class="media-frame result-frame">
+            <img id="resImg" src="" alt="Result room artwork" />
+          </div>
+
+          <h2 class="result-room-en" id="resRoomName">Hugs of Memories</h2>
+          <p class="result-room-th" id="resRoomSub">ห้องแห่งน้องเน่าและอ้อมกอด</p>
+
+          <div class="result-tags" id="resTraits"></div>
+
+          <div class="result-section">
+            <span class="result-section-label">Personality</span>
+            <p id="resPersonality"></p>
+          </div>
+
+          <div class="result-section">
+            <span class="result-section-label">Meaning of This Room</span>
+            <p id="resMeaning"></p>
+          </div>
+        </div>
+
+        <div class="actions-stack">
+          <button class="btn-primary" id="btnGenerateStory">สร้างรูปสำหรับลง IG Story (9:16)</button>
+          <div class="actions-row">
+            <a href="art_show.html" class="btn-outline" id="btnGoZone">เข้าชมโซนนี้</a>
+            <button class="btn-outline" id="btnRestart">ทำแบบทดสอบอีกครั้ง</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= OFF-SCREEN 9:16 STORY EXPORT NODE ================= -->
+  <div class="story-export-stage" id="storyExportNode" aria-hidden="true">
+    <div class="story-card-inner">
+      <div class="st-top">
+        <span>The Little Museum</span>
+        <span id="stTopCode">ZONE 01 • ROOM H</span>
+      </div>
+
+      <div class="st-photo" id="stPhoto"></div>
+
+      <div class="st-room-label">Your Inner Child Room</div>
+      <div class="st-title-en" id="stTitleEn">Hugs of Memories</div>
+      <div class="st-title-th" id="stTitleTh">ห้องแห่งน้องเน่าและอ้อมกอด</div>
+
+      <div class="st-tags" id="stTags"></div>
+      <div class="st-divider"></div>
+
+      <div class="st-desc-title">Personality</div>
+      <p class="st-desc" id="stPersonality"></p>
+
+      <div class="st-meaning">
+        <div class="st-desc-title">About This Room</div>
+        <span id="stMeaning"></span>
+      </div>
+    </div>
+
+    <div class="st-footer">
+      <strong>inner child</strong>
+      <span>M.6/2569 ART EXHIBITION • innerchird.vercel.app</span>
+    </div>
+  </div>
+
+  <!-- ================= STORY IMAGE MODAL ================= -->
+  <div class="modal-backdrop" id="storyModal">
+    <div class="modal-box">
+      <div class="modal-top">
+        <span>IG Story Card (1080 × 1920)</span>
+        <button class="modal-close" id="btnCloseModal" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-preview-wrap">
+        <img id="storyPreviewImg" src="" alt="IG Story Preview" />
+      </div>
+
+      <p class="modal-hint">มือถือสามารถกดค้างที่รูปเพื่อบันทึกลงคลังภาพ หรือกดปุ่มด้านล่าง</p>
+
+      <button class="btn-primary" id="btnDownloadStory">บันทึกรูปภาพ (PNG)</button>
+      <button class="btn-outline" id="btnShareStory" style="display: none;">แชร์ไปยัง Story / แอปอื่น</button>
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================
+       NAVBAR TOGGLE
+    ===================================================== */
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    /* =====================================================
+       MINIMAL INLINE SVG FALLBACK (ทำงานร่วมกับ html2canvas ได้ 100%)
+       หากใส่ไฟล์รูปจริงในโฟลเดอร์ images/ แล้ว ภาพจริงจะแสดงแทนอัตโนมัติ
+    ===================================================== */
+    function makePlaceholderSVG(title, subtitle) {
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+          <rect width="800" height="600" fill="#efede7"/>
+          <rect x="28" y="28" width="744" height="544" fill="none" stroke="#dcd8ce" stroke-width="1.5"/>
+          <line x1="28" y1="28" x2="772" y2="572" stroke="#e6e3da" stroke-width="1"/>
+          <line x1="772" y1="28" x2="28" y2="572" stroke="#e6e3da" stroke-width="1"/>
+          <rect x="230" y="246" width="340" height="108" fill="#f7f6f2" stroke="#dcd8ce" stroke-width="1"/>
+          <text x="400" y="294" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#3a3834" letter-spacing="1">${title}</text>
+          <text x="400" y="324" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#8c887f" letter-spacing="1">${subtitle}</text>
+        </svg>
+      `;
+      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg.trim());
+    }
+
+    // ตั้งค่ารูปพร้อม Fallback สะอาดตา
+    function setImageWithFallback(imgEl, src, fallbackTitle, fallbackSub) {
+      imgEl.onerror = null;
+      imgEl.onerror = () => {
+        imgEl.onerror = null;
+        imgEl.src = makePlaceholderSVG(fallbackTitle, fallbackSub);
+      };
+      imgEl.src = src;
+    }
+
+    // โหลดรูปปก
+    setImageWithFallback(
+      document.getElementById('coverImg'),
+      'images/cover.jpg',
+      'The Little Museum',
+      'images/cover.jpg'
+    );
+
+    /* =====================================================
+       1. TEASER STORY SLIDES (วางรูปที่ images/teaser-1.jpg ถึง teaser-3.jpg)
+    ===================================================== */
+    const teaserSlides = [
+      {
+        image: 'images/teaser-1.jpg',
+        label: 'Prologue 01',
+        text: 'พรุ่งนี้เช้าคือวันที่เธอต้องย้ายไปอยู่หอพัก\nทั่วทั้งห้องนอนเต็มไปด้วยกล่องลัง เสื้อผ้า\nและข้าวของที่กำลังรอการแพ็ก'
+      },
+      {
+        image: 'images/teaser-2.jpg',
+        label: 'Prologue 02',
+        text: 'ขณะที่ก้มเก็บมุมลึกที่สุดใต้เตียง\nปลายนิ้วก็สัมผัสเข้ากับกล่องกระดาษสีซีดใบหนึ่ง\nที่มีเทปใสเก่าๆ แปะไว้ว่า “ห้ามทิ้งเด็ดขาด”'
+      },
+      {
+        image: 'images/teaser-3.jpg',
+        label: 'Prologue 03',
+        text: 'ทันทีที่เปิดฝากล่องออก\nสิ่งของชิ้นเล็กชิ้นน้อยจากวัยเด็กก็ค่อยๆ พาความทรงจำกลับมา\nยินดีต้อนรับสู่ The Little Museum'
+      }
+    ];
+
+    /* =====================================================
+       2. SCORING KEY (21 ข้อ × 4 ตัวเลือก = 84 ช่อง | 12 ครั้งต่อห้องพอดี)
+    ===================================================== */
+    const scoringKey = {
+      1:  { A: 'H', B: 'T', C: 'A', D: 'M' },
+      2:  { A: 'T', B: 'A', C: 'M', D: 'P' },
+      3:  { A: 'A', B: 'M', C: 'P', D: 'R' },
+      4:  { A: 'M', B: 'P', C: 'R', D: 'Y' },
+      5:  { A: 'P', B: 'R', C: 'Y', D: 'H' },
+      6:  { A: 'R', B: 'Y', C: 'H', D: 'T' },
+      7:  { A: 'Y', B: 'H', C: 'T', D: 'A' },
+
+      8:  { A: 'H', B: 'A', C: 'P', D: 'Y' },
+      9:  { A: 'T', B: 'M', C: 'R', D: 'H' },
+      10: { A: 'A', B: 'P', C: 'Y', D: 'T' },
+      11: { A: 'M', B: 'R', C: 'H', D: 'A' },
+      12: { A: 'P', B: 'Y', C: 'T', D: 'M' },
+      13: { A: 'R', B: 'H', C: 'A', D: 'P' },
+      14: { A: 'Y', B: 'T', C: 'M', D: 'R' },
+
+      15: { A: 'H', B: 'T', C: 'M', D: 'R' },
+      16: { A: 'T', B: 'A', C: 'P', D: 'Y' },
+      17: { A: 'A', B: 'M', C: 'R', D: 'H' },
+      18: { A: 'M', B: 'P', C: 'Y', D: 'T' },
+      19: { A: 'P', B: 'R', C: 'H', D: 'A' },
+      20: { A: 'R', B: 'Y', C: 'T', D: 'M' },
+      21: { A: 'Y', B: 'H', C: 'A', D: 'P' }
+    };
+
+    const priorityOrder = ['H', 'T', 'A', 'M', 'P', 'R', 'Y'];
+
+    /* =====================================================
+       3. คำถามทั้ง 21 ข้อ (วางรูปที่ images/q1.jpg ถึง images/q21.jpg)
+    ===================================================== */
+    const questions = [
+      {
+        id: 1,
+        narrative: '01 — แสงแรกจากกล่องความทรงจำ',
+        image: 'images/q1.jpg',
+        text: 'เมื่อเปิดฝากล่องความทรงจำออก สิ่งแรกที่มือคุณเอื้อมไปหยิบขึ้นมาคืออะไร?',
+        choices: {
+          A: 'ตุ๊กตาผ้านุ่มสีซีดที่เคยกอดนอนทุกคืน',
+          B: 'ตุ๊กตาโมเดลตัวจิ๋วที่ยังเก็บไว้ในถุงซิปล็อกอย่างดี',
+          C: 'ถุงลูกแก้วสีใสที่เคยเอาไปดีดแข่งกับเพื่อนหน้าบ้าน',
+          D: 'รูบิคสีถลอกๆ กับกล่องตัวต่อที่เคยเล่นจนดึก'
+        }
+      },
+      {
+        id: 2,
+        narrative: '02 — ของชิ้นแรกที่จะเอาไปหอพัก',
+        image: 'images/q2.jpg',
+        text: 'ถ้ากระเป๋าเดินทางเหลือพื้นที่แค่ช่องเดียว คุณจะพกอะไรติดตัวไปห้องใหม่ด้วย?',
+        choices: {
+          A: 'ฟิกเกอร์หรือกล่องจุ่มตัวโปรดไว้ตั้งมุมโต๊ะอ่านหนังสือ',
+          B: 'รองเท้าผ้าใบคู่ลุยหรืออุปกรณ์กีฬาที่พร้อมออกไปข้างนอกเสมอ',
+          C: 'ของเล่นชิ้นเล็กๆ หรือตัวต่อไว้หยิบจับแก้เบื่อเวลาคิดงาน',
+          D: 'เมาส์ จอยเกม หรือเครื่องเล่นเกมพกพาคู่ใจ'
+        }
+      },
+      {
+        id: 3,
+        narrative: '03 — เสียงจากนอกหน้าต่าง',
+        image: 'images/q3.jpg',
+        text: 'ระหว่างเก็บห้อง คุณได้ยินเสียงเด็กๆ หัวเราะจากข้างนอก ภาพแรกที่ผุดขึ้นมาในหัวคือ?',
+        choices: {
+          A: 'สนามเด็กเล่นตอนเย็น แสงแดดสีส้ม และการวิ่งไล่จับจนหอบ',
+          B: 'การนั่งล้อมวงต่อเลโก้หรือร้อยลูกปัดแลกกันกับเพื่อน',
+          C: 'การรีบกลับบ้านหลังเลิกเรียนมาเปิดคอมเล่นเว็บเกมโปรด',
+          D: 'เสียงเพลงเปิดการ์ตูนเรื่องดังที่ดังมาจากทีวีในห้องนั่งเล่น'
+        }
+      },
+      {
+        id: 4,
+        narrative: '04 — ก้นกล่องที่ซ่อนความลับ',
+        image: 'images/q4.jpg',
+        text: 'ใต้กองสมุดเก่า คุณเจอของชิ้นหนึ่งที่ลืมไปแล้วว่าเคยมี มันคืออะไร?',
+        choices: {
+          A: 'รถบังคับหรือของเล่นกลไกที่เคยลองแงะดูข้างใน',
+          B: 'กระดาษจดสูตรลับเกมที่เขียนด้วยลายมือโย้เย้',
+          C: 'แผ่นซีดีเพลงและตั๋วหนังเรื่องแรกที่เคยไปดูในโรง',
+          D: 'ซองรูปถ่ายสมัยอนุบาลกับชุดแฟนซีที่เคยใส่ขึ้นเวที'
+        }
+      },
+      {
+        id: 5,
+        narrative: '05 — คืนแรกในที่พักใหม่',
+        image: 'images/q5.jpg',
+        text: 'คืนแรกที่ต้องนอนในหอพักที่ไม่คุ้นเคย คุณจะทำอะไรเพื่อให้รู้สึกสบายใจขึ้น?',
+        choices: {
+          A: 'เปิดเกมที่คุ้นเคยเล่นสักตา ให้สมองโฟกัสแล้วลืมความเหงา',
+          B: 'ใส่หูฟังเปิดเพลงโปรดหรือดูหนังเรื่องเดิมที่ดูซ้ำกี่รอบก็อุ่นใจ',
+          C: 'เปิดดูรูปเก่าๆ ของครอบครัวและเพื่อน แล้วจัดมุมรูปไว้ข้างเตียง',
+          D: 'กอดหมอนข้างหรือตุ๊กตาตัวเดิมที่พกมาจากบ้านแน่นๆ'
+        }
+      },
+      {
+        id: 6,
+        narrative: '06 — กลิ่นอายของวันวาน',
+        image: 'images/q6.jpg',
+        text: 'สิ่งไหนที่เพียงแค่นึกถึง ก็พาความรู้สึกแบบ “เด็กน้อย” กลับมาได้ทันที?',
+        choices: {
+          A: 'ท่วงทำนองเพลงเก่าที่บังเอิญได้ยินตามร้านข้างทาง',
+          B: 'ภาพตัวเองตอนใส่ชุดนักเรียนประถมหรือชุดไทยในงานโรงเรียน',
+          C: 'กลิ่นน้ำยาปรับผ้านุ่มบนผ้าห่มผืนเก่าและน้องเน่าคู่ใจ',
+          D: 'ความตื่นเต้นตอนยืนเลือกตุ๊กตาหรือโมเดลหน้าตู้กระจก'
+        }
+      },
+      {
+        id: 7,
+        narrative: '07 — หน้าต่างแห่งเวลา',
+        image: 'images/q7.jpg',
+        text: 'ถ้ากล่องนี้กลายเป็นประตูย้อนเวลาไป 10 ปีก่อนได้ คุณอยากไปโผล่ที่ฉากไหน?',
+        choices: {
+          A: 'หน้าตู้เสื้อผ้าตอนกำลังลองชุดเจ้าหญิงหรือชุดตัวเก่งหน้ากระจก',
+          B: 'บนเตียงนุ่มๆ เช้าวันหยุดที่ยังไม่ต้องรีบตื่นไปไหน',
+          C: 'มุมโต๊ะเล็กๆ ที่จัดบ้านตุ๊กตาและวางโมเดลเรียงไว้อย่างตั้งใจ',
+          D: 'ลานกว้างตอนเย็นที่เพื่อนๆ กำลังตะโกนเรียกให้ลงไปโดดยาง'
+        }
+      },
+      {
+        id: 8,
+        narrative: '08 — วันที่เหนื่อยล้าที่สุด',
+        image: 'images/q8.jpg',
+        text: 'ในวันที่ชีวิตวัยรุ่นหนักหน่วงจนอยากพัก วิธีชาร์จพลังที่ดีที่สุดของคุณคือ?',
+        choices: {
+          A: 'ซุกตัวเงียบๆ ในพื้นที่ปลอดภัยที่มีแต่ความนุ่มนวลและอบอุ่น',
+          B: 'ออกไปเดินรับลม เล่นกีฬา หรือขยับตัวกลางแจ้งให้เหงื่อออก',
+          C: 'เข้าโลกเกม ปล่อยใจไปกับการผจญภัยและทำภารกิจให้สำเร็จ',
+          D: 'เปิดอัลบั้มภาพเก่าๆ ย้อนดูว่าตัวเองเติบโตมาไกลแค่ไหนแล้ว'
+        }
+      },
+      {
+        id: 9,
+        narrative: '09 — การจัดห้องหอพัก',
+        image: 'images/q9.jpg',
+        text: 'เมื่อถึงเวลาจัดมุมส่วนตัวในห้องใหม่ คุณให้ความสำคัญกับอะไรเป็นอันดับแรก?',
+        choices: {
+          A: 'ชั้นวางของจิ๋วที่จัดเรียงของสะสมอย่างมีระเบียบและสวยงาม',
+          B: 'พื้นที่โต๊ะกว้างๆ สำหรับวางอุปกรณ์ประดิษฐ์และของเล่นเสริมไอเดีย',
+          C: 'มุมลำโพง โปสเตอร์หนัง หรือไฟสลัวๆ ที่สร้างมู้ดดีๆ ให้ห้อง',
+          D: 'มุมเตียงที่นุ่มสบายที่สุด เต็มไปด้วยหมอนและผ้าห่มที่โอบกอดได้'
+        }
+      },
+      {
+        id: 10,
+        narrative: '10 — วันหยุดที่ไม่มีแพลน',
+        image: 'images/q10.jpg',
+        text: 'วันเสาร์ที่ว่างทั้งวันและไม่มีการบ้านค้างอยู่เลย คุณมักจะลงเอยด้วยการทำอะไร?',
+        choices: {
+          A: 'ชวนเพื่อนออกไปหาที่เที่ยวใหม่ๆ หรือทำกิจกรรมนอกสถานที่',
+          B: 'นั่งเล่นเกมยาวๆ กับเพื่อนออนไลน์หรือสร้างโลกในเกมต่อ',
+          C: 'ลองแต่งตัวแมตช์ลุคใหม่ๆ ถ่ายรูปเก็บไว้เป็นความทรงจำ',
+          D: 'เดินดูร้านของสะสม ส่องกล่องจุ่ม หรือจัดคอลเลกชันของตัวเอง'
+        }
+      },
+      {
+        id: 11,
+        narrative: '11 — เวลาเจอโจทย์ยากในชีวิต',
+        image: 'images/q11.jpg',
+        text: 'เมื่อต้องเผชิญหน้ากับปัญหาที่แก้ไม่ตก คุณมักจะมีวิธีคิดแบบไหน?',
+        choices: {
+          A: 'ค่อยๆ แยกชิ้นส่วนปัญหา แล้วลองประกอบวิธีแก้ใหม่ๆ ไปเรื่อยๆ',
+          B: 'เปิดเพลงฟังให้ใจนิ่ง แล้วลองมองเรื่องนี้เหมือนฉากหนึ่งในหนัง',
+          C: 'ใจดีกับตัวเองก่อน พักให้หายเหนื่อยแล้วค่อยกลับมาเริ่มใหม่',
+          D: 'ลุยลงมือทำจริงทันที ผิดพลาดค่อยปรับไปหน้างาน'
+        }
+      },
+      {
+        id: 12,
+        narrative: '12 — ของขวัญวันเกิดในฝัน',
+        image: 'images/q12.jpg',
+        text: 'ถ้ามีคนส่งพัสดุเซอร์ไพรส์มาให้ที่หอพัก อะไรที่เปิดมาแล้วจะทำให้คุณยิ้มกว้างที่สุด?',
+        choices: {
+          A: 'เกมออกใหม่ที่รอมานาน หรืออุปกรณ์เสริมสำหรับสายเกม',
+          B: 'กล้องฟิล์ม กรอบรูป หรือเสื้อผ้าสไตล์ที่ใส่แล้วมั่นใจ',
+          C: 'โมเดลรุ่นลิมิเต็ดหรือตุ๊กตาตัวจิ๋วที่ตามหามานาน',
+          D: 'ชุดตัวต่อเลโก้กล่องใหญ่ หรือของเล่นกลไกที่ประกอบเองได้'
+        }
+      },
+      {
+        id: 13,
+        narrative: '13 — บทบาทของคุณในกลุ่มเพื่อน',
+        image: 'images/q13.jpg',
+        text: 'ถ้าถามเพื่อนสนิทว่าอยู่กับคุณแล้วนึกถึงอะไร พวกเขาน่าจะตอบว่า?',
+        choices: {
+          A: 'คนคุมเพลย์ลิสต์ ชอบเล่าเรื่องและแนะนำหนังดีๆ ให้ทุกคนดู',
+          B: 'เซฟโซนของกลุ่ม คอยรับฟังและปลอบใจเวลาใครสักคนท้อแท้',
+          C: 'ตัวเปิดตี้ พลังงานล้น ชวนทุกคนออกไปทำอะไรสนุกๆ เสมอ',
+          D: 'สายวางแผน ไหวพริบดี เล่นอะไรก็จริงจังและเก่งจนเพื่อนทึ่ง'
+        }
+      },
+      {
+        id: 14,
+        narrative: '14 — สมบัติที่หวงที่สุดในวัยเด็ก',
+        image: 'images/q14.jpg',
+        text: 'สมัยเด็ก ถ้ามีคนมาขอหยิบของรักของคุณไปเล่น คุณจะหวงชิ้นไหนมากที่สุด?',
+        choices: {
+          A: 'ชุดโปรดหรือเครื่องประดับชิ้นสวยที่เอาไว้ใส่เฉพาะวันพิเศษ',
+          B: 'ตุ๊กตาบาร์บี้ โมเดล หรือกันดั้มที่ตั้งใจจัดท่าไว้เป๊ะๆ',
+          C: 'กล่องเลโก้หรือลูกปัดที่แยกสีและสร้างเมืองค้างไว้',
+          D: 'แผ่นการ์ตูนหรือซีดีเพลงแผ่นโปรดที่กลัวเป็นรอย'
+        }
+      },
+      {
+        id: 15,
+        narrative: '15 — เสียงฝนยามค่ำคืน',
+        image: 'images/q15.jpg',
+        text: 'คืนที่ฝนตกหนักจนออกไปไหนไม่ได้ บรรยากาศแบบไหนที่คุณชอบที่สุด?',
+        choices: {
+          A: 'ห่มผ้าหนาๆ กอดตุ๊กตาฟังเสียงฝนตกกระทบหน้าต่างเบาๆ',
+          B: 'เปิดโคมไฟอุ่นๆ นั่งจัดและเช็ดทำความสะอาดของสะสมชิ้นโปรด',
+          C: 'หยิบงานประดิษฐ์ รูบิค หรือของเล่นฝึกสมาธิมานั่งทำเพลินๆ',
+          D: 'เปิดหนังฟีลกู๊ดหรือฟังเพลงอะคูสติกคลอไปกับเสียงฝน'
+        }
+      },
+      {
+        id: 16,
+        narrative: '16 — โลกในจินตนาการ',
+        image: 'images/q16.jpg',
+        text: 'ถ้าสร้างโลกจำลองของตัวเองขึ้นมาได้ 1 ใบ โลกใบนั้นจะมีหน้าตาเป็นอย่างไร?',
+        choices: {
+          A: 'เมืองจิ๋วที่ทุกตึกและตัวละครมีรายละเอียดประณีตน่ารักไปหมด',
+          B: 'ทุ่งหญ้ากว้างและสวนสนุกกลางแจ้งที่วิ่งเล่นได้ไม่มีวันเบื่อ',
+          C: 'โลกพิกเซลหรือดินแดนแฟนตาซีที่มีเควสต์ให้ผจญภัยไม่รู้จบ',
+          D: 'แกลเลอรีแห่งกาลเวลาที่เก็บทุกภาพความทรงจำสวยงามเอาไว้'
+        }
+      },
+      {
+        id: 17,
+        narrative: '17 — สิ่งที่ทำให้คุณภูมิใจในตัวเอง',
+        image: 'images/q17.jpg',
+        text: 'ช่วงเวลาไหนที่ทำให้คุณรู้สึกว่า “เราเก่งขึ้นเยอะเลยนะ”?',
+        choices: {
+          A: 'ตอนที่กล้าออกไปลองสิ่งใหม่ที่ไม่เคยทำมาก่อนจนสำเร็จ',
+          B: 'ตอนที่ลงมือสร้างหรือดัดแปลงไอเดียในหัวให้ออกมาเป็นชิ้นงานจริง',
+          C: 'ตอนที่เข้าใจความรู้สึกซับซ้อนของตัวเองและเล่ามันออกมาได้อย่างลึกซึ้ง',
+          D: 'ตอนที่ยังรักษาความอ่อนโยนไว้ได้ แม้จะผ่านวันที่ยากลำบากมา'
+        }
+      },
+      {
+        id: 18,
+        narrative: '18 — งานอดิเรกที่ทำแล้วลืมเวลา',
+        image: 'images/q18.jpg',
+        text: 'กิจกรรมแบบไหนที่พอได้เริ่มทำแล้ว มักจะเงยหน้ามาอีกทีก็ผ่านไปหลายชั่วโมง?',
+        choices: {
+          A: 'การต่อบล็อก ร้อยลูกปัด หรือทดลองสร้างของเล่นและกลไกต่างๆ',
+          B: 'การลงดันเจี้ยน สร้างบ้านใน Minecraft หรือปั่นแรงก์กับเพื่อน',
+          C: 'การแต่งตัว เลือกชุด ถ่ายรูป และจัดอัลบั้มภาพความทรงจำ',
+          D: 'การแต่งตัวตุ๊กตา จัดฉากถ่ายรูปโมเดล หรือประกอบหุ่นยนต์'
+        }
+      },
+      {
+        id: 19,
+        narrative: '19 — เมื่อต้องจากลาบ้านหลังเดิม',
+        image: 'images/q19.jpg',
+        text: 'ก่อนปิดประตูห้องนอนเก่าที่อยู่มาตั้งแต่เด็ก ความคิดใดที่แวบเข้ามา?',
+        choices: {
+          A: '“เหมือนกำลังจบด่านแรก เพื่อไปเริ่มด่านใหม่ที่ท้าทายกว่าเดิมเลย”',
+          B: '“เหมือนฉากจบซีซันหนึ่งของหนังชีวิต ที่มีเพลงเครดิตกำลังดังขึ้น”',
+          C: '“ขอบคุณห้องนี้นะ ที่คอยโอบกอดและเป็นที่พักใจให้เราเสมอมา”',
+          D: '“พร้อมแล้ว! ออกไปผจญภัยในโลกกว้างกันเถอะ”'
+        }
+      },
+      {
+        id: 20,
+        narrative: '20 — ของที่ระลึกจากพิพิธภัณฑ์',
+        image: 'images/q20.jpg',
+        text: 'ก่อนเดินออกจาก The Little Museum คุณได้รับสิทธิ์หยิบของที่ระลึก 1 ชิ้นกลับไป คุณเลือก...',
+        choices: {
+          A: 'เทปคาสเซตต์ที่อัดเสียงเพลงและเรื่องราววัยเด็กทั้งหมดไว้',
+          B: 'ภาพถ่ายโพลารอยด์ใบเดียวที่ฉายภาพรอยยิ้มของคุณในวันวาน',
+          C: 'พวงกุญแจตุ๊กตาจิ๋วที่เป็นตัวแทนของโลกใบเล็กในใจคุณ',
+          D: 'กล่องชิ้นส่วนสารพัดนึกที่เอาไปต่อเป็นอะไรก็ได้ตามจินตนาการ'
+        }
+      },
+      {
+        id: 21,
+        narrative: '21 — ข้อความถึงเด็กน้อยในตัวคุณ',
+        image: 'images/q21.jpg',
+        text: 'คุณกำลังจะปิดฝากล่องความทรงจำเพื่อออกเดินทาง ข้อความสุดท้ายที่อยากเขียนแปะไว้หน้ากล่องคือ?',
+        choices: {
+          A: '“ไม่ว่าจะเติบโตไปไกลแค่ไหน วันวานของเธอก็ยังงดงามเสมอ”',
+          B: '“ขอบคุณที่ยังอยู่ตรงนี้ คอยกอดเราไว้ในวันที่เหนื่อยนะ”',
+          C: '“อย่าหยุดซน อย่าหยุดวิ่งตามความฝันข้างนอกนั่นนะ”',
+          D: '“ไว้มาเริ่มเกมบทใหม่ด้วยกันนะ เจ้าเด็กน้อย”'
+        }
+      }
+    ];
+
+    /* =====================================================
+       4. ผลลัพธ์ทั้ง 7 ห้อง (วางรูปที่ images/room-H.jpg ถึง images/room-Y.jpg)
+    ===================================================== */
+    const roomResults = {
+      H: {
+        code: 'H',
+        zoneNo: '01',
+        name: 'Hugs of Memories',
+        subtitle: 'ห้องแห่งน้องเน่าและอ้อมกอด',
+        image: 'images/room-H.jpg',
+        traits: ['Warmth', 'Safe Space', 'Gentle'],
+        personality: 'คุณมีหัวใจที่อบอุ่น ให้คุณค่ากับความผูกพันและความสบายใจมากกว่าสิ่งอื่นใด แม้ภายนอกจะเติบโตและเข้มแข็งแค่ไหน แต่ลึกๆ แล้วคุณมักมองหาพื้นที่ปลอดภัย และมักกลายเป็นเซฟโซนที่คนรอบข้างไว้ใจเสมอ',
+        meaning: 'ห้องที่เก็บรักษาความนุ่มนวลจากตุ๊กตาคู่ใจ หมอนข้าง และอ้อมกอดในวันวาน เพื่อย้ำเตือนว่าความอ่อนโยนคือพลังที่ช่วยเยียวยาหัวใจในวันที่เติบโตขึ้น',
+        link: 'art_show.html?zone=01'
+      },
+      T: {
+        code: 'T',
+        zoneNo: '02',
+        name: 'Tiny Treasures',
+        subtitle: 'ห้องแห่งตุ๊กตาโมเดลและโลกใบจิ๋ว',
+        image: 'images/room-T.jpg',
+        traits: ['Observant', 'Detail-Oriented', 'Curated'],
+        personality: 'คุณเป็นคนละเอียดอ่อน ช่างสังเกต และหลงใหลในความประณีตของสิ่งเล็กๆ ที่คนอื่นอาจมองข้าม คุณมีรสนิยมเฉพาะตัว ชอบจัดระเบียบพื้นที่ของตัวเอง และเก็บซ่อนโลกจินตนาการที่สวยงามไว้ภายในใจ',
+        meaning: 'ห้องที่รวบรวมโลกใบจิ๋วจากตุ๊กตา โมเดล กล่องจุ่ม และหุ่นยนต์ เพื่อสะท้อนว่าความสุขไม่จำเป็นต้องยิ่งใหญ่ แต่อาจซ่อนอยู่ในรายละเอียดเล็กๆ ที่เราตั้งใจเก็บรักษาไว้',
+        link: 'art_show.html?zone=02'
+      },
+      A: {
+        code: 'A',
+        zoneNo: '03',
+        name: 'Adventures in Childhood',
+        subtitle: 'ห้องแห่งการละเล่นและการผจญภัย',
+        image: 'images/room-A.jpg',
+        traits: ['Free-Spirited', 'Curious', 'Energetic'],
+        personality: 'คุณมีจิตวิญญาณของนักผจญภัย เปิดรับประสบการณ์ใหม่ๆ รักอิสระ และเรียนรู้ได้ดีที่สุดจากการลงมือทำจริง ความสดใสและความจริงใจของคุณมักสร้างพลังบวกให้คนรอบข้างเสมอ',
+        meaning: 'ห้องแห่งความทรงจำกลางแจ้ง สนามเด็กเล่น และเสียงหัวเราะ เพื่อเตือนใจให้เรากล้าก้าวออกจากกรอบและไม่หยุดสำรวจโลกใบใหญ่ด้วยหัวใจที่ยังซุกซน',
+        link: 'art_show.html?zone=03'
+      },
+      M: {
+        code: 'M',
+        zoneNo: '04',
+        name: 'Moods with Toys',
+        subtitle: 'ห้องแห่งของเล่นและจินตนาการ',
+        image: 'images/room-M.jpg',
+        traits: ['Creative', 'Builder', 'Playful Mind'],
+        personality: 'คุณคือคนช่างคิดที่มองเห็นความเป็นไปได้ใหม่ๆ อยู่เสมอ ชอบทดลอง รื้อ ประกอบ และดัดแปลงสิ่งรอบตัวให้กลายเป็นไอเดียที่ไม่เหมือนใคร แม้เจอโจทย์ยากก็ยังหาทางออกที่สร้างสรรค์ได้',
+        meaning: 'ห้องที่เต็มไปด้วยลูกปัด รูบิค เลโก้ และของเล่นสารพัดชนิด เพื่อบอกว่าจินตนาการในวัยเด็กคือจุดเริ่มต้นของความคิดสร้างสรรค์ที่ยังคงขับเคลื่อนเราในวันนี้',
+        link: 'art_show.html?zone=04'
+      },
+      P: {
+        code: 'P',
+        zoneNo: '05',
+        name: 'Enjoy the Pixels',
+        subtitle: 'ห้องแห่งเกมและโลกพิกเซล',
+        image: 'images/room-P.jpg',
+        traits: ['Strategic', 'Focused', 'Resilient'],
+        personality: 'คุณเป็นคนหัวไว ช่างวางแผน และมองอุปสรรคเป็นความท้าทายที่น่าพิชิต เมื่อตั้งเป้าหมายกับอะไรแล้วคุณจะมีสมาธิและความมุ่งมั่นสูง ชอบพัฒนาตัวเองให้เก่งขึ้นทีละระดับ',
+        meaning: 'ห้องแห่งความสนุกหลังหน้าจอคอมพิวเตอร์และเครื่องเล่นเกม เพื่อย้ำเตือนว่าชีวิตคือการผจญภัยที่มีทั้งด่านง่ายและด่านยาก และทุกครั้งที่พลาดคือโอกาสให้เริ่มใหม่ได้ดีกว่าเดิม',
+        link: 'art_show.html?zone=05'
+      },
+      R: {
+        code: 'R',
+        zoneNo: '06',
+        name: 'Travel Through Tunes',
+        subtitle: 'ห้องแห่งหนัง เพลง และเรื่องเล่า',
+        image: 'images/room-R.jpg',
+        traits: ['Empathic', 'Storyteller', 'Reflective'],
+        personality: 'คุณมีความลึกซึ้งทางอารมณ์ เข้าอกเข้าใจความรู้สึกของผู้อื่นได้ดี และมักผูกความทรงจำไว้กับเสียงเพลงหรือภาพยนตร์ คุณมองเห็นความหมายอันงดงามที่ซ่อนอยู่ในเรื่องธรรมดารอบตัว',
+        meaning: 'ห้องที่บรรจุท่วงทำนองจากแผ่นซีดี การ์ตูน และหนังเรื่องโปรด เพราะเสียงเพลงและเรื่องเล่าคือไทม์แมชชีนที่พาเรากลับไปสัมผัสความรู้สึกในวันวานได้ชัดเจนที่สุด',
+        link: 'art_show.html?zone=06'
+      },
+      Y: {
+        code: 'Y',
+        zoneNo: '07',
+        name: 'Soon to Be Yesterday',
+        subtitle: 'ห้องแห่งภาพวัยเด็กและชุดวันวาน',
+        image: 'images/room-Y.jpg',
+        traits: ['Nostalgic', 'Authentic', 'Timekeeper'],
+        personality: 'คุณให้คุณค่ากับร่องรอยแห่งกาลเวลาและการเติบโต ช่างจดจำรายละเอียดของช่วงเวลาสำคัญ มีสไตล์ของตัวเองชัดเจน และเชื่อว่าทุกเวอร์ชันในอดีตล้วนหล่อหลอมให้เรางดงามในวันนี้',
+        meaning: 'ห้องแห่งรูปถ่าย ตู้เสื้อผ้า และชุดวัยเด็ก เพื่อเฉลิมฉลองการเดินทางที่ผ่านมา และบอกว่าแม้ “วันนี้” จะกลายเป็น “เมื่อวาน” ในไม่ช้า แต่ความทรงจำจะยังคงอยู่เสมอ',
+        link: 'art_show.html?zone=07'
+      }
+    };
+
+    /* =====================================================
+       5. STATE & QUIZ ENGINE
+    ===================================================== */
+    let currentStoryIdx = 0;
+    let currentQIdx = 0;
+    let userAnswers = {};
+    let currentResult = null;
+    let generatedStoryDataUrl = null;
+    let generatedStoryBlob = null;
+
+    const screens = {
+      cover: document.getElementById('screen-cover'),
+      story: document.getElementById('screen-story'),
+      quiz: document.getElementById('screen-quiz'),
+      loading: document.getElementById('screen-loading'),
+      result: document.getElementById('screen-result')
+    };
+
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      screens[name].classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Start -> Teaser
+    document.getElementById('btnStart').addEventListener('click', () => {
+      currentStoryIdx = 0;
+      renderStorySlide();
+      showScreen('story');
+    });
+
+    function renderStorySlide() {
+      const slide = teaserSlides[currentStoryIdx];
+      document.getElementById('storyCounter').textContent = `Prologue 0${currentStoryIdx + 1} / 0${teaserSlides.length}`;
+      document.getElementById('storyText').textContent = slide.text;
+
+      setImageWithFallback(
+        document.getElementById('storyImg'),
+        slide.image,
+        slide.label,
+        slide.image
+      );
+
+      document.getElementById('storyBars').innerHTML = teaserSlides
+        .map((_, i) => `<span class="${i <= currentStoryIdx ? 'active' : ''}"></span>`)
+        .join('');
+    }
+
+    screens.story.addEventListener('click', () => {
+      currentStoryIdx++;
+      if (currentStoryIdx < teaserSlides.length) {
+        renderStorySlide();
+        screens.story.classList.remove('active');
+        void screens.story.offsetWidth;
+        screens.story.classList.add('active');
+      } else {
+        currentQIdx = 0;
+        userAnswers = {};
+        renderQuestion();
+        showScreen('quiz');
+      }
+    });
+
+    function renderQuestion() {
+      const q = questions[currentQIdx];
+      const total = questions.length;
+      const numStr = String(currentQIdx + 1).padStart(2, '0');
+
+      document.getElementById('progressFill').style.width = `${((currentQIdx + 1) / total) * 100}%`;
+      document.getElementById('progressLabel').textContent = `${numStr} / ${total}`;
+      document.getElementById('questionNarrative').textContent = q.narrative;
+      document.getElementById('questionText').textContent = q.text;
+
+      setImageWithFallback(
+        document.getElementById('questionImg'),
+        q.image,
+        `Question ${numStr}`,
+        q.image
+      );
+
+      const choicesList = document.getElementById('choicesList');
+      choicesList.innerHTML = '';
+
+      ['A', 'B', 'C', 'D'].forEach((letter) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        if (userAnswers[q.id] === letter) btn.classList.add('selected');
+        btn.innerHTML = `<span class="choice-letter">${letter}</span><span>${q.choices[letter]}</span>`;
+        btn.addEventListener('click', () => handleSelectAnswer(q.id, letter));
+        choicesList.appendChild(btn);
+      });
+    }
+
+    function handleSelectAnswer(questionId, letter) {
+      userAnswers[questionId] = letter;
+      currentQIdx++;
+
+      if (currentQIdx < questions.length) {
+        renderQuestion();
+        screens.quiz.classList.remove('active');
+        void screens.quiz.offsetWidth;
+        screens.quiz.classList.add('active');
+      } else {
+        processResult();
+      }
+    }
+
+    document.getElementById('btnBack').addEventListener('click', () => {
+      if (currentQIdx > 0) {
+        currentQIdx--;
+        renderQuestion();
+      } else {
+        showScreen('cover');
+      }
+    });
+
+    // ประมวลผลคะแนนและแสดงผลลัพธ์ 1 ห้อง
+    function processResult() {
+      showScreen('loading');
+
+      const scores = { H: 0, T: 0, A: 0, M: 0, P: 0, R: 0, Y: 0 };
+      for (const [qId, chosenLetter] of Object.entries(userAnswers)) {
+        const roomCode = scoringKey[qId]?.[chosenLetter];
+        if (roomCode && Object.prototype.hasOwnProperty.call(scores, roomCode)) {
+          scores[roomCode] += 1;
+        }
+      }
+
+      let winnerCode = priorityOrder[0];
+      let highestScore = -1;
+      for (const code of priorityOrder) {
+        if (scores[code] > highestScore) {
+          highestScore = scores[code];
+          winnerCode = code;
+        }
+      }
+
+      currentResult = roomResults[winnerCode];
+      generatedStoryDataUrl = null;
+      generatedStoryBlob = null;
+
+      setTimeout(() => {
+        // อัปเดตหน้าผลลัพธ์บนเว็บ
+        document.getElementById('resZoneNo').textContent = `ZONE ${currentResult.zoneNo}`;
+        document.getElementById('resRoomCode').textContent = `ROOM ${currentResult.code}`;
+        document.getElementById('resRoomName').textContent = currentResult.name;
+        document.getElementById('resRoomSub').textContent = currentResult.subtitle;
+        document.getElementById('resPersonality').textContent = currentResult.personality;
+        document.getElementById('resMeaning').textContent = currentResult.meaning;
+        document.getElementById('btnGoZone').href = currentResult.link;
+
+        document.getElementById('resTraits').innerHTML = currentResult.traits
+          .map(t => `<span class="tag-item">${t}</span>`)
+          .join('');
+
+        setImageWithFallback(
+          document.getElementById('resImg'),
+          currentResult.image,
+          currentResult.name,
+          currentResult.image
+        );
+
+        // เตรียมข้อมูลในเทมเพลต 9:16 สำหรับ IG Story
+        populateStoryTemplate(currentResult);
+
+        showScreen('result');
+      }, 1100);
+    }
+
+    // ใส่ข้อมูลลงเทมเพลต 9:16 (ใช้ background-image เพื่อให้สัดส่วนรูปไม่เพี้ยนตอน export)
+    function populateStoryTemplate(res) {
+      document.getElementById('stTopCode').textContent = `ZONE ${res.zoneNo} • ROOM ${res.code}`;
+      document.getElementById('stTitleEn').textContent = res.name;
+      document.getElementById('stTitleTh').textContent = res.subtitle;
+      document.getElementById('stPersonality').textContent = res.personality;
+      document.getElementById('stMeaning').textContent = res.meaning;
+      document.getElementById('stTags').innerHTML = res.traits
+        .map(t => `<span class="st-tag">${t}</span>`)
+        .join('');
+
+      const stPhoto = document.getElementById('stPhoto');
+      const fallbackUrl = makePlaceholderSVG(res.name, res.image);
+
+      // ตรวจสอบว่ามีไฟล์รูปจริงหรือไม่ ก่อนตั้งเป็น background-image
+      const testImg = new Image();
+      testImg.crossOrigin = 'anonymous';
+      testImg.onload = () => {
+        stPhoto.style.backgroundImage = `url("${res.image}")`;
+      };
+      testImg.onerror = () => {
+        stPhoto.style.backgroundImage = `url("${fallbackUrl}")`;
+      };
+      testImg.src = res.image;
+    }
+
+    /* =====================================================
+       6. EXPORT 9:16 IG STORY IMAGE (1080 × 1920 PNG)
+    ===================================================== */
+    const storyModal = document.getElementById('storyModal');
+    const storyPreviewImg = document.getElementById('storyPreviewImg');
+    const btnShareStory = document.getElementById('btnShareStory');
+
+    document.getElementById('btnGenerateStory').addEventListener('click', async () => {
+      const btn = document.getElementById('btnGenerateStory');
+      btn.textContent = 'กำลังสร้างรูปขนาด 9:16...';
+      btn.disabled = true;
+
+      try {
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+
+        const node = document.getElementById('storyExportNode');
+        const canvas = await html2canvas(node, {
+          scale: 2,          // 540×960 × 2 = 1080×1920 px (Full HD IG Story)
+          width: 540,
+          height: 960,
+          backgroundColor: '#f7f6f2',
+          useCORS: true,
+          logging: false
+        });
+
+        generatedStoryDataUrl = canvas.toDataURL('image/png');
+        storyPreviewImg.src = generatedStoryDataUrl;
+
+        // เตรียม Blob สำหรับ Web Share API บนมือถือ
+        generatedStoryBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        const fileName = `the-little-museum-room-${currentResult.code}.png`;
+        const shareFile = generatedStoryBlob ? new File([generatedStoryBlob], fileName, { type: 'image/png' }) : null;
+
+        if (shareFile && navigator.canShare && navigator.canShare({ files: [shareFile] })) {
+          btnShareStory.style.display = 'inline-flex';
+        } else {
+          btnShareStory.style.display = 'none';
+        }
+
+        storyModal.classList.add('open');
+      } catch (err) {
+        alert('ไม่สามารถสร้างรูปภาพได้ กรุณาลองใหม่อีกครั้ง');
+        console.error(err);
+      } finally {
+        btn.textContent = 'สร้างรูปสำหรับลง IG Story (9:16)';
+        btn.disabled = false;
+      }
+    });
+
+    // ปุ่มดาวน์โหลด PNG
+    document.getElementById('btnDownloadStory').addEventListener('click', () => {
+      if (!generatedStoryDataUrl || !currentResult) return;
+      const link = document.createElement('a');
+      link.download = `the-little-museum-room-${currentResult.code}.png`;
+      link.href = generatedStoryDataUrl;
+      link.click();
+    });
+
+    // ปุ่มแชร์ผ่านระบบมือถือ (iOS / Android)
+    btnShareStory.addEventListener('click', async () => {
+      if (!generatedStoryBlob || !currentResult) return;
+      const file = new File(
+        [generatedStoryBlob],
+        `the-little-museum-room-${currentResult.code}.png`,
+        { type: 'image/png' }
+      );
+      try {
+        await navigator.share({
+          files: [file],
+          title: `The Little Museum — ${currentResult.name}`,
+          text: `ห้องความทรงจำของฉันคือ ${currentResult.name} | นิทรรศการ inner child`
+        });
+      } catch (e) {
+        // ผู้ใช้กดยกเลิกการแชร์
+      }
+    });
+
+    // ปิด Modal
+    document.getElementById('btnCloseModal').addEventListener('click', () => {
+      storyModal.classList.remove('open');
+    });
+    storyModal.addEventListener('click', (e) => {
+      if (e.target === storyModal) storyModal.classList.remove('open');
+    });
+
+    // เล่นอีกครั้ง
+    document.getElementById('btnRestart').addEventListener('click', () => {
+      currentStoryIdx = 0;
+      currentQIdx = 0;
+      userAnswers = {};
+      currentResult = null;
+      showScreen('cover');
+    });
+  </script>
+</body>
+</html>
