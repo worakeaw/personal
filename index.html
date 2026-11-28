@@ -70,13 +70,15 @@
     html {
       background: var(--paper);
       scroll-behavior: smooth;
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
     }
 
     body {
       font-family: var(--font-sans);
       background-color: var(--paper);
       color: var(--ink);
-      min-height: 100dvh;
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -106,11 +108,12 @@
 
     .zine-sheet {
       width: 100%;
-      min-height: 100dvh;
+      min-height: 100svh;
       background: var(--paper);
       display: flex;
       flex-direction: column;
       position: relative;
+      overflow-x: hidden;
     }
 
     @media (min-width: 600px) {
@@ -126,13 +129,13 @@
       }
 
       .app-viewport {
-        justify-content: center;
-        padding: 28px 18px 36px;
+        justify-content: flex-start;
+        padding: 28px 18px 40px;
       }
 
       .zine-sheet {
         max-width: 468px;
-        min-height: min(790px, calc(100dvh - 64px));
+        min-height: 820px;
         border-radius: 20px;
         border: 1px solid rgba(28, 27, 34, 0.12);
         box-shadow:
@@ -332,7 +335,7 @@
       position: relative;
       z-index: 1;
       width: min(68vw, 268px);
-      max-height: 31dvh;
+      max-height: 31svh;
       height: auto;
       object-fit: contain;
       display: block;
@@ -474,7 +477,6 @@
     .story-plate {
       width: 100%;
       aspect-ratio: 4 / 3;
-      max-height: 38dvh;
       border-radius: 14px;
       overflow: hidden;
       background: var(--paper-soft);
@@ -677,16 +679,15 @@
       }
     }
 
-    /* กรอบภาพวาดมือประกอบคำถาม (สัดส่วน 16:10 พอดีภาพ ไม่ตัดหัวตุ๊กตา และยังเห็นตัวเลือกครบในหน้าจอเดียว) */
+    /* กรอบภาพประกอบคำถาม (สัดส่วน 4:3 เท่ากับหน้าเนื้อเรื่องและหน้าผลลัพธ์) */
     .q-scene-peek {
       width: 100%;
-      aspect-ratio: 16 / 10;
-      max-height: 172px;
+      aspect-ratio: 4 / 3;
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--hairline);
       background: var(--paper-soft);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       position: relative;
       flex-shrink: 0;
     }
@@ -695,15 +696,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 52% 48%;
+      object-position: 50% 50%;
       display: block;
-    }
-
-    @media (max-height: 700px) {
-      .q-scene-peek {
-        max-height: 132px;
-        margin-bottom: 10px;
-      }
     }
 
     .q-question {
@@ -711,14 +705,13 @@
       font-weight: 600;
       line-height: 1.54;
       color: var(--ink);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .choices-list {
       display: flex;
       flex-direction: column;
-      gap: 9px;
-      margin-top: auto;
+      gap: 10px;
     }
 
     .choice-btn {
@@ -1172,7 +1165,7 @@
 
     /* =====================================================
        IG STORY EXPORT CARD (540x960 @ scale 2 = 1080x1920)
-       โปสการ์ดนิทรรศการเรียบเท่ กลืนกับภาพวาดมือทั้ง 7 ห้อง
+       โปสเตอร์ตั๋วพิพิธภัณฑ์สะสม อ่านง่ายเต็มตา ลงสตอรี่แล้วเด่นทันที
     ===================================================== */
     .story-export-stage {
       position: fixed;
@@ -1180,9 +1173,11 @@
       top: 0;
       width: 540px;
       height: 960px;
-      background-color: #FAF5E8;
+      background-color: var(--room-color);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.22) 2px, transparent 2px);
+      background-size: 13px 13px;
       color: #1C1B22;
-      padding: 32px 30px 26px;
+      padding: 22px 24px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -1190,69 +1185,70 @@
       overflow: hidden;
     }
 
-    .st-halftone {
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      top: -70px;
-      right: -70px;
-      background-image: radial-gradient(#28A9F5 1.8px, transparent 1.8px);
-      background-size: 9px 9px;
-      opacity: 0.25;
+    .st-topbar {
+      position: relative;
+      z-index: 2;
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4px;
+    }
+
+    .st-museum {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #FFFFFF;
+    }
+
+    .st-zone {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      color: #1C1B22;
+      background: #FFC629;
+      border: 2px solid #1C1B22;
+      padding: 5px 16px;
+      border-radius: 99px;
     }
 
     .st-card {
       position: relative;
       z-index: 2;
       width: 100%;
-      height: 834px;
+      height: 794px;
       background: #FAF5E8;
-      border: 2px solid #1C1B22;
-      border-top: 7px solid var(--room-color);
-      border-radius: 18px;
-      padding: 20px 24px 20px;
+      border: 2.5px solid #1C1B22;
+      border-radius: 24px;
+      box-shadow: 0 10px 0 rgba(28, 27, 34, 0.24);
+      padding: 18px 24px 20px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
     }
 
-    .st-head {
+    .st-card-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 12px;
-      border-bottom: 1.5px dashed rgba(28, 27, 34, 0.22);
-      margin-bottom: 14px;
-    }
-
-    .st-museum {
       font-family: var(--font-display);
-      font-size: 16px;
+      font-size: 12.5px;
       font-weight: 700;
       letter-spacing: 0.06em;
-      color: #524F5E;
-    }
-
-    .st-zone {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--room-color);
-      background: var(--room-wash);
-      padding: 4px 13px;
-      border-radius: 99px;
+      color: #848091;
     }
 
     .st-art-box {
       width: 100%;
-      height: 274px;
-      margin-bottom: 14px;
+      height: 264px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border-radius: 10px;
       background: #FAF5E8;
     }
 
@@ -1265,30 +1261,32 @@
       background-position: center;
     }
 
+    .st-title-block {
+      text-align: center;
+    }
+
     .st-kicker {
       font-family: var(--font-hand);
-      font-size: 13px;
-      color: #848091;
-      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #706B7D;
       margin-bottom: 2px;
     }
 
     .st-title-en {
       font-family: var(--font-display);
-      font-size: 32px;
+      font-size: 38px;
       font-weight: 800;
-      line-height: 1.06;
-      letter-spacing: -0.02em;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
       color: #1C1B22;
-      text-align: center;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .st-title-th {
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 20px;
+      font-weight: 700;
       color: var(--room-color);
-      text-align: center;
       margin-bottom: 12px;
     }
 
@@ -1296,50 +1294,91 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 7px;
-      margin-bottom: 16px;
+      gap: 9px;
     }
 
     .st-tag {
-      font-size: 12.5px;
-      font-weight: 500;
+      font-size: 15.5px;
+      font-weight: 600;
       color: var(--room-color);
       background: var(--room-wash);
-      padding: 4px 13px;
+      border: 1.8px solid var(--room-color);
+      padding: 5px 18px;
       border-radius: 99px;
     }
 
+    .st-perf {
+      position: relative;
+      border-top: 2px dashed rgba(28, 27, 34, 0.24);
+      margin: 4px -24px;
+      height: 2px;
+    }
+
+    .st-perf::before,
+    .st-perf::after {
+      content: '';
+      position: absolute;
+      top: -14px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--room-color);
+      border: 2.5px solid #1C1B22;
+    }
+
+    .st-perf::before {
+      left: -15px;
+    }
+
+    .st-perf::after {
+      right: -15px;
+    }
+
+    .st-copy-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
     .st-section {
-      padding-top: 12px;
-      border-top: 1.5px dashed rgba(28, 27, 34, 0.18);
-      margin-top: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(28, 27, 34, 0.12);
+      border-left: 5px solid var(--room-color);
+      border-radius: 13px;
+      padding: 13px 16px;
+    }
+
+    .st-section--meaning {
+      background: var(--room-wash);
+      border-color: rgba(28, 27, 34, 0.08);
+      border-left: 5px solid var(--room-color);
     }
 
     .st-label {
-      font-size: 12.5px;
-      font-weight: 600;
+      font-size: 15px;
+      font-weight: 700;
       color: var(--room-color);
       margin-bottom: 5px;
     }
 
     .st-body {
-      font-size: 13.4px;
-      line-height: 1.72;
+      font-size: 17.5px;
+      line-height: 1.56;
       color: #1C1B22;
       font-weight: 400;
     }
 
     .st-meaning-body {
-      font-size: 12.6px;
-      line-height: 1.66;
-      color: #524F5E;
+      font-size: 16.5px;
+      line-height: 1.54;
+      color: #34313E;
       font-weight: 400;
     }
 
     .st-footer {
       position: relative;
       z-index: 2;
-      height: 50px;
+      height: 58px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1349,7 +1388,19 @@
     .st-footer-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    .st-footer-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2px solid #1C1B22;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
     }
 
     .st-footer-logo {
@@ -1358,18 +1409,31 @@
       display: block;
     }
 
+    .st-footer-text {
+      display: flex;
+      flex-direction: column;
+    }
+
     .st-footer-brand {
       font-family: var(--font-display);
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 800;
-      color: #0D47E8;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+
+    .st-footer-tag {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.88);
     }
 
     .st-footer-sub {
-      font-size: 12px;
-      color: #524F5E;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #FFFFFF;
       text-align: right;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     /* ================= PREVIEW MODAL ================= */
@@ -1403,7 +1467,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-height: 92dvh;
+      max-height: 92svh;
       transform: translateY(12px);
       transition: transform 0.25s var(--ease-out);
     }
@@ -1452,7 +1516,7 @@
       width: auto;
       height: auto;
       max-width: 100%;
-      max-height: 52dvh;
+      max-height: 52svh;
       aspect-ratio: 9 / 16;
       object-fit: contain;
       border-radius: 6px;
@@ -1592,7 +1656,7 @@
           </div>
 
           <div class="result-art">
-            <img id="resImg" src="images/room-H.jpg" alt="ภาพประจำห้องของคุณ" />
+            <img id="resImg" src="images/room-H.jpg?v=2" alt="ภาพประจำห้องของคุณ" />
           </div>
 
           <div class="result-intro">ห้องของคุณคือ</div>
@@ -1636,38 +1700,52 @@
 
   <!-- ================= การ์ดส่งออกลง IG STORY 9:16 (ซ่อนนอกจอ) ================= -->
   <div class="story-export-stage" id="storyExportNode" aria-hidden="true">
-    <div class="st-halftone"></div>
+    <div class="st-topbar">
+      <span class="st-museum">The Little Museum</span>
+      <span class="st-zone" id="stZoneText">Zone 01</span>
+    </div>
 
     <div class="st-card">
-      <div class="st-head">
-        <span class="st-museum">The Little Museum</span>
-        <span class="st-zone" id="stZoneText">Zone 01</span>
+      <div class="st-card-meta">
+        <span>EXHIBITION KEEPSAKE</span>
+        <span id="stCardNo">NO. 01 / 07</span>
       </div>
 
       <div class="st-art-box">
         <div class="st-photo" id="stPhoto"></div>
       </div>
 
-      <div class="st-kicker">ห้องของคุณคือ</div>
-      <div class="st-title-en" id="stTitleEn">Hugs of Memories</div>
-      <div class="st-title-th" id="stTitleTh">ห้องแห่งน้องเน่าและอ้อมกอด</div>
-      <div class="st-tags" id="stTags"></div>
-
-      <div class="st-section">
-        <div class="st-label">ลักษณะของคุณ</div>
-        <p class="st-body" id="stPersonality"></p>
+      <div class="st-title-block">
+        <div class="st-kicker">ห้องของคุณคือ</div>
+        <div class="st-title-en" id="stTitleEn">Hugs of Memories</div>
+        <div class="st-title-th" id="stTitleTh">ห้องแห่งน้องเน่าและอ้อมกอด</div>
+        <div class="st-tags" id="stTags"></div>
       </div>
 
-      <div class="st-section">
-        <div class="st-label">เกี่ยวกับห้องนี้</div>
-        <p class="st-meaning-body" id="stMeaning"></p>
+      <div class="st-perf"></div>
+
+      <div class="st-copy-stack">
+        <div class="st-section">
+          <div class="st-label">ลักษณะของคุณ</div>
+          <p class="st-body" id="stPersonality"></p>
+        </div>
+
+        <div class="st-section st-section--meaning">
+          <div class="st-label">เกี่ยวกับห้องนี้</div>
+          <p class="st-meaning-body" id="stMeaning"></p>
+        </div>
       </div>
     </div>
 
     <div class="st-footer">
       <div class="st-footer-left">
-        <img class="st-footer-logo" src="images/logo.png" alt="INNER CHILD 29" onerror="this.style.display='none';" />
-        <span class="st-footer-brand">INNER CHILD 29</span>
+        <div class="st-footer-badge">
+          <img class="st-footer-logo" src="images/logo.png" alt="INNER CHILD 29" onerror="this.style.display='none';" />
+        </div>
+        <div class="st-footer-text">
+          <span class="st-footer-brand">INNER CHILD 29</span>
+          <span class="st-footer-tag">แบบทดสอบบุคลิกภาพ</span>
+        </div>
       </div>
       <span class="st-footer-sub">นิทรรศการศิลปะ ม.6/2569<br />innerchird.vercel.app</span>
     </div>
@@ -2164,7 +2242,7 @@
         zoneNo: '01',
         name: 'Hugs of Memories',
         subtitle: 'ห้องแห่งน้องเน่าและอ้อมกอด',
-        image: 'images/room-H.jpg',
+        image: 'images/room-H.jpg?v=2',
         color: '#E86A17',
         wash: '#FFF1E6',
         traits: ['อบอุ่น', 'รักความสบายใจ'],
@@ -2175,7 +2253,7 @@
         zoneNo: '02',
         name: 'Tiny Treasures',
         subtitle: 'ห้องแห่งตุ๊กตาโมเดลและโลกใบจิ๋ว',
-        image: 'images/room-T.jpg',
+        image: 'images/room-T.jpg?v=2',
         color: '#D9458E',
         wash: '#FEEBF4',
         traits: ['ช่างสังเกต', 'มีโลกส่วนตัว'],
@@ -2186,7 +2264,7 @@
         zoneNo: '03',
         name: 'Adventures in Childhood',
         subtitle: 'ห้องแห่งการละเล่นและการผจญภัย',
-        image: 'images/room-A.jpg',
+        image: 'images/room-A.jpg?v=2',
         color: '#1E9A53',
         wash: '#E8F7EE',
         traits: ['รักอิสระ', 'ชอบลงมือทำ'],
@@ -2197,7 +2275,7 @@
         zoneNo: '04',
         name: 'Moods with Toys',
         subtitle: 'ห้องแห่งของเล่นและจินตนาการ',
-        image: 'images/room-M.jpg',
+        image: 'images/room-M.jpg?v=2',
         color: '#0D47E8',
         wash: '#EBF1FF',
         traits: ['ช่างคิด', 'ชอบลองผิดลองถูก'],
@@ -2208,7 +2286,7 @@
         zoneNo: '05',
         name: 'Enjoy the Pixels',
         subtitle: 'ห้องแห่งเกมและโลกพิกเซล',
-        image: 'images/room-P.jpg',
+        image: 'images/room-P.jpg?v=2',
         color: '#1A6FE3',
         wash: '#E8F3FF',
         traits: ['วางแผนเก่ง', 'โฟกัสดี'],
@@ -2219,7 +2297,7 @@
         zoneNo: '06',
         name: 'Travel Through Tunes',
         subtitle: 'ห้องแห่งหนัง เพลง และเรื่องเล่า',
-        image: 'images/room-R.jpg',
+        image: 'images/room-R.jpg?v=2',
         color: '#0E8BC2',
         wash: '#E6F5FC',
         traits: ['ละเอียดอ่อน', 'อินกับเรื่องเล่า'],
@@ -2230,7 +2308,7 @@
         zoneNo: '07',
         name: 'Soon to Be Yesterday',
         subtitle: 'ห้องแห่งภาพวัยเด็กและชุดวันวาน',
-        image: 'images/room-Y.jpg',
+        image: 'images/room-Y.jpg?v=2',
         color: '#E8531C',
         wash: '#FFEEE7',
         traits: ['ช่างจดจำ', 'เป็นตัวของตัวเอง'],
@@ -2503,6 +2581,7 @@
       exportNode.style.setProperty('--room-wash', res.wash);
 
       document.getElementById('stZoneText').textContent = `Zone ${res.zoneNo}`;
+      document.getElementById('stCardNo').textContent = `NO. ${res.zoneNo} / 07`;
       document.getElementById('stTitleEn').textContent = res.name;
       document.getElementById('stTitleTh').textContent = res.subtitle;
       document.getElementById('stPersonality').textContent = res.personality;
@@ -2531,12 +2610,20 @@
           await document.fonts.ready;
         }
 
+        // รอให้รูปประจำห้องโหลดเสร็จก่อนแคปภาพ
+        await new Promise(resolve => {
+          const preload = new Image();
+          preload.onload = resolve;
+          preload.onerror = resolve;
+          preload.src = currentResult.image;
+        });
+
         const node = document.getElementById('storyExportNode');
         const canvas = await html2canvas(node, {
           scale: 2,
           width: 540,
           height: 960,
-          backgroundColor: '#FAF5E8',
+          backgroundColor: currentResult.color,
           useCORS: true,
           logging: false
         });
