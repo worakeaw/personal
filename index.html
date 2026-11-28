@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Little Museum — inner child</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FAF6EC" />
+  <title>The Little Museum, INNER CHILD 29</title>
 
-  <!-- ฟอนต์งานพิมพ์และนิทรรศการ: Instrument Serif + Noto Serif Thai + Anuphan -->
+  <!-- ฟอนต์งานนิทรรศการ: Bricolage Grotesque + IBM Plex Sans Thai + Mali -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=Noto+Serif+Thai:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Mali:wght@500;600&display=swap"
+    rel="stylesheet" />
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <style>
     /* =====================================================
-       CURATED ARCHIVAL PAPER & GALLERY PALETTE
+       INNER CHILD 29 — MOBILE-FIRST EXHIBITION ZINE
+       ออกแบบให้เรียบ จริงใจ สัมผัสกระดาษ และตรงโทนสีโลโก้จริง
     ===================================================== */
     :root {
-      --paper-bg: #f1eadf;
-      --paper-surface: #fcfaf5;
-      --paper-tint: #f6f1e8;
-      --mat-bg: #ede5d8;
+      /* สีกระดาษที่กลืนกับขอบภาพวาดมือทั้งหมดอย่างเป็นธรรมชาติ */
+      --paper: #FAF6EC;
+      --paper-desk: #EFE9DA;
+      --paper-card: #FFFFFF;
+      --paper-soft: #F3EDE0;
 
-      --ink: #241f1b;
-      --ink-soft: #635b52;
-      --ink-faint: #968d82;
+      --ink: #1C1B22;
+      --ink-soft: #524F5E;
+      --ink-muted: #848091;
+      --hairline: rgba(28, 27, 34, 0.11);
+      --hairline-strong: rgba(28, 27, 34, 0.22);
 
-      --accent: #b35940;
-      --accent-dark: #94452f;
-      --accent-wash: #f5e7e1;
+      /* โทนสีจริงจากโลโก้ INNER CHILD 29 */
+      --cobalt: #0D47E8;
+      --cobalt-dark: #0935B3;
+      --cobalt-soft: #EBF1FF;
 
-      /* โทนสีประจำห้องผลลัพธ์ (ปรับอัตโนมัติตามห้องที่ได้) */
-      --room-color: #b35940;
-      --room-wash: #f6eae5;
+      --sky: #28A9F5;
+      --orange: #F25C19;
+      --orange-soft: #FFF0E8;
+      --yellow: #FFC629;
+      --pink: #E8529A;
+      --pink-soft: #FEEBF4;
 
-      --line: #e2d8c9;
-      --line-strong: #c8bba8;
+      /* สีประจำองก์ (ปรับตามองก์ 1 -> 2 -> 3) */
+      --act-color: #0D47E8;
+      --act-wash: #EBF1FF;
+
+      /* สีประจำห้องผลลัพธ์ */
+      --room-color: #F26B1D;
+      --room-wash: #FFF1E6;
 
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-      --font-sans: 'Anuphan', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-serif-th: 'Noto Serif Thai', Georgia, serif;
-      --font-serif-en: 'Instrument Serif', Georgia, serif;
+      --font-display: 'Bricolage Grotesque', 'IBM Plex Sans Thai', sans-serif;
+      --font-sans: 'IBM Plex Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-hand: 'Mali', cursive, sans-serif;
     }
 
     * {
@@ -50,15 +67,16 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html {
+      background: var(--paper);
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: var(--font-sans);
-      background-color: var(--paper-bg);
-      background-image:
-        radial-gradient(circle at 18% 12%, rgba(255, 252, 245, 0.72) 0%, transparent 45%),
-        radial-gradient(circle at 85% 88%, rgba(215, 198, 174, 0.35) 0%, transparent 48%),
-        linear-gradient(180deg, #f4eee4 0%, #ebe2d4 100%);
+      background-color: var(--paper);
       color: var(--ink);
-      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -66,476 +84,634 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* เนื้อผิวกระดาษบางๆ ระดับงานพิมพ์ */
+    /* เนื้อกระดาษบาง ๆ แบบสมุดวาดเขียน (แทบไม่รบกวนสายตา) */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 900;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ================= HEADER / NAVBAR ================= */
+    /* ================= LAYOUT FRAME (MOBILE FULL-BLEED / DESKTOP ZINE SHEET) ================= */
+    .app-viewport {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .zine-sheet {
+      width: 100%;
+      min-height: 100dvh;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    @media (min-width: 600px) {
+      html {
+        background: var(--paper-desk);
+      }
+
+      body {
+        background-color: var(--paper-desk);
+        background-image:
+          radial-gradient(circle at 14% 16%, rgba(40, 169, 245, 0.14) 0%, transparent 42%),
+          radial-gradient(circle at 86% 84%, rgba(255, 198, 41, 0.16) 0%, transparent 44%);
+      }
+
+      .app-viewport {
+        justify-content: center;
+        padding: 28px 18px 36px;
+      }
+
+      .zine-sheet {
+        max-width: 468px;
+        min-height: min(790px, calc(100dvh - 64px));
+        border-radius: 20px;
+        border: 1px solid rgba(28, 27, 34, 0.12);
+        box-shadow:
+          0 24px 56px -28px rgba(28, 27, 34, 0.22),
+          0 2px 8px rgba(28, 27, 34, 0.05);
+        overflow: hidden;
+      }
+    }
+
+    /* ================= MINIMAL HEADER (ไม่กินพื้นที่จอมือถือ) ================= */
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(244, 238, 228, 0.9);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(200, 187, 168, 0.55);
-      padding: 13px 28px;
+      position: relative;
+      z-index: 40;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 12px 20px;
+      padding-top: max(12px, env(safe-area-inset-top));
+      border-bottom: 1px solid var(--hairline);
+      background: var(--paper);
+      flex-shrink: 0;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 9px;
       text-decoration: none;
       color: var(--ink);
     }
 
-    .brand-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 1px solid var(--ink);
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-      font-family: var(--font-serif-en);
-      font-style: italic;
-      font-size: 1.05rem;
-      background: var(--paper-surface);
-      transition: transform 0.3s var(--ease-out);
-    }
-
-    .brand-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .brand img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
       display: block;
     }
 
-    .brand-title {
-      font-family: var(--font-serif-en);
-      font-size: 1.5rem;
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: 0.01em;
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--cobalt);
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
+    .brand-name span {
+      color: var(--orange);
+      margin-left: 2px;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: var(--ink-soft);
-      font-size: 0.85rem;
-      font-weight: 400;
-      padding: 4px 0;
-      border-bottom: 1.5px solid transparent;
-      transition: color 0.2s ease, border-color 0.2s ease;
-    }
-
-    .nav-links a.active {
-      color: var(--ink);
-      border-bottom-color: var(--accent);
-    }
-
-    .menu-toggle {
-      display: none;
-      background: var(--paper-surface);
-      border: 1px solid var(--line-strong);
-      border-radius: 6px;
-      padding: 5px 12px;
+    .header-menu-btn {
+      background: none;
+      border: none;
       font-family: var(--font-sans);
       font-size: 0.82rem;
-      color: var(--ink);
+      font-weight: 500;
+      color: var(--ink-soft);
+      padding: 6px 8px;
       cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      .site-header { padding: 12px 18px; }
-      .menu-toggle { display: block; }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--paper-surface);
-        border-bottom: 1px solid var(--line);
-        flex-direction: column;
-        padding: 18px 20px;
-        gap: 14px;
-        align-items: flex-start;
-        box-shadow: 0 12px 24px -16px rgba(36, 31, 27, 0.2);
-      }
-      .nav-links.open { display: flex; }
-    }
-
-    /* ================= MAIN EXHIBITION CARD ================= */
-    .quiz-wrapper {
-      position: relative;
-      z-index: 1;
-      flex: 1;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 26px 16px 46px;
+      gap: 5px;
+      border-radius: 8px;
+      transition: background-color 0.18s ease, color 0.18s ease;
     }
 
-    .quiz-shell {
-      width: 100%;
-      max-width: 452px;
-      min-height: 668px;
-      background: var(--paper-surface);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      box-shadow:
-        0 24px 48px -30px rgba(45, 34, 24, 0.28),
-        0 2px 6px rgba(45, 34, 24, 0.05),
-        inset 0 0 0 6px var(--paper-surface),
-        inset 0 0 0 7px rgba(226, 216, 201, 0.55);
-      display: flex;
+    .header-menu-btn:active {
+      background: var(--paper-soft);
+    }
+
+    .nav-drawer {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--hairline-strong);
+      padding: 10px 20px 16px;
       flex-direction: column;
-      overflow: hidden;
-      position: relative;
+      gap: 2px;
+      box-shadow: 0 14px 28px -18px rgba(28, 27, 34, 0.22);
+      z-index: 60;
     }
 
-    /* ================= SCREEN TRANSITIONS ================= */
+    .nav-drawer.open {
+      display: flex;
+      animation: pageIn 0.2s var(--ease-out) both;
+    }
+
+    .nav-drawer a {
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 9px 4px;
+      border-bottom: 1px solid rgba(28, 27, 34, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-drawer a:last-child {
+      border-bottom: none;
+    }
+
+    .nav-drawer a.active {
+      color: var(--cobalt);
+      font-weight: 600;
+    }
+
+    /* ================= SCREENS & TRANSITIONS ================= */
     .screen {
       display: none;
       flex-direction: column;
       flex: 1;
-      padding: 32px 28px 28px;
+      width: 100%;
     }
 
     .screen.active {
       display: flex;
-      animation: pageIn 0.44s var(--ease-out) both;
+      animation: pageIn 0.38s var(--ease-out) both;
     }
 
     .screen.is-leaving {
       display: flex;
-      animation: pageOut 0.2s ease forwards;
+      animation: pageOut 0.16s ease forwards;
       pointer-events: none;
     }
 
     @keyframes pageIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes pageOut {
-      from { opacity: 1; transform: translateY(0); }
-      to   { opacity: 0; transform: translateY(-6px); }
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
     }
 
-    .q-stage {
+    /* =====================================================
+       1. COVER SCREEN — โปสการ์ดเชิญชมนิทรรศการ (พอดีจอมือถือ 1 หน้า)
+    ===================================================== */
+    .cover-screen {
+      padding: 20px 24px max(24px, env(safe-area-inset-bottom));
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+
+    .cover-meta-top {
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+    }
+
+    .cover-hero {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 0;
+    }
+
+    /* วงฮาล์ฟโทนสีฟ้าอ่อน ๆ นุ่ม ๆ ด้านหลังโลโก้แบบงานสกรีนสิ่งพิมพ์ */
+    .cover-halftone {
+      position: absolute;
+      width: min(76vw, 296px);
+      height: min(76vw, 296px);
+      border-radius: 50%;
+      background-image: radial-gradient(rgba(40, 169, 245, 0.28) 1.6px, transparent 1.6px);
+      background-size: 8px 8px;
+      -webkit-mask-image: radial-gradient(circle, #000 52%, transparent 74%);
+      mask-image: radial-gradient(circle, #000 52%, transparent 74%);
+      pointer-events: none;
+    }
+
+    .cover-logo {
+      position: relative;
+      z-index: 1;
+      width: min(68vw, 268px);
+      max-height: 31dvh;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 8px 18px rgba(13, 71, 232, 0.12));
+    }
+
+    .cover-copy {
+      max-width: 340px;
       display: flex;
       flex-direction: column;
-      flex: 1;
+      align-items: center;
     }
 
-    .q-stage.anim-next { animation: qNext 0.36s var(--ease-out) both; }
-    .q-stage.anim-prev { animation: qPrev 0.36s var(--ease-out) both; }
-    .q-stage.anim-out  { animation: qOut 0.15s ease forwards; pointer-events: none; }
-
-    @keyframes qNext {
-      from { opacity: 0; transform: translateX(14px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes qPrev {
-      from { opacity: 0; transform: translateX(-14px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes qOut {
-      from { opacity: 1; }
-      to   { opacity: 0; }
+    .cover-title-en {
+      font-family: var(--font-display);
+      font-size: 2.05rem;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 6px;
     }
 
-    /* ================= GALLERY MAT FRAME ================= */
-    .mat-frame {
-      width: 100%;
-      background: var(--mat-bg);
-      border: 1px solid var(--line);
-      padding: 7px;
-      border-radius: 6px;
-      box-shadow: inset 0 1px 2px rgba(36, 31, 27, 0.04);
-    }
-
-    .mat-inner {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      border-radius: 3px;
-      background: #e7dfd1;
+    .cover-title-en .accent-word {
+      color: var(--cobalt);
       position: relative;
+      display: inline-block;
     }
 
-    .mat-frame img {
+    .cover-title-en .accent-word::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 1px;
+      height: 5px;
+      background: var(--yellow);
+      border-radius: 99px;
+      z-index: -1;
+    }
+
+    .cover-title-th {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .cover-desc {
+      font-size: 0.88rem;
+      line-height: 1.78;
+      color: var(--ink-soft);
+      font-weight: 400;
+    }
+
+    .cover-bottom {
+      width: 100%;
+      max-width: 356px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-top: 6px;
+    }
+
+    .cover-sublink {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--cobalt);
+      text-decoration: none;
+      padding: 4px 6px;
+      border-bottom: 1px solid rgba(13, 71, 232, 0.3);
+      transition: opacity 0.18s ease;
+    }
+
+    .cover-credit {
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+    }
+
+    /* =====================================================
+       2. STORY SCREEN — หน้าสมุดภาพทำมือ (แตะตรงไหนก็ได้เพื่อพลิกหน้า)
+    ===================================================== */
+    .story-screen {
+      padding: 18px 22px max(24px, env(safe-area-inset-bottom));
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+    }
+
+    .story-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .story-act-label {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--act-color);
+    }
+
+    .story-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .story-dots span {
+      width: 18px;
+      height: 3.5px;
+      border-radius: 99px;
+      background: rgba(28, 27, 34, 0.14);
+      transition: background-color 0.25s ease, width 0.25s var(--ease-out);
+    }
+
+    .story-dots span.done {
+      background: rgba(28, 27, 34, 0.35);
+    }
+
+    .story-dots span.current {
+      width: 28px;
+      background: var(--act-color);
+    }
+
+    .story-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      transition: opacity 0.18s ease;
+    }
+
+    .story-plate {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      max-height: 38dvh;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--paper-soft);
+      border: 1px solid var(--hairline);
+    }
+
+    .story-plate img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.65s var(--ease-out), object-position 0.65s var(--ease-out);
     }
 
-    .mat-frame.photo-fade img {
-      animation: photoReveal 0.55s var(--ease-out) both;
+    .story-plate.fade-in img {
+      animation: softFade 0.4s ease both;
     }
 
-    @keyframes photoReveal {
-      from { opacity: 0.4; transform: scale(1.03); }
-      to   { opacity: 1; transform: scale(1); }
+    @keyframes softFade {
+      from {
+        opacity: 0.4;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
-    .frame-caption {
-      font-size: 0.72rem;
-      color: var(--ink-faint);
-      text-align: center;
-      margin-top: 8px;
-      letter-spacing: 0.02em;
-    }
-
-    /* ================= 1. COVER SCREEN ================= */
-    .cover-kicker {
-      font-size: 0.76rem;
-      color: var(--ink-soft);
-      text-align: center;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .cover-kicker::before,
-    .cover-kicker::after {
-      content: '';
-      width: 24px;
-      height: 1px;
-      background: var(--line-strong);
-    }
-
-    .cover-frame {
-      aspect-ratio: 4 / 3;
-    }
-
-    .cover-header-block {
-      text-align: center;
-      margin: 20px 0 14px;
-    }
-
-    .cover-title-en {
-      font-family: var(--font-serif-en);
-      font-size: 2.55rem;
-      font-weight: 400;
-      line-height: 1.02;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-
-    .cover-title-en em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .cover-title-th {
-      font-family: var(--font-serif-th);
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--ink-soft);
-    }
-
-    .cover-divider {
-      width: 36px;
-      height: 1px;
-      background: var(--line-strong);
-      margin: 0 auto 14px;
-    }
-
-    .cover-desc {
-      font-size: 0.87rem;
-      line-height: 1.82;
-      color: var(--ink-soft);
-      text-align: center;
-      margin-bottom: 24px;
-      font-weight: 300;
-    }
-
-    .cover-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .cover-exhibit-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+    .story-caption {
+      font-family: var(--font-hand);
       font-size: 0.82rem;
-      color: var(--ink-soft);
-      text-decoration: none;
-      padding: 6px 8px;
-      transition: color 0.2s ease;
-    }
-
-    .cover-exhibit-link span {
-      border-bottom: 1px solid var(--line-strong);
-      padding-bottom: 1px;
-    }
-
-    .cover-note {
-      margin-top: auto;
-      padding-top: 16px;
-      font-size: 0.74rem;
-      color: var(--ink-faint);
+      color: var(--ink-muted);
       text-align: center;
-      line-height: 1.6;
+      margin-top: -8px;
     }
 
-    /* ================= 2. TEASER STORY SLIDES ================= */
-    .story-screen {
-      cursor: pointer;
-      user-select: none;
-      justify-content: space-between;
-    }
-
-    .story-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .story-step {
-      font-size: 0.78rem;
-      color: var(--ink-faint);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .story-bars {
-      display: flex;
-      gap: 6px;
-      width: 90px;
-    }
-
-    .story-bars span {
-      flex: 1;
-      height: 2.5px;
-      border-radius: 2px;
-      background: var(--line);
-      transition: background-color 0.35s ease;
-    }
-
-    .story-bars span.active {
-      background: var(--accent);
-    }
-
-    .story-frame {
-      aspect-ratio: 4 / 3;
-      margin-bottom: 26px;
-    }
-
-    .story-text {
-      font-family: var(--font-serif-th);
+    .story-prose {
       font-size: 1.02rem;
-      line-height: 1.98;
+      line-height: 1.92;
       color: var(--ink);
       text-align: center;
       white-space: pre-line;
-      margin-bottom: 24px;
+      font-weight: 400;
+      padding: 0 4px;
     }
 
-    .tap-hint {
+    .story-cue {
       text-align: center;
       font-size: 0.8rem;
-      color: var(--ink-faint);
-      padding-top: 14px;
-      border-top: 1px dashed var(--line);
-      animation: softBlink 2.6s ease-in-out infinite;
+      font-weight: 500;
+      color: var(--ink-muted);
+      padding-top: 12px;
+      border-top: 1px dashed var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    @keyframes softBlink {
-      0%, 100% { opacity: 0.45; }
-      50%      { opacity: 1; }
+    .story-cue .cue-arrow {
+      color: var(--act-color);
+      display: inline-block;
+      animation: nudge 1.9s ease-in-out infinite;
     }
 
-    /* ================= 3. QUIZ SCREEN ================= */
-    .quiz-topbar {
+    @keyframes nudge {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(4px);
+      }
+    }
+
+    /* =====================================================
+       3. QUIZ SCREEN — พอดีมือบนมือถือทุกข้อ ไม่ต้องเลื่อน
+    ===================================================== */
+    .quiz-screen {
+      position: relative;
+    }
+
+    /* แถบความคืบหน้าบางเฉียบแนบขอบบนสุด */
+    .quiz-progress-rail {
+      width: 100%;
+      height: 3.5px;
+      background: rgba(28, 27, 34, 0.08);
+      flex-shrink: 0;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--act-color);
+      transition: width 0.4s var(--ease-out), background-color 0.35s ease;
+    }
+
+    .quiz-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 20px max(22px, env(safe-area-inset-bottom));
+    }
+
+    .quiz-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
     .btn-back {
       background: none;
       border: none;
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 500;
       color: var(--ink-soft);
       cursor: pointer;
-      padding: 4px 0;
+      padding: 6px 8px 6px 0;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       touch-action: manipulation;
-      transition: color 0.2s ease, transform 0.2s ease;
     }
 
-    .progress-track {
-      flex: 1;
-      height: 3px;
-      background: var(--line);
-      border-radius: 99px;
-      overflow: hidden;
+    .quiz-act-tag {
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--act-color);
+      text-align: center;
     }
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--accent);
-      border-radius: 99px;
-      transition: width 0.45s var(--ease-out);
-    }
-
-    .progress-num {
-      font-size: 0.78rem;
-      color: var(--ink-faint);
+    .quiz-count {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink-muted);
       font-variant-numeric: tabular-nums;
       min-width: 44px;
       text-align: right;
     }
 
-    .question-frame {
-      aspect-ratio: 16 / 9;
-      margin-bottom: 18px;
+    .q-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
-    .question-scene {
-      font-size: 0.78rem;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 6px;
+    .q-stage.anim-next {
+      animation: qNext 0.3s var(--ease-out) both;
     }
 
-    .question-text {
-      font-family: var(--font-serif-th);
-      font-size: 1.07rem;
-      font-weight: 500;
-      line-height: 1.66;
+    .q-stage.anim-prev {
+      animation: qPrev 0.3s var(--ease-out) both;
+    }
+
+    .q-stage.anim-out {
+      animation: qOut 0.12s ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes qNext {
+      from {
+        opacity: 0;
+        transform: translateX(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes qPrev {
+      from {
+        opacity: 0;
+        transform: translateX(-12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes qOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    /* กรอบภาพวาดมือประกอบคำถาม (สัดส่วน 16:10 พอดีภาพ ไม่ตัดหัวตุ๊กตา และยังเห็นตัวเลือกครบในหน้าจอเดียว) */
+    .q-scene-peek {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      max-height: 172px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--hairline);
+      background: var(--paper-soft);
+      margin-bottom: 14px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .q-scene-peek img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 52% 48%;
+      display: block;
+    }
+
+    @media (max-height: 700px) {
+      .q-scene-peek {
+        max-height: 132px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .q-question {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.54;
       color: var(--ink);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .choices-list {
@@ -548,13 +724,15 @@
     .choice-btn {
       width: 100%;
       text-align: left;
-      background: var(--paper-surface);
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 12px 14px;
+      background: var(--paper-card);
+      border: 1.5px solid rgba(28, 27, 34, 0.14);
+      border-bottom-width: 2.5px;
+      border-radius: 13px;
+      padding: 13px 15px;
       font-family: var(--font-sans);
-      font-size: 0.87rem;
-      line-height: 1.56;
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.52;
       color: var(--ink);
       cursor: pointer;
       user-select: none;
@@ -563,8 +741,8 @@
       align-items: flex-start;
       gap: 12px;
       opacity: 0;
-      animation: choiceIn 0.34s var(--ease-out) forwards;
-      transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.14s ease, box-shadow 0.18s ease;
+      animation: choiceIn 0.28s var(--ease-out) forwards;
+      transition: border-color 0.16s ease, background-color 0.16s ease, transform 0.12s ease;
     }
 
     .choice-btn:focus {
@@ -572,248 +750,309 @@
     }
 
     .choice-btn:focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--act-color);
       outline-offset: 2px;
     }
 
     .choice-btn:active {
-      transform: scale(0.988);
+      transform: scale(0.985);
     }
 
     .choice-btn.selected,
     .choice-btn.just-picked {
-      border-color: var(--accent);
-      background: var(--accent-wash);
+      background: var(--act-wash);
+      border-color: var(--act-color);
     }
 
     .choice-letter {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      border: 1px solid var(--line-strong);
-      background: var(--paper-tint);
-      font-family: var(--font-serif-en);
-      font-size: 0.96rem;
+      background: var(--paper-soft);
       color: var(--ink-soft);
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
       display: grid;
       place-items: center;
       flex-shrink: 0;
       margin-top: 1px;
-      transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      transition: background-color 0.16s ease, color 0.16s ease;
     }
 
     .choice-btn.selected .choice-letter,
     .choice-btn.just-picked .choice-letter {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #ffffff;
+      background: var(--act-color);
+      color: #FFFFFF;
     }
 
     @keyframes choiceIn {
-      from { opacity: 0; transform: translateY(7px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* ================= 4. LOADING SCREEN ================= */
+    /* =====================================================
+       4. LOADING SCREEN — เงียบ อบอุ่น ไม่รก
+    ===================================================== */
     .loading-screen {
       justify-content: center;
       align-items: center;
       text-align: center;
-      gap: 18px;
+      padding: 36px 28px;
+      gap: 16px;
     }
 
-    .loading-dots {
-      display: flex;
-      gap: 8px;
+    .loading-logo {
+      width: 112px;
+      height: 112px;
+      object-fit: contain;
+      animation: breathe 2s ease-in-out infinite;
     }
 
-    .loading-dots span {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: dotWave 1.2s ease-in-out infinite;
-    }
+    @keyframes breathe {
 
-    .loading-dots span:nth-child(2) { animation-delay: 0.16s; }
-    .loading-dots span:nth-child(3) { animation-delay: 0.32s; }
+      0%,
+      100% {
+        transform: scale(0.97);
+        opacity: 0.92;
+      }
 
-    @keyframes dotWave {
-      0%, 80%, 100% { transform: translateY(0); opacity: 0.32; }
-      40%           { transform: translateY(-6px); opacity: 1; }
+      50% {
+        transform: scale(1.03);
+        opacity: 1;
+      }
     }
 
     .loading-title {
-      font-family: var(--font-serif-th);
-      font-size: 1.12rem;
-      font-weight: 500;
+      font-size: 1.1rem;
+      font-weight: 600;
       color: var(--ink);
     }
 
     .loading-sub {
-      font-size: 0.83rem;
-      color: var(--ink-soft);
-      font-weight: 300;
+      font-size: 0.84rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
     }
 
-    /* ================= 5. RESULT KEEPSAKE TICKET ================= */
-    .ticket-card {
-      background: var(--paper-surface);
-      border: 1px solid var(--line);
-      border-top: 4px solid var(--room-color);
-      border-radius: 9px;
-      padding: 20px 18px 20px;
-      margin-bottom: 18px;
+    .loading-bar {
+      width: 108px;
+      height: 3px;
+      background: rgba(28, 27, 34, 0.1);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .loading-bar::after {
+      content: '';
+      display: block;
+      width: 45%;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--cobalt), var(--orange));
+      animation: slideBar 1.1s ease-in-out infinite;
+    }
+
+    @keyframes slideBar {
+      0% {
+        transform: translateX(-110%);
+      }
+
+      100% {
+        transform: translateX(240%);
+      }
+    }
+
+    /* =====================================================
+       5. RESULT SCREEN — โปสการ์ดที่ระลึกจากนิทรรศการ (เหมาะกับมือถือมาก)
+    ===================================================== */
+    .result-screen {
+      padding: 18px 20px max(28px, env(safe-area-inset-bottom));
+      gap: 18px;
+    }
+
+    .keepsake-card {
+      background: var(--paper);
+      border: 1.5px solid rgba(28, 27, 34, 0.16);
+      border-top: 5px solid var(--room-color);
+      border-radius: 16px;
+      padding: 18px 18px 20px;
       position: relative;
-      box-shadow: 0 10px 24px -18px rgba(36, 31, 27, 0.22);
+      box-shadow: 0 10px 28px -20px rgba(28, 27, 34, 0.25);
     }
 
-    .ticket-head {
+    .keepsake-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-bottom: 12px;
-      margin-bottom: 16px;
-      border-bottom: 1px dashed var(--line-strong);
+      margin-bottom: 10px;
+      border-bottom: 1px dashed var(--hairline-strong);
     }
 
-    .ticket-brand {
-      font-family: var(--font-serif-en);
-      font-size: 1.12rem;
+    .keepsake-brand {
+      font-family: var(--font-display);
+      font-size: 0.84rem;
+      font-weight: 700;
       color: var(--ink-soft);
     }
 
-    .ticket-zone-pill {
-      font-size: 0.74rem;
-      font-weight: 500;
+    .keepsake-zone {
+      font-family: var(--font-display);
+      font-size: 0.76rem;
+      font-weight: 700;
       color: var(--room-color);
       background: var(--room-wash);
-      padding: 3px 11px;
+      padding: 3px 10px;
       border-radius: 99px;
     }
 
-    .result-frame {
+    /* ภาพวาดมือประจำห้องที่กลืนเข้ากับเนื้อกระดาษอย่างไร้รอยต่อ */
+    .result-art {
+      width: 100%;
       aspect-ratio: 4 / 3;
-      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px 0 10px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .result-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+
+    .result-intro {
+      font-family: var(--font-hand);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-bottom: 2px;
     }
 
     .result-name-en {
-      font-family: var(--font-serif-en);
-      font-size: 2.15rem;
-      font-weight: 400;
-      line-height: 1.06;
+      font-family: var(--font-display);
+      font-size: 1.92rem;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
       color: var(--ink);
+      text-align: center;
       margin-bottom: 4px;
     }
 
     .result-name-th {
-      font-family: var(--font-serif-th);
       font-size: 0.96rem;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--room-color);
+      text-align: center;
       margin-bottom: 14px;
     }
 
-    .result-tags {
+    .result-traits {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
-    .tag-chip {
-      font-size: 0.75rem;
+    .trait-pill {
+      font-size: 0.76rem;
+      font-weight: 500;
       color: var(--room-color);
       background: var(--room-wash);
-      border: 1px solid rgba(36, 31, 27, 0.06);
-      padding: 4px 11px;
+      padding: 4px 12px;
       border-radius: 99px;
     }
 
-    /* รอยปรุพร้อมบากครึ่งวงกลมสองข้างแบบตั๋วพิพิธภัณฑ์จริง */
-    .ticket-perforation {
-      position: relative;
-      border-top: 1px dashed var(--line-strong);
-      margin: 18px -18px 16px;
+    .keepsake-divider {
+      border-top: 1px dashed var(--hairline-strong);
+      margin: 16px -18px;
     }
 
-    .ticket-perforation::before,
-    .ticket-perforation::after {
-      content: '';
-      position: absolute;
-      top: -8px;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: var(--paper-surface);
-      border: 1px solid var(--line);
+    .result-block {
+      margin-bottom: 16px;
     }
 
-    .ticket-perforation::before {
-      left: -8px;
-      border-left-color: transparent;
-      border-top-color: transparent;
-      transform: rotate(-45deg);
-    }
-
-    .ticket-perforation::after {
-      right: -8px;
-      border-right-color: transparent;
-      border-bottom-color: transparent;
-      transform: rotate(-45deg);
-    }
-
-    .result-section {
-      margin-bottom: 14px;
-    }
-
-    .result-section:last-child {
+    .result-block:last-of-type {
       margin-bottom: 0;
-      padding-top: 12px;
-      border-top: 1px solid rgba(226, 216, 201, 0.7);
     }
 
     .result-label {
       display: block;
       font-size: 0.78rem;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--room-color);
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
-    .result-section p {
-      font-size: 0.86rem;
-      line-height: 1.78;
-      color: var(--ink);
-      font-weight: 300;
+    .result-block p {
+      font-size: 0.88rem;
+      line-height: 1.82;
+      color: var(--ink-soft);
+      font-weight: 400;
     }
 
-    /* Stagger reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(8px);
+    .keepsake-signoff {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
-    .screen.active .reveal {
-      animation: pageIn 0.46s var(--ease-out) forwards;
+    .keepsake-signoff-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .screen.active .d1 { animation-delay: 0.04s; }
-    .screen.active .d2 { animation-delay: 0.12s; }
-    .screen.active .d3 { animation-delay: 0.2s; }
-    .screen.active .d4 { animation-delay: 0.28s; }
+    .keepsake-signoff img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
 
-    /* ================= BUTTONS ================= */
+    .keepsake-signoff span {
+      font-family: var(--font-display);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--cobalt);
+    }
+
+    .keepsake-signoff small {
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+    }
+
+    /* ================= BUTTONS (สะอาด ถนัดนิ้วหัวแม่มือบนมือถือ) ================= */
     .btn-primary {
       width: 100%;
-      background: var(--accent);
-      color: #ffffff;
-      border: 1px solid var(--accent);
-      border-radius: 8px;
+      min-height: 50px;
+      background: var(--cobalt);
+      color: #FFFFFF;
+      border: 1.5px solid var(--ink);
+      border-radius: 13px;
       padding: 13px 18px;
       font-family: var(--font-sans);
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 0.94rem;
+      font-weight: 600;
       cursor: pointer;
       touch-action: manipulation;
       text-decoration: none;
@@ -821,55 +1060,23 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 3px 0 rgba(36, 31, 27, 0.15);
-      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 3px 0 var(--ink);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.18s ease;
     }
 
     .btn-primary:active {
       transform: translateY(2px);
-      box-shadow: 0 1px 0 rgba(36, 31, 27, 0.12);
+      box-shadow: 0 1px 0 var(--ink);
     }
 
     .btn-primary:disabled {
-      opacity: 0.6;
+      opacity: 0.65;
       cursor: wait;
       transform: none;
     }
 
     .btn-room {
       background: var(--room-color);
-      border-color: var(--room-color);
-    }
-
-    .btn-outline {
-      width: 100%;
-      background: var(--paper-surface);
-      color: var(--ink);
-      border: 1px solid var(--line-strong);
-      border-radius: 8px;
-      padding: 11px 14px;
-      font-family: var(--font-sans);
-      font-size: 0.85rem;
-      font-weight: 400;
-      cursor: pointer;
-      touch-action: manipulation;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
-    }
-
-    .btn-outline:active {
-      transform: translateY(1px);
-    }
-
-    .btn-exhibit-highlight {
-      border-color: var(--room-color);
-      color: var(--room-color);
-      background: var(--room-wash);
-      font-weight: 500;
     }
 
     .actions-stack {
@@ -880,64 +1087,92 @@
 
     .actions-row {
       display: grid;
-      grid-template-columns: 1.25fr 1fr;
+      grid-template-columns: 1.2fr 1fr;
       gap: 10px;
     }
 
-    /* ================= DESKTOP-ONLY HOVER (แก้ปุ่มค้างบนมือถือ 100%) ================= */
+    .btn-secondary {
+      width: 100%;
+      min-height: 46px;
+      background: var(--paper-card);
+      color: var(--ink);
+      border: 1.5px solid rgba(28, 27, 34, 0.18);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      touch-action: manipulation;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s ease;
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.985);
+      background: var(--paper-soft);
+    }
+
+    .btn-secondary--accent {
+      color: var(--cobalt);
+      border-color: rgba(13, 71, 232, 0.3);
+      background: var(--cobalt-soft);
+      font-weight: 600;
+    }
+
+    /* Desktop hover (ไม่ค้างบนหน้าจอสัมผัส) */
     @media (hover: hover) and (pointer: fine) {
-      .brand:hover .brand-logo { transform: scale(1.06); }
-      .nav-links a:hover { color: var(--ink); border-bottom-color: var(--accent); }
-      .cover-exhibit-link:hover { color: var(--accent); }
-      .cover-exhibit-link:hover span { border-bottom-color: var(--accent); }
-      .btn-back:hover { color: var(--ink); transform: translateX(-2px); }
+      .header-menu-btn:hover {
+        background: var(--paper-soft);
+        color: var(--ink);
+      }
+
+      .nav-drawer a:hover {
+        color: var(--cobalt);
+      }
+
+      .cover-sublink:hover {
+        opacity: 0.72;
+      }
+
+      .btn-back:hover {
+        color: var(--ink);
+      }
 
       .choice-btn:hover {
-        border-color: var(--accent);
-        background: var(--paper-tint);
-        transform: translateY(-1px);
-        box-shadow: 0 5px 12px -8px rgba(36, 31, 27, 0.2);
+        border-color: var(--act-color);
+        background: #FFFDF8;
       }
 
       .choice-btn:hover .choice-letter {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: #ffffff;
+        background: var(--act-color);
+        color: #FFFFFF;
       }
 
       .btn-primary:hover {
-        background: var(--accent-dark);
-        border-color: var(--accent-dark);
         transform: translateY(-1px);
-        box-shadow: 0 4px 0 rgba(36, 31, 27, 0.18);
+        box-shadow: 0 4px 0 var(--ink);
       }
 
-      .btn-room:hover {
-        background: var(--room-color);
-        border-color: var(--room-color);
-        filter: brightness(0.92);
-      }
-
-      .btn-outline:hover {
-        background: var(--paper-tint);
+      .btn-secondary:hover {
         border-color: var(--ink);
-        transform: translateY(-1px);
+        background: var(--paper-soft);
       }
 
-      .btn-exhibit-highlight:hover {
-        background: var(--room-color);
-        border-color: var(--room-color);
-        color: #ffffff;
-      }
-
-      .modal-close:hover {
-        background: var(--line);
-        color: var(--ink);
+      .btn-secondary--accent:hover {
+        background: var(--cobalt);
+        border-color: var(--cobalt);
+        color: #FFFFFF;
       }
     }
 
     /* =====================================================
        IG STORY EXPORT CARD (540x960 @ scale 2 = 1080x1920)
+       โปสการ์ดนิทรรศการเรียบเท่ กลืนกับภาพวาดมือทั้ง 7 ห้อง
     ===================================================== */
     .story-export-stage {
       position: fixed;
@@ -945,44 +1180,128 @@
       top: 0;
       width: 540px;
       height: 960px;
-      background-color: #f1eadf;
-      color: #241f1b;
-      padding: 36px 32px 28px;
+      background-color: #FAF5E8;
+      color: #1C1B22;
+      padding: 32px 30px 26px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       font-family: var(--font-sans);
+      overflow: hidden;
+    }
+
+    .st-halftone {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      top: -70px;
+      right: -70px;
+      background-image: radial-gradient(#28A9F5 1.8px, transparent 1.8px);
+      background-size: 9px 9px;
+      opacity: 0.25;
     }
 
     .st-card {
+      position: relative;
+      z-index: 2;
       width: 100%;
-      height: 852px;
-      background: #fcfaf5;
-      border: 1px solid #dcd1c0;
-      border-top: 6px solid var(--room-color);
-      padding: 26px 26px 24px;
+      height: 834px;
+      background: #FAF5E8;
+      border: 2px solid #1C1B22;
+      border-top: 7px solid var(--room-color);
+      border-radius: 18px;
+      padding: 20px 24px 20px;
       display: flex;
       flex-direction: column;
-      position: relative;
     }
 
     .st-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 13px;
-      border-bottom: 1px dashed #cfc3b0;
-      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px dashed rgba(28, 27, 34, 0.22);
+      margin-bottom: 14px;
     }
 
     .st-museum {
-      font-family: var(--font-serif-en);
-      font-size: 22px;
-      color: #635b52;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #524F5E;
     }
 
     .st-zone {
+      font-family: var(--font-display);
       font-size: 13px;
+      font-weight: 700;
+      color: var(--room-color);
+      background: var(--room-wash);
+      padding: 4px 13px;
+      border-radius: 99px;
+    }
+
+    .st-art-box {
+      width: 100%;
+      height: 274px;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #FAF5E8;
+    }
+
+    .st-photo {
+      width: 100%;
+      height: 100%;
+      background-color: #FAF5E8;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .st-kicker {
+      font-family: var(--font-hand);
+      font-size: 13px;
+      color: #848091;
+      text-align: center;
+      margin-bottom: 2px;
+    }
+
+    .st-title-en {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: #1C1B22;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .st-title-th {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--room-color);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .st-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+
+    .st-tag {
+      font-size: 12.5px;
       font-weight: 500;
       color: var(--room-color);
       background: var(--room-wash);
@@ -990,114 +1309,75 @@
       border-radius: 99px;
     }
 
-    .st-mat {
-      width: 100%;
-      height: 274px;
-      background: #ede5d8;
-      border: 1px solid #dfd5c5;
-      padding: 8px;
-      margin-bottom: 20px;
-      flex-shrink: 0;
-    }
-
-    .st-photo {
-      width: 100%;
-      height: 100%;
-      background-color: #e6ded0;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .st-kicker {
-      font-size: 12.5px;
-      color: #887f74;
-      margin-bottom: 4px;
-    }
-
-    .st-title-en {
-      font-family: var(--font-serif-en);
-      font-size: 44px;
-      font-weight: 400;
-      line-height: 1.02;
-      color: #241f1b;
-      margin-bottom: 6px;
-    }
-
-    .st-title-th {
-      font-family: var(--font-serif-th);
-      font-size: 16.5px;
-      font-weight: 500;
-      color: var(--room-color);
-      margin-bottom: 14px;
-    }
-
-    .st-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .st-tag {
-      font-size: 12.5px;
-      color: var(--room-color);
-      background: var(--room-wash);
-      padding: 5px 13px;
-      border-radius: 99px;
-    }
-
     .st-section {
-      padding-top: 14px;
-      border-top: 1px dashed #d5c9b7;
-      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1.5px dashed rgba(28, 27, 34, 0.18);
+      margin-top: 8px;
     }
 
     .st-label {
       font-size: 12.5px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--room-color);
       margin-bottom: 5px;
     }
 
     .st-body {
-      font-size: 13.5px;
+      font-size: 13.4px;
       line-height: 1.72;
-      color: #241f1b;
-      font-weight: 300;
+      color: #1C1B22;
+      font-weight: 400;
     }
 
     .st-meaning-body {
-      font-size: 12.8px;
+      font-size: 12.6px;
       line-height: 1.66;
-      color: #5d554c;
-      font-weight: 300;
+      color: #524F5E;
+      font-weight: 400;
     }
 
     .st-footer {
-      height: 36px;
+      position: relative;
+      z-index: 2;
+      height: 50px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 4px;
     }
 
+    .st-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .st-footer-logo {
+      width: 42px;
+      height: 40px;
+      display: block;
+    }
+
     .st-footer-brand {
-      font-family: var(--font-serif-en);
-      font-size: 22px;
-      color: #241f1b;
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 800;
+      color: #0D47E8;
     }
 
     .st-footer-sub {
       font-size: 12px;
-      color: #776f65;
+      color: #524F5E;
+      text-align: right;
+      line-height: 1.4;
     }
 
-    /* ================= PREVIEW MODAL (สัดส่วน 9:16 แท้ ไม่ยืด) ================= */
+    /* ================= PREVIEW MODAL ================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: rgba(36, 31, 27, 0.6);
+      background: rgba(28, 27, 34, 0.6);
       backdrop-filter: blur(5px);
       display: flex;
       align-items: center;
@@ -1105,7 +1385,7 @@
       padding: 18px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.24s ease;
+      transition: opacity 0.2s ease;
     }
 
     .modal-backdrop.open {
@@ -1116,17 +1396,16 @@
     .modal-box {
       width: 100%;
       max-width: 368px;
-      background: var(--paper-surface);
-      border: 1px solid var(--line);
-      border-radius: 12px;
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      border-radius: 18px;
       padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-height: 92vh;
-      box-shadow: 0 24px 48px -18px rgba(20, 16, 12, 0.4);
-      transform: translateY(14px);
-      transition: transform 0.3s var(--ease-out);
+      max-height: 92dvh;
+      transform: translateY(12px);
+      transition: transform 0.25s var(--ease-out);
     }
 
     .modal-backdrop.open .modal-box {
@@ -1140,32 +1419,29 @@
     }
 
     .modal-title {
-      font-family: var(--font-serif-th);
-      font-size: 0.96rem;
-      font-weight: 500;
+      font-size: 0.94rem;
+      font-weight: 600;
       color: var(--ink);
     }
 
     .modal-close {
-      background: var(--paper-tint);
-      border: 1px solid var(--line);
-      width: 30px;
-      height: 30px;
+      background: var(--paper-soft);
+      border: none;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      font-size: 1.1rem;
-      line-height: 1;
+      font-size: 1.2rem;
       color: var(--ink-soft);
       cursor: pointer;
       display: grid;
       place-items: center;
-      transition: background-color 0.2s, color 0.2s;
     }
 
     .modal-preview-wrap {
       width: 100%;
-      background: #e9e1d4;
-      border-radius: 8px;
-      padding: 12px;
+      background: var(--paper-soft);
+      border-radius: 12px;
+      padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1176,22 +1452,25 @@
       width: auto;
       height: auto;
       max-width: 100%;
-      max-height: 52vh;
+      max-height: 52dvh;
       aspect-ratio: 9 / 16;
       object-fit: contain;
-      border-radius: 4px;
-      box-shadow: 0 10px 24px rgba(36, 31, 27, 0.18);
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(28, 27, 34, 0.16);
     }
 
     .modal-hint {
       font-size: 0.76rem;
-      color: var(--ink-faint);
+      color: var(--ink-muted);
       text-align: center;
       line-height: 1.5;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+
+      *,
+      *::before,
+      *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
@@ -1199,186 +1478,183 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- ================= HEADER / NAVBAR ================= -->
-  <header class="site-header">
-    <a href="https://innerchird.vercel.app/index.html" class="brand">
-      <div class="brand-logo" id="brandLogo">
-        <img src="images/logo.png" alt="inner child" onerror="this.remove(); document.getElementById('brandLogo').textContent='ic';" />
-      </div>
-      <span class="brand-title">inner child</span>
-    </a>
+  <div class="app-viewport">
+    <div class="zine-sheet">
 
-    <button class="menu-toggle" id="menuToggle" aria-label="เปิดเมนู">เมนู</button>
+      <!-- ================= HEADER ================= -->
+      <header class="site-header">
+        <a href="https://innerchird.vercel.app/index.html" class="brand">
+          <img src="images/logo.png" alt="INNER CHILD 29" onerror="this.src='images/logo.jpg';" />
+          <span class="brand-name">INNER CHILD<span>29</span></span>
+        </a>
 
-    <nav class="nav-links" id="navLinks">
-      <a href="https://innerchird.vercel.app/index.html">หน้าแรกนิทรรศการ</a>
-      <a href="https://innerchird.vercel.app/main_menu.html">ห้องนิทรรศการ</a>
-      <a href="https://innerchird.vercel.app/art_show.html">แกลเลอรีผลงาน</a>
-      <a href="#" class="active">แบบทดสอบ</a>
-    </nav>
-  </header>
+        <button class="header-menu-btn" id="menuToggle" type="button" aria-label="เปิดเมนูนิทรรศการ">
+          <span>เมนู</span>
+          <span aria-hidden="true">▾</span>
+        </button>
 
-  <!-- ================= MAIN QUIZ CONTAINER ================= -->
-  <main class="quiz-wrapper">
-    <div class="quiz-shell">
+        <nav class="nav-drawer" id="navLinks">
+          <a href="https://innerchird.vercel.app/index.html">หน้าแรกนิทรรศการ</a>
+          <a href="https://innerchird.vercel.app/main_menu.html">ห้องนิทรรศการ</a>
+          <a href="https://innerchird.vercel.app/art_show.html">แกลเลอรีผลงาน</a>
+          <a href="#" class="active" id="navCurrentQuiz">แบบทดสอบบุคลิกภาพ</a>
+        </nav>
+      </header>
 
-      <!-- 1. หน้าเริ่มต้น -->
-      <section class="screen active" id="screen-cover">
-        <div class="cover-kicker">นิทรรศการศิลปะ · ม.6/2569</div>
+      <!-- ================= 1. หน้าเริ่มต้น ================= -->
+      <section class="screen cover-screen active" id="screen-cover">
+        <div class="cover-meta-top">นิทรรศการศิลปะ ม.6 รุ่น 29</div>
 
-        <div class="mat-frame cover-frame photo-fade">
-          <div class="mat-inner">
-            <img id="coverImg" src="images/cover.jpg" alt="The Little Museum" />
-          </div>
+        <div class="cover-hero">
+          <div class="cover-halftone" aria-hidden="true"></div>
+          <img class="cover-logo" src="images/logo.png" alt="INNER CHILD 29" onerror="this.src='images/logo.jpg';" />
         </div>
-        <div class="frame-caption">กล่องกระดาษใต้เตียง · คืนก่อนย้ายหอพัก</div>
 
-        <div class="cover-header-block">
-          <h1 class="cover-title-en">The <em>Little</em> Museum</h1>
+        <div class="cover-copy">
+          <h1 class="cover-title-en">The <span class="accent-word">Little</span> Museum</h1>
           <p class="cover-title-th">พิพิธภัณฑ์ใบเล็กในกล่องความทรงจำ</p>
+          <p class="cover-desc">
+            คืนก่อนย้ายไปเรียนมหาวิทยาลัย คุณเจอกล่องไม้เก่าใต้เตียง
+            ตอบคำถาม 21 ข้อจากเรื่องราว 3 องก์ เพื่อดูว่าคุณตรงกับห้องไหนในนิทรรศการ
+          </p>
         </div>
 
-        <div class="cover-divider"></div>
-
-        <p class="cover-desc">
-          คืนก่อนย้ายเข้าหอพัก เด็กสาวคนหนึ่งเปิดเจอกล่องความทรงจำใบเก่าใต้เตียง
-          ชวนเดินผ่านเรื่องราวทั้ง 21 ชิ้น เพื่อตามหาห้องที่ยังคงเก็บตัวตนในวัยเด็กของคุณเอาไว้
-        </p>
-
-        <div class="cover-actions">
-          <button class="btn-primary" id="btnStart">เปิดกล่องความทรงจำ</button>
-          <a href="https://innerchird.vercel.app/index.html" class="cover-exhibit-link">
-            <span>เข้าชมผลงานนิทรรศการ inner child</span> →
+        <div class="cover-bottom">
+          <button class="btn-primary" id="btnStart" type="button">เปิดกล่องความทรงจำ</button>
+          <a href="https://innerchird.vercel.app/index.html" class="cover-sublink">
+            เข้าชมผลงานนิทรรศการ INNER CHILD 29
           </a>
+          <span class="cover-credit">21 คำถาม ใช้เวลาประมาณ 3 นาที</span>
         </div>
-
-        <p class="cover-note">
-          ใช้เวลาประมาณ 3 นาที · จัดทำโดยนักเรียนชั้นมัธยมศึกษาปีที่ 6
-        </p>
       </section>
 
-      <!-- 2. เรื่องราวนำเข้า (Teaser) -->
+      <!-- ================= 2. หน้าเนื้อเรื่องคั่นองก์ ================= -->
       <section class="screen story-screen" id="screen-story">
-        <div id="storyContent">
-          <div class="story-head">
-            <span class="story-step" id="storyCounter">1 / 3</span>
-            <div class="story-bars" id="storyBars"></div>
-          </div>
-
-          <div class="mat-frame story-frame" id="storyFrame">
-            <div class="mat-inner">
-              <img id="storyImg" src="" alt="เรื่องราวก่อนเริ่ม" />
-            </div>
-          </div>
-
-          <p class="story-text" id="storyText"></p>
+        <div class="story-top">
+          <span class="story-act-label" id="storyAct">องก์ที่ 1 The Discovery</span>
+          <div class="story-dots" id="storyDots"></div>
         </div>
 
-        <div class="tap-hint">แตะหน้าจอเพื่ออ่านต่อ</div>
-      </section>
-
-      <!-- 3. แบบทดสอบ 21 ข้อ -->
-      <section class="screen" id="screen-quiz">
-        <div class="quiz-topbar">
-          <button class="btn-back" id="btnBack">← ข้อก่อนหน้า</button>
-          <div class="progress-track">
-            <div class="progress-fill" id="progressFill"></div>
+        <div class="story-body" id="storyContent">
+          <div class="story-plate" id="storyFrame">
+            <img id="storyImg" src="images/act1.jpg" alt="ภาพประกอบเนื้อเรื่อง" />
           </div>
-          <span class="progress-num" id="progressLabel">1 / 21</span>
+          <div class="story-caption" id="storyCaption"></div>
+          <p class="story-prose" id="storyText"></p>
         </div>
 
-        <div class="q-stage" id="qStage">
-          <div class="mat-frame question-frame" id="questionFrame">
-            <div class="mat-inner">
-              <img id="questionImg" src="" alt="ภาพประกอบคำถาม" />
-            </div>
-          </div>
-
-          <div class="question-scene" id="questionScene"></div>
-          <h2 class="question-text" id="questionText"></h2>
-
-          <div class="choices-list" id="choicesList"></div>
+        <div class="story-cue">
+          <span id="storyTapHint">แตะหน้าจอเพื่ออ่านต่อ</span>
         </div>
       </section>
 
-      <!-- 4. หน้ากำลังเปิดห้อง -->
+      <!-- ================= 3. หน้าแบบทดสอบ 21 ข้อ ================= -->
+      <section class="screen quiz-screen" id="screen-quiz">
+        <div class="quiz-progress-rail">
+          <div class="quiz-progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-inner">
+          <div class="quiz-bar">
+            <button class="btn-back" id="btnBack" type="button">ย้อนกลับ</button>
+            <span class="quiz-act-tag" id="questionScene">องก์ที่ 1 The Discovery</span>
+            <span class="quiz-count" id="progressLabel">1 / 21</span>
+          </div>
+
+          <div class="q-stage" id="qStage">
+            <div class="q-scene-peek" id="questionFrame">
+              <img id="questionImg" src="images/act1.jpg" alt="ฉากประกอบคำถาม" />
+            </div>
+
+            <h2 class="q-question" id="questionText"></h2>
+            <div class="choices-list" id="choicesList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. หน้ากำลังเปิดประตูห้อง ================= -->
       <section class="screen loading-screen" id="screen-loading">
-        <div class="loading-dots" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <h2 class="loading-title">กำลังเปิดประตูห้องของคุณ...</h2>
-        <p class="loading-sub">ความทรงจำทั้ง 21 ชิ้นกำลังพาคุณไปพบกับห้องนั้น</p>
+        <img class="loading-logo" src="images/logo.png" alt="INNER CHILD 29" onerror="this.src='images/logo.jpg';" />
+        <h2 class="loading-title">กำลังหาห้องของคุณ</h2>
+        <p class="loading-sub">กำลังรวมคำตอบทั้ง 21 ข้อ</p>
+        <div class="loading-bar" aria-hidden="true"></div>
       </section>
 
-      <!-- 5. หน้าผลลัพธ์ (1 ห้อง) -->
-      <section class="screen" id="screen-result">
-        <div class="ticket-card reveal d1">
-          <div class="ticket-head">
-            <span class="ticket-brand">The Little Museum</span>
-            <span class="ticket-zone-pill" id="resZoneText">โซน 01</span>
+      <!-- ================= 5. หน้าผลลัพธ์ (โปสการ์ดสะสม) ================= -->
+      <section class="screen result-screen" id="screen-result">
+        <div class="keepsake-card">
+          <div class="keepsake-head">
+            <span class="keepsake-brand">The Little Museum</span>
+            <span class="keepsake-zone" id="resZoneText">Zone 01</span>
           </div>
 
-          <div class="mat-frame result-frame photo-fade reveal d2">
-            <div class="mat-inner">
-              <img id="resImg" src="" alt="ภาพประจำห้องของคุณ" />
-            </div>
+          <div class="result-art">
+            <img id="resImg" src="images/room-H.jpg" alt="ภาพประจำห้องของคุณ" />
           </div>
 
-          <div class="reveal d3">
-            <h2 class="result-name-en" id="resRoomName">Hugs of Memories</h2>
-            <p class="result-name-th" id="resRoomSub">ห้องแห่งน้องเน่าและอ้อมกอด</p>
-            <div class="result-tags" id="resTraits"></div>
-          </div>
+          <div class="result-intro">ห้องของคุณคือ</div>
+          <h2 class="result-name-en" id="resRoomName">Hugs of Memories</h2>
+          <p class="result-name-th" id="resRoomSub">ห้องแห่งน้องเน่าและอ้อมกอด</p>
+          <div class="result-traits" id="resTraits"></div>
 
-          <div class="ticket-perforation" aria-hidden="true"></div>
+          <div class="keepsake-divider" aria-hidden="true"></div>
 
-          <div class="result-section reveal d4">
-            <span class="result-label">ตัวตนที่ซ่อนอยู่ในตัวคุณ</span>
+          <div class="result-block">
+            <span class="result-label">ลักษณะของคุณ</span>
             <p id="resPersonality"></p>
           </div>
 
-          <div class="result-section reveal d4">
+          <div class="result-block">
             <span class="result-label">เกี่ยวกับห้องนี้</span>
             <p id="resMeaning"></p>
           </div>
+
+          <div class="keepsake-signoff">
+            <div class="keepsake-signoff-left">
+              <img src="images/logo.png" alt="INNER CHILD 29" onerror="this.src='images/logo.jpg';" />
+              <span>INNER CHILD 29</span>
+            </div>
+            <small>นิทรรศการศิลปะ ม.6/2569</small>
+          </div>
         </div>
 
-        <div class="actions-stack reveal d4">
-          <button class="btn-primary btn-room" id="btnGenerateStory">บันทึกการ์ดไว้ลงสตอรี่</button>
+        <div class="actions-stack">
+          <button class="btn-primary btn-room" id="btnGenerateStory" type="button">บันทึกการ์ดลงสตอรี่</button>
           <div class="actions-row">
-            <a href="https://innerchird.vercel.app/index.html" target="_blank" rel="noopener noreferrer" class="btn-outline btn-exhibit-highlight" id="btnVisitExhibition">เข้าชมผลงานนิทรรศการ →</a>
-            <button class="btn-outline" id="btnRestart">เล่นอีกครั้ง</button>
+            <a href="https://innerchird.vercel.app/index.html" target="_blank" rel="noopener noreferrer"
+              class="btn-secondary btn-secondary--accent">ชมนิทรรศการ</a>
+            <button class="btn-secondary" id="btnRestart" type="button">เล่นอีกครั้ง</button>
           </div>
         </div>
       </section>
 
     </div>
-  </main>
+  </div>
 
-  <!-- ================= การ์ดสำหรับส่งออกลงสตอรี่ (ซ่อนอยู่นอกจอ) ================= -->
+  <!-- ================= การ์ดส่งออกลง IG STORY 9:16 (ซ่อนนอกจอ) ================= -->
   <div class="story-export-stage" id="storyExportNode" aria-hidden="true">
+    <div class="st-halftone"></div>
+
     <div class="st-card">
       <div class="st-head">
         <span class="st-museum">The Little Museum</span>
-        <span class="st-zone" id="stZoneText">โซน 01</span>
+        <span class="st-zone" id="stZoneText">Zone 01</span>
       </div>
 
-      <div class="st-mat">
+      <div class="st-art-box">
         <div class="st-photo" id="stPhoto"></div>
       </div>
 
-      <div class="st-kicker">ห้องแห่งความทรงจำของคุณคือ</div>
+      <div class="st-kicker">ห้องของคุณคือ</div>
       <div class="st-title-en" id="stTitleEn">Hugs of Memories</div>
       <div class="st-title-th" id="stTitleTh">ห้องแห่งน้องเน่าและอ้อมกอด</div>
-
       <div class="st-tags" id="stTags"></div>
 
       <div class="st-section">
-        <div class="st-label">ตัวตนที่ซ่อนอยู่ในตัวคุณ</div>
+        <div class="st-label">ลักษณะของคุณ</div>
         <p class="st-body" id="stPersonality"></p>
       </div>
 
@@ -1389,8 +1665,11 @@
     </div>
 
     <div class="st-footer">
-      <span class="st-footer-brand">inner child</span>
-      <span class="st-footer-sub">นิทรรศการศิลปะ ม.6/2569 · innerchird.vercel.app</span>
+      <div class="st-footer-left">
+        <img class="st-footer-logo" src="images/logo.png" alt="INNER CHILD 29" onerror="this.style.display='none';" />
+        <span class="st-footer-brand">INNER CHILD 29</span>
+      </div>
+      <span class="st-footer-sub">นิทรรศการศิลปะ ม.6/2569<br />innerchird.vercel.app</span>
     </div>
   </div>
 
@@ -1399,56 +1678,42 @@
     <div class="modal-box">
       <div class="modal-top">
         <span class="modal-title">การ์ดความทรงจำของคุณ</span>
-        <button class="modal-close" id="btnCloseModal" aria-label="ปิดหน้าต่าง">×</button>
+        <button class="modal-close" id="btnCloseModal" type="button" aria-label="ปิดหน้าต่าง">×</button>
       </div>
 
       <div class="modal-preview-wrap">
         <img id="storyPreviewImg" src="" alt="การ์ดผลลัพธ์สำหรับลงสตอรี่" />
       </div>
 
-      <p class="modal-hint">กดค้างที่รูปเพื่อบันทึกลงคลังภาพ หรือเลือกจากปุ่มด้านล่าง</p>
+      <p class="modal-hint">กดค้างที่รูปเพื่อบันทึกลงคลังภาพ หรือกดปุ่มด้านล่าง</p>
 
-      <button class="btn-primary btn-room" id="btnDownloadStory">บันทึกรูปลงเครื่อง</button>
-      <button class="btn-outline" id="btnShareStory" style="display: none;">แชร์รูปนี้</button>
+      <button class="btn-primary btn-room" id="btnDownloadStory" type="button">บันทึกรูปลงเครื่อง</button>
+      <button class="btn-secondary" id="btnShareStory" type="button" style="display: none;">แชร์รูปนี้</button>
     </div>
   </div>
 
   <script>
     /* =====================================================
-       NAVBAR TOGGLE
+       HEADER MENU DRAWER
     ===================================================== */
-    document.getElementById('menuToggle').addEventListener('click', () => {
-      document.getElementById('navLinks').classList.toggle('open');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
     });
 
-    /* =====================================================
-       ภาพสำรองลายเส้นงานพิมพ์ (ใช้เมื่อยังไม่มีไฟล์รูปจริงในโฟลเดอร์ images/)
-    ===================================================== */
-    function makeEditorialArtwork(title, subtitle, color = '#b35940', bg = '#eee6d9') {
-      const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-          <rect width="800" height="600" fill="${bg}"/>
-          <circle cx="628" cy="148" r="132" fill="${color}" fill-opacity="0.11"/>
-          <circle cx="176" cy="456" r="102" fill="${color}" fill-opacity="0.08"/>
-          <rect x="34" y="34" width="732" height="532" fill="none" stroke="${color}" stroke-opacity="0.28" stroke-width="1.5"/>
-          <rect x="48" y="48" width="704" height="504" fill="none" stroke="${color}" stroke-opacity="0.15" stroke-width="1" stroke-dasharray="5 5"/>
-          <path d="M372 238 L400 214 L428 238 L400 262 Z" fill="none" stroke="${color}" stroke-opacity="0.52" stroke-width="1.5"/>
-          <circle cx="400" cy="238" r="3.5" fill="${color}" fill-opacity="0.6"/>
-          <text x="400" y="318" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#241f1b">${title}</text>
-          <text x="400" y="354" text-anchor="middle" font-family="sans-serif" font-size="16" fill="${color}" fill-opacity="0.88">${subtitle}</text>
-        </svg>
-      `;
-      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg.trim());
-    }
+    document.getElementById('navCurrentQuiz').addEventListener('click', (e) => {
+      e.preventDefault();
+      navLinks.classList.remove('open');
+    });
 
-    function setImageSafe(imgEl, src, artTitle, artSub, color, bg) {
-      imgEl.onerror = null;
-      imgEl.onerror = () => {
-        imgEl.onerror = null;
-        imgEl.src = makeEditorialArtwork(artTitle, artSub, color, bg);
-      };
-      imgEl.src = src;
-    }
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && e.target !== menuToggle) {
+        navLinks.classList.remove('open');
+      }
+    });
 
     function replayAnim(el, cls) {
       el.classList.remove(cls);
@@ -1462,330 +1727,437 @@
       }
     }
 
-    setImageSafe(
-      document.getElementById('coverImg'),
-      'images/cover.jpg',
-      'The Little Museum',
-      'inner child · ม.6/2569',
-      '#b35940',
-      '#eee6d9'
-    );
+    // ภาพสำรองสะอาด ๆ กรณีไฟล์ภาพในโฟลเดอร์ images/ ยังไม่ได้อัปโหลดขึ้นเซิร์ฟเวอร์
+    function makePaperPlaceholder(title, subtitle, accentColor = '#0D47E8') {
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+          <defs>
+            <pattern id="p" width="12" height="12" patternUnits="userSpaceOnUse">
+              <circle cx="2.5" cy="2.5" r="1.4" fill="${accentColor}" fill-opacity="0.16"/>
+            </pattern>
+          </defs>
+          <rect width="800" height="500" fill="#FAF6EC"/>
+          <circle cx="400" cy="250" r="180" fill="url(#p)"/>
+          <text x="400" y="242" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="26" fill="#1C1B22">${title}</text>
+          <text x="400" y="280" text-anchor="middle" font-family="sans-serif" font-weight="500" font-size="16" fill="${accentColor}">${subtitle}</text>
+        </svg>
+      `;
+      return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg.trim());
+    }
 
-    /* =====================================================
-       1. เรื่องราวก่อนเริ่ม (Teaser 3 หน้า)
-    ===================================================== */
-    const teaserSlides = [
-      {
-        image: 'images/teaser-1.jpg',
-        artTitle: 'คืนก่อนย้ายหอ',
-        artSub: 'ห้องนอนเดิมกับลังกระดาษ',
-        text: 'พรุ่งนี้เช้าคือวันที่เธอต้องย้ายไปอยู่หอพัก\nทั่วทั้งห้องนอนเต็มไปด้วยกล่องลัง เสื้อผ้า\nและข้าวของที่กำลังรอการเก็บลงกระเป๋า'
-      },
-      {
-        image: 'images/teaser-2.jpg',
-        artTitle: 'กล่องใบเก่าใต้เตียง',
-        artSub: 'ความทรงจำที่เกือบลืมไปแล้ว',
-        text: 'ตอนที่ก้มลงไปกวาดมุมลึกที่สุดใต้เตียง\nปลายนิ้วก็ไปชนเข้ากับกล่องกระดาษสีซีดใบหนึ่ง\nมีเทปใสเหลืองๆ แปะไว้พร้อมลายมือเด็กว่า “ห้ามทิ้ง”'
-      },
-      {
-        image: 'images/teaser-3.jpg',
-        artTitle: 'The Little Museum',
-        artSub: 'ประตูพิพิธภัณฑ์กำลังเปิดออก',
-        text: 'พอเปิดฝากล่องออก ของชิ้นเล็กชิ้นน้อยข้างใน\nก็เหมือนค่อยๆ พาความทรงจำในวันวานกลับมาทักทาย\nลองเดินเข้าไปดูกันนะ ว่าห้องไหนคือห้องของคุณ'
+    function setSafeImage(imgEl, src, title, subtitle, color) {
+      if (imgEl.dataset.currentSrc === src && imgEl.complete && imgEl.naturalWidth > 0) {
+        return;
       }
-    ];
+      imgEl.dataset.currentSrc = src;
+      imgEl.onerror = null;
+      imgEl.onerror = () => {
+        imgEl.onerror = null;
+        imgEl.src = makePaperPlaceholder(title, subtitle, color);
+      };
+      imgEl.src = src;
+    }
+
+    // โหลดภาพทั้ง 3 องก์ไว้ล่วงหน้าเพื่อไม่ให้กระพริบตอนเปลี่ยนข้อ
+    ['images/act1.jpg', 'images/act2.jpg', 'images/act3.jpg'].forEach(src => {
+      const pre = new Image();
+      pre.src = src;
+    });
 
     /* =====================================================
-       2. ตารางคะแนน 21 ข้อ × 4 ตัวเลือก (H, T, A, M, P, R, Y ห้องละ 12 ครั้งพอดี)
+       ธีมสีประจำ 3 องก์ (อ้างอิงโทนสีจริงของโลโก้ INNER CHILD 29)
+    ===================================================== */
+    const actThemes = {
+      1: { color: '#0D47E8', wash: '#EBF1FF', image: 'images/act1.jpg' },
+      2: { color: '#F25C19', wash: '#FFF0E8', image: 'images/act2.jpg' },
+      3: { color: '#D9488C', wash: '#FEEBF4', image: 'images/act3.jpg' }
+    };
+
+    function applyActTheme(actNo) {
+      const t = actThemes[actNo] || actThemes[1];
+      document.documentElement.style.setProperty('--act-color', t.color);
+      document.documentElement.style.setProperty('--act-wash', t.wash);
+    }
+
+    /* =====================================================
+       1. เนื้อเรื่องคั่นแต่ละองก์ (Story Chapters)
+    ===================================================== */
+    const storyChapters = {
+      act1: {
+        actNo: 1,
+        actLabel: 'องก์ที่ 1 The Discovery',
+        nextQIdx: 0,
+        slides: [
+          {
+            image: 'images/act1.jpg',
+            focus: '16% 62%',
+            zoom: 1.14,
+            caption: 'คืนก่อนย้ายไปเรียนมหาวิทยาลัย',
+            text: 'คุณกำลังเก็บของในห้องนอนเพื่อเตรียมย้ายไปเรียนมหาวิทยาลัย\nรอบห้องมีกระเป๋าและกล่องลังวางอยู่'
+          },
+          {
+            image: 'images/act1.jpg',
+            focus: '62% 45%',
+            zoom: 1.16,
+            caption: 'ใต้เตียง',
+            text: 'ระหว่างจัดของ คุณเห็นบางอย่างอยู่ใต้เตียง'
+          },
+          {
+            image: 'images/act1.jpg',
+            focus: '50% 50%',
+            zoom: 1,
+            caption: 'กล่องไม้เก่า',
+            text: 'คุณลองลากมันออกมา แล้วเจอกล่องไม้เก่า ๆ ใบหนึ่ง'
+          }
+        ]
+      },
+      act2_dream: {
+        actNo: 2,
+        actLabel: 'องก์ที่ 2 The Childhood',
+        nextQIdx: 6,
+        slides: [
+          {
+            image: 'images/act2.jpg',
+            focus: '50% 48%',
+            zoom: 1,
+            caption: 'ความฝัน',
+            text: 'คุณเผลอหลับไป แล้วฝันถึงเพื่อนในวัยเด็ก'
+          }
+        ]
+      },
+      act2_doll: {
+        actNo: 2,
+        actLabel: 'องก์ที่ 2 The Childhood',
+        nextQIdx: 7,
+        slides: [
+          {
+            image: 'images/act2.jpg',
+            focus: '52% 42%',
+            zoom: 1.16,
+            caption: 'ตุ๊กตาตัวโปรด',
+            text: 'ตอนที่กำลังเล่นด้วยกัน คุณพบว่าพอแตะตุ๊กตาตัวโปรด มันขยับได้'
+          }
+        ]
+      },
+      act3_call: {
+        actNo: 3,
+        actLabel: 'องก์ที่ 3 The Awakening',
+        nextQIdx: 16,
+        slides: [
+          {
+            image: 'images/act3.jpg',
+            focus: '18% 28%',
+            zoom: 1.15,
+            caption: 'เสียงเรียกในความฝัน',
+            text: 'คุณได้ยินเสียงแม่เรียกให้ตื่นดังแว่วเข้ามา\nเวลาในความฝันใกล้จะหมดลงแล้ว'
+          }
+        ]
+      },
+      act3_awake: {
+        actNo: 3,
+        actLabel: 'องก์ที่ 3 The Awakening',
+        nextQIdx: 20,
+        slides: [
+          {
+            image: 'images/act3.jpg',
+            focus: '50% 50%',
+            zoom: 1,
+            caption: 'หลังตื่นนอน',
+            text: 'คุณตื่นขึ้นมาในห้องนอน แล้วนึกถึงความฝันเมื่อครู่'
+          },
+          {
+            image: 'images/act3.jpg',
+            focus: '66% 48%',
+            zoom: 1.22,
+            caption: 'ข้างเตียง',
+            text: 'คุณกำลังจะลุกจากเตียง แต่เห็นตุ๊กตาตัวโปรดขยับเล็กน้อย'
+          }
+        ]
+      }
+    };
+
+    const interludeBeforeQIdx = {
+      6: 'act2_dream',
+      7: 'act2_doll',
+      16: 'act3_call',
+      20: 'act3_awake'
+    };
+
+    /* =====================================================
+       2. ตารางคะแนน 21 ข้อ × 4 ตัวเลือก (H, T, A, M, P, R, Y ครบแบบละ 12)
     ===================================================== */
     const scoringKey = {
-      1:  { A: 'H', B: 'T', C: 'A', D: 'M' },
-      2:  { A: 'T', B: 'A', C: 'M', D: 'P' },
-      3:  { A: 'A', B: 'M', C: 'P', D: 'R' },
-      4:  { A: 'M', B: 'P', C: 'R', D: 'Y' },
-      5:  { A: 'P', B: 'R', C: 'Y', D: 'H' },
-      6:  { A: 'R', B: 'Y', C: 'H', D: 'T' },
-      7:  { A: 'Y', B: 'H', C: 'T', D: 'A' },
+      1: { A: 'H', B: 'T', C: 'A', D: 'M' },
+      2: { A: 'T', B: 'A', C: 'M', D: 'P' },
+      3: { A: 'A', B: 'M', C: 'P', D: 'R' },
+      4: { A: 'M', B: 'P', C: 'R', D: 'Y' },
+      5: { A: 'P', B: 'R', C: 'T', D: 'H' },
+      6: { A: 'R', B: 'Y', C: 'H', D: 'T' },
+      7: { A: 'Y', B: 'H', C: 'T', D: 'A' },
 
-      8:  { A: 'H', B: 'A', C: 'P', D: 'Y' },
-      9:  { A: 'T', B: 'M', C: 'R', D: 'H' },
-      10: { A: 'A', B: 'P', C: 'Y', D: 'T' },
-      11: { A: 'M', B: 'R', C: 'H', D: 'A' },
-      12: { A: 'P', B: 'Y', C: 'T', D: 'M' },
-      13: { A: 'R', B: 'H', C: 'A', D: 'P' },
-      14: { A: 'Y', B: 'T', C: 'M', D: 'R' },
+      8: { A: 'H', B: 'T', C: 'A', D: 'M' },
+      9: { A: 'T', B: 'A', C: 'M', D: 'P' },
+      10: { A: 'A', B: 'M', C: 'P', D: 'R' },
+      11: { A: 'M', B: 'P', C: 'R', D: 'Y' },
+      12: { A: 'P', B: 'R', C: 'Y', D: 'H' },
+      13: { A: 'R', B: 'Y', C: 'H', D: 'T' },
+      14: { A: 'Y', B: 'H', C: 'T', D: 'A' },
 
-      15: { A: 'H', B: 'T', C: 'M', D: 'R' },
-      16: { A: 'T', B: 'A', C: 'P', D: 'Y' },
-      17: { A: 'A', B: 'M', C: 'R', D: 'H' },
-      18: { A: 'M', B: 'P', C: 'Y', D: 'T' },
-      19: { A: 'P', B: 'R', C: 'H', D: 'A' },
-      20: { A: 'R', B: 'Y', C: 'T', D: 'M' },
-      21: { A: 'Y', B: 'H', C: 'A', D: 'P' }
+      15: { A: 'H', B: 'T', C: 'A', D: 'M' },
+      16: { A: 'T', B: 'A', C: 'M', D: 'P' },
+      17: { A: 'A', B: 'M', C: 'P', D: 'R' },
+      18: { A: 'M', B: 'P', C: 'R', D: 'Y' },
+      19: { A: 'P', B: 'R', C: 'Y', D: 'H' },
+      20: { A: 'R', B: 'Y', C: 'H', D: 'Y' },
+      21: { A: 'Y', B: 'H', C: 'T', D: 'A' }
     };
 
     const priorityOrder = ['H', 'T', 'A', 'M', 'P', 'R', 'Y'];
 
     /* =====================================================
-       3. คำถามทั้ง 21 ข้อ
+       3. คำถามทั้ง 21 ข้อ (ใช้ภาพวาดมือจริงประจำองก์ พร้อมเลื่อนจุดโฟกัสให้รับกับฉาก)
     ===================================================== */
     const questions = [
+      // องก์ที่ 1 — THE DISCOVERY
       {
-        id: 1,
-        scene: 'เมื่อฝากล่องถูกเปิดออก',
-        image: 'images/q1.jpg',
-        text: 'ของชิ้นแรกที่มือคุณเอื้อมไปหยิบขึ้นมาดูคืออะไร?',
+        id: 1, actNo: 1, crop: '58% 60%',
+        scene: 'องก์ที่ 1 The Discovery',
+        text: 'เมื่อพบกล่องไม้เก่า ๆ ที่ซ่อนอยู่ใต้เตียง คุณจะทำอย่างไร?',
         choices: {
-          A: 'ตุ๊กตาผ้านุ่มสีซีดที่เคยกอดนอนทุกคืน',
-          B: 'โมเดลตัวจิ๋วที่ยังเก็บไว้ในถุงซิปล็อกอย่างดี',
-          C: 'ถุงลูกแก้วสีใสที่เคยเอาไปดีดแข่งกับเพื่อนหน้าบ้าน',
-          D: 'รูบิคสีถลอกๆ กับกล่องตัวต่อที่เคยนั่งเล่นจนดึก'
+          A: 'นึกถึงช่วงเวลาที่เคยใช้สิ่งของเหล่านี้ร่วมกับคนสำคัญ',
+          B: 'ปัดฝุ่นและสำรวจรายละเอียดของกล่องอย่างระมัดระวัง',
+          C: 'รีบเปิดกล่องทันที เพราะอยากรู้ว่ามีอะไรซ่อนอยู่',
+          D: 'จินตนาการว่ากล่องใบนี้อาจเก็บเรื่องราวอะไรเอาไว้'
         }
       },
       {
-        id: 2,
-        scene: 'ของหนึ่งชิ้นที่จะพกไปหอพัก',
-        image: 'images/q2.jpg',
-        text: 'ถ้ากระเป๋าเดินทางเหลือพื้นที่แค่ช่องเดียว คุณอยากพกอะไรติดตัวไปด้วย?',
+        id: 2, actNo: 1, crop: '55% 48%',
+        scene: 'องก์ที่ 1 The Discovery',
+        text: 'เมื่อพบตุ๊กตาตัวโปรดและของเล่นเก่ามากมาย คุณจะสนใจสิ่งใดเป็นพิเศษ?',
         choices: {
-          A: 'ฟิกเกอร์หรือกล่องจุ่มตัวโปรดไว้ตั้งข้างโต๊ะอ่านหนังสือ',
-          B: 'รองเท้าผ้าใบคู่ลุยหรืออุปกรณ์กีฬาที่พร้อมออกไปข้างนอกเสมอ',
-          C: 'ของเล่นชิ้นเล็กๆ หรือตัวต่อไว้หยิบจับแก้เบื่อเวลาคิดอะไรไม่ออก',
-          D: 'เมาส์ จอยเกม หรือเครื่องเล่นเกมพกพาคู่ใจ'
+          A: 'สำรวจรอยเย็บและรายละเอียดเล็ก ๆ บนตุ๊กตา',
+          B: 'ค้นหาของเล่นอื่น ๆ ที่อาจซ่อนอยู่ใต้กองของในกล่อง',
+          C: 'นำตุ๊กตามาจัดวางและจินตนาการเป็นฉากเรื่องราว',
+          D: 'หยิบเครื่องเล่นเกมเก่าขึ้นมาลองเปิดดู'
         }
       },
       {
-        id: 3,
-        scene: 'เสียงหัวเราะจากนอกหน้าต่าง',
-        image: 'images/q3.jpg',
-        text: 'ระหว่างเก็บของ คุณได้ยินเสียงเด็กๆ วิ่งเล่นข้างนอก ภาพแรกที่นึกถึงคือ?',
+        id: 3, actNo: 1, crop: '75% 56%',
+        scene: 'องก์ที่ 1 The Discovery',
+        text: 'เมื่อพบรูปถ่ายของตัวเองกับเพื่อนในวัยเด็ก คุณจะทำอะไร?',
         choices: {
-          A: 'สนามเด็กเล่นตอนเย็น แดดสีส้ม กับการวิ่งไล่จับจนหอบ',
-          B: 'การนั่งล้อมวงต่อเลโก้หรือร้อยลูกปัดแลกกันกับเพื่อน',
-          C: 'การรีบกลับบ้านหลังเลิกเรียนมาเปิดคอมเล่นเว็บเกมโปรด',
-          D: 'เสียงเพลงเปิดการ์ตูนเรื่องดังที่ลอยมาจากทีวีในห้องนั่งเล่น'
+          A: 'ค้นหาสิ่งของอื่น ๆ ที่เกี่ยวข้องกับวันนั้น',
+          B: 'จินตนาการว่าตอนนั้นทั้งสองคนกำลังเล่นอะไรกัน',
+          C: 'ลองเปิดเครื่องเล่นเกมเก่า เพราะอาจเป็นเกมที่เคยเล่นด้วยกัน',
+          D: 'ฮัมเพลงที่คิดว่าเคยฟังหรือร้องเล่นด้วยกันในวันนั้น'
         }
       },
       {
-        id: 4,
-        scene: 'มุมลึกที่สุดที่ก้นกล่อง',
-        image: 'images/q4.jpg',
-        text: 'ใต้กองสมุดเก่า คุณเจอของชิ้นหนึ่งที่ลืมไปแล้วว่าเคยเก็บไว้ มันคืออะไร?',
+        id: 4, actNo: 1, crop: '64% 30%',
+        scene: 'องก์ที่ 1 The Discovery',
+        text: 'หากกำลังนึกถึงวันที่มีความสุขในวัยเด็ก คุณจะนึกถึงอะไรเป็นพิเศษ?',
         choices: {
-          A: 'รถบังคับหรือของเล่นกลไกที่เคยลองแงะดูข้างใน',
-          B: 'กระดาษจดสูตรลับเกมที่เขียนด้วยลายมือโย้เย้',
-          C: 'แผ่นซีดีเพลงกับตั๋วหนังเรื่องแรกที่เคยไปดูในโรง',
-          D: 'ซองรูปถ่ายตอนเด็กกับชุดแฟนซีที่เคยใส่ขึ้นเวทีโรงเรียน'
+          A: 'เรื่องราวสนุก ๆ ที่เคยสร้างขึ้นจากจินตนาการของตัวเองและเพื่อน',
+          B: 'เกมหรือกิจกรรมที่เคยเล่นด้วยกัน',
+          C: 'เพลงหรือเสียงหัวเราะที่ทำให้จดจำวันนั้นได้',
+          D: 'รายละเอียดของรูปถ่าย เสื้อผ้า และบรรยากาศในวันนั้น'
         }
       },
       {
-        id: 5,
-        scene: 'คืนแรกในห้องที่ไม่คุ้นเคย',
-        image: 'images/q5.jpg',
-        text: 'คืนแรกที่ต้องนอนหอพักคนเดียว คุณจะทำอะไรให้ตัวเองสบายใจขึ้น?',
+        id: 5, actNo: 1, crop: '52% 48%',
+        scene: 'องก์ที่ 1 The Discovery',
+        text: 'เมื่อได้สัมผัสตุ๊กตาตัวโปรดอีกครั้ง คุณจะทำอะไร?',
         choices: {
-          A: 'เปิดเกมที่คุ้นเคยเล่นสักตา ให้สมองโฟกัสแล้วลืมความเหงา',
-          B: 'ใส่หูฟังเปิดเพลงโปรด หรือเปิดหนังเรื่องเดิมที่ดูแล้วอุ่นใจ',
-          C: 'เปิดดูรูปเก่าๆ ของที่บ้านกับเพื่อน แล้วเอามาตั้งไว้ข้างเตียง',
-          D: 'กอดหมอนข้างหรือตุ๊กตาตัวเดิมที่พกมาจากบ้านแน่นๆ'
+          A: 'นึกถึงเกมที่เคยเล่นกับตุ๊กตาตัวนี้ในวัยเด็ก',
+          B: 'นึกถึงเพลงที่เคยร้องเล่นกับตุ๊กตาตัวนี้',
+          C: 'สังเกตร่องรอยและรายละเอียดที่เปลี่ยนไปของตุ๊กตาตัวเดิม',
+          D: 'กอดตุ๊กตาตัวโปรดไว้แน่น ๆ เพราะรู้สึกผูกพันกับมัน'
         }
       },
       {
-        id: 6,
-        scene: 'ความทรงจำที่โผล่มาแบบไม่ทันตั้งตัว',
-        image: 'images/q6.jpg',
-        text: 'สิ่งไหนที่แค่นึกถึง ก็พาความรู้สึกตอนเป็นเด็กกลับมาได้ทันที?',
+        id: 6, actNo: 1, crop: '46% 38%',
+        scene: 'องก์ที่ 1 The Discovery',
+        text: 'เมื่อได้กลับมาเห็นเพื่อนในวัยเด็กอีกครั้ง คุณจะทำอย่างไร?',
         choices: {
-          A: 'ทำนองเพลงเก่าที่บังเอิญได้ยินตามร้านข้างทาง',
-          B: 'ภาพตัวเองตอนใส่ชุดนักเรียนประถมหรือชุดไทยในวันงานโรงเรียน',
-          C: 'กลิ่นน้ำยาปรับผ้านุ่มบนผ้าห่มผืนเก่าและน้องเน่าคู่ใจ',
-          D: 'ความตื่นเต้นตอนยืนเกาะตู้กระจกดูตุ๊กตาหรือโมเดลที่อยากได้'
+          A: 'ฮัมเพลงหรือร้องทักทายด้วยทำนองที่เคยร้องเล่นด้วยกัน',
+          B: 'ถ่ายภาพคู่กับเพื่อนเพื่อเก็บช่วงเวลาที่ได้กลับมาพบกันอีกครั้ง',
+          C: 'รีบเข้าไปทักทายด้วยความดีใจ เพราะคิดถึงช่วงเวลาที่เคยอยู่ด้วยกัน',
+          D: 'สังเกตสีหน้า ท่าทาง และรายละเอียดของเพื่อนที่ไม่ได้พบกันมานาน'
+        }
+      },
+
+      // องก์ที่ 2 — THE CHILDHOOD
+      {
+        id: 7, actNo: 2, crop: '50% 42%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'หากได้กลับมาเล่นกับเพื่อนในวัยเด็กอีกครั้ง คุณอยากเริ่มเล่นอะไร?',
+        choices: {
+          A: 'แต่งตัวให้ตุ๊กตาและจัดแฟชั่นโชว์ พร้อมถ่ายภาพเก็บไว้',
+          B: 'เล่นบ้านตุ๊กตาและสร้างเรื่องราวของครอบครัวหรือกลุ่มเพื่อน',
+          C: 'จัดเรียงเครื่องประดับและของจิ๋วเป็นร้านขายของ',
+          D: 'สร้างเกมตามหาสมบัติโดยซ่อนของเล่นไว้ตามมุมต่าง ๆ'
         }
       },
       {
-        id: 7,
-        scene: 'ถ้ากล่องนี้ย้อนเวลาได้หนึ่งวัน',
-        image: 'images/q7.jpg',
-        text: 'ถ้าเลือกกลับไปโผล่ในวันวานได้สักช่วงหนึ่ง คุณอยากกลับไปอยู่ตรงไหน?',
+        id: 8, actNo: 2, crop: '52% 36%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'เมื่อพบว่าตุ๊กตาตัวโปรดสามารถขยับได้ คุณจะทำอย่างไร?',
         choices: {
-          A: 'หน้ากระจกตอนกำลังลองชุดเจ้าหญิงหรือชุดตัวเก่ง',
-          B: 'บนเตียงนุ่มๆ เช้าวันหยุดที่ยังไม่ต้องรีบตื่นไปไหน',
-          C: 'มุมโต๊ะเล็กๆ ที่ตั้งใจจัดบ้านตุ๊กตาและวางโมเดลเรียงไว้',
-          D: 'ลานกว้างตอนเย็นที่เพื่อนตะโกนเรียกให้ลงไปโดดยางด้วยกัน'
+          A: 'พูดคุยกับตุ๊กตาเหมือนเป็นเพื่อนคนหนึ่งและชวนมาเล่นด้วยกัน',
+          B: 'สังเกตการเคลื่อนไหวและรายละเอียดของตุ๊กตาอย่างใกล้ชิด',
+          C: 'ทดลองสัมผัสตุ๊กตาในตำแหน่งต่าง ๆ เพื่อค้นพบความสามารถของมัน',
+          D: 'จินตนาการบุคลิกและตั้งเสียงพูดให้ตุ๊กตาเหมือนเป็นตัวละครในเรื่อง'
         }
       },
       {
-        id: 8,
-        scene: 'ในวันที่เหนื่อยกว่าปกติ',
-        image: 'images/q8.jpg',
-        text: 'เวลาเหนื่อยกับเรื่องเรียนหรือเรื่องรอบตัว วิธีพักใจที่ได้ผลที่สุดของคุณคือ?',
+        id: 9, actNo: 2, crop: '30% 48%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'หากกำลังสร้างบ้านให้กับตุ๊กตา คุณจะมีส่วนร่วมอย่างไร?',
         choices: {
-          A: 'ซุกตัวเงียบๆ บนเตียง ในพื้นที่ที่นุ่มนวลและปลอดภัย',
-          B: 'ออกไปเดินรับลม เล่นกีฬา หรือขยับตัวกลางแจ้งให้เหงื่อออก',
-          C: 'เข้าโลกเกม พาตัวเองไปลุยด่านให้ลืมเรื่องวุ่นวายสักพัก',
-          D: 'เปิดดูรูปเก่าๆ ย้อนดูว่าตัวเองผ่านมาไกลแค่ไหนแล้ว'
+          A: 'ตกแต่งบ้านด้วยสิ่งของชิ้นเล็ก ๆ ให้ดูสวยงามและมีรายละเอียดครบถ้วน',
+          B: 'ออกค้นหาวัสดุหรือของเล่นอื่น ๆ มาสร้างบ้านเพิ่มเติม',
+          C: 'สร้างบ้านในรูปแบบที่ไม่เหมือนใคร เช่น บ้านลอยฟ้าหรือปราสาทในเทพนิยาย',
+          D: 'กำหนดกติกาและภารกิจให้เพื่อนช่วยกันสร้างบ้านให้สำเร็จ'
         }
       },
       {
-        id: 9,
-        scene: 'จัดมุมใหม่ให้เป็นของตัวเอง',
-        image: 'images/q9.jpg',
-        text: 'เมื่อถึงเวลาจัดห้องหอพัก มุมแรกที่คุณอยากทำให้เสร็จคือมุมไหน?',
+        id: 10, actNo: 2, crop: '22% 56%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'หากได้สร้างการผจญภัยจากของเล่น คุณจะเลือกแนวทางแบบใด?',
         choices: {
-          A: 'ชั้นวางของจิ๋วที่จัดเรียงของสะสมไว้อย่างเป็นระเบียบ',
-          B: 'โต๊ะกว้างๆ สำหรับวางของเล่นฝึกคิดหรือของกุ๊กกิ๊กไว้หยิบเล่น',
-          C: 'มุมลำโพง โปสเตอร์หนัง หรือไฟอุ่นๆ ที่เปิดเพลงฟังได้ทั้งคืน',
-          D: 'มุมเตียงที่นุ่มสบายที่สุด เต็มไปด้วยหมอนกับผ้าห่มผืนโปรด'
+          A: 'กำหนดเส้นทางให้รถของเล่นเดินทางผ่านสิ่งกีดขวางต่าง ๆ',
+          B: 'สร้างโลกแฟนตาซีที่มีตัวละครและเรื่องราวเป็นของตัวเอง',
+          C: 'ตั้งภารกิจและด่านต่าง ๆ ให้เหมือนกำลังเล่นเกมผจญภัย',
+          D: 'แต่งเพลงหรือร้องเพลงประกอบการเดินทางของเหล่าตุ๊กตา'
         }
       },
       {
-        id: 10,
-        scene: 'วันเสาร์ที่ไม่มีการบ้านค้างอยู่เลย',
-        image: 'images/q10.jpg',
-        text: 'ถ้าได้วันหยุดว่างๆ แบบไม่ต้องรีบทำอะไรเลย คุณมักจะหมดเวลาไปกับเรื่องไหน?',
+        id: 11, actNo: 2, crop: '76% 30%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'เมื่อมีคีย์บอร์ดและตุ๊กตาอยู่ตรงหน้า คุณอยากทำอะไร?',
         choices: {
-          A: 'ชวนเพื่อนออกไปหาที่เที่ยวใหม่ๆ หรือหากิจกรรมทำข้างนอก',
-          B: 'นั่งเล่นเกมยาวๆ กับเพื่อน หรือสร้างบ้านในเกมต่อจากเมื่อวาน',
-          C: 'ลองแต่งตัวแมตช์ชุดใหม่ๆ แล้วถ่ายรูปเก็บไว้ดูเล่น',
-          D: 'เดินดูร้านของสะสม ส่องกล่องจุ่ม หรือจัดคอลเลกชันของตัวเอง'
+          A: 'คิดเรื่องราวและบทบาทให้ตุ๊กตาแต่ละตัวเพื่อจัดการแสดง',
+          B: 'สร้างเกมทายลำดับเสียงหรือกดปุ่มตามรูปแบบที่กำหนด',
+          C: 'เล่นทำนองเพลงและชวนตุ๊กตาทุกตัวเต้นไปตามจังหวะ',
+          D: 'จัดเสื้อผ้าและท่าทางของตุ๊กตาให้สวยงามเหมือนการถ่ายแบบ'
         }
       },
       {
-        id: 11,
-        scene: 'เมื่อเจอเรื่องที่แก้ไม่ตก',
-        image: 'images/q11.jpg',
-        text: 'เวลาเจอโจทย์ยากๆ ในชีวิต ส่วนใหญ่คุณรับมือกับมันแบบไหน?',
+        id: 12, actNo: 2, crop: '34% 78%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'หากได้แข่งขันเล่นเกมกับเพื่อน คุณจะชอบกิจกรรมแบบไหน?',
         choices: {
-          A: 'ค่อยๆ แยกปัญหาออกทีละส่วน แล้วลองประกอบวิธีใหม่ๆ ไปเรื่อยๆ',
-          B: 'เปิดเพลงฟังให้ใจเย็นลง แล้วค่อยๆ มองมันเหมือนเรื่องราวเรื่องหนึ่ง',
-          C: 'ใจดีกับตัวเองก่อน พักให้หายเหนื่อยแล้วค่อยกลับมาลองใหม่',
-          D: 'ลุยลงมือทำเลย ผิดพลาดตรงไหนค่อยปรับแก้กันหน้างาน'
+          A: 'เล่นเกมแก้ปริศนาหรือเกมที่ต้องใช้คะแนนและการวางแผน',
+          B: 'แข่งขันร้องเพลงหรือทำจังหวะให้ตรงกับทำนอง',
+          C: 'แข่งขันแต่งตัวตุ๊กตาและจัดท่าถ่ายภาพให้สวยที่สุด',
+          D: 'เล่นเกมเป็นทีมกับเพื่อนและช่วยกันทำภารกิจให้สำเร็จ'
         }
       },
       {
-        id: 12,
-        scene: 'พัสดุเซอร์ไพรส์หน้าห้อง',
-        image: 'images/q12.jpg',
-        text: 'ถ้ามีคนส่งของขวัญมาให้ในวันเกิด อะไรที่เปิดกล่องมาแล้วจะยิ้มกว้างที่สุด?',
+        id: 13, actNo: 2, crop: '58% 66%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'เมื่อพบของสะสมและสิ่งของชิ้นเล็ก ๆ มากมาย คุณจะทำอะไร?',
         choices: {
-          A: 'เกมที่เล็งไว้นานแล้ว หรืออุปกรณ์เสริมสำหรับสายเกม',
-          B: 'กล้องฟิล์ม กรอบรูป หรือเสื้อผ้าสไตล์ที่ใส่แล้วมั่นใจ',
-          C: 'โมเดลรุ่นหายากหรือตุ๊กตาตัวจิ๋วที่ตามหามานาน',
-          D: 'ชุดตัวต่อเลโก้กล่องใหญ่ หรือของเล่นกลไกที่ประกอบเองได้'
+          A: 'ร้องเพลงหรือฮัมทำนองไปพร้อมกับจัดของเล่นต่าง ๆ',
+          B: 'นำของสะสมมาจัดเป็นฉากและถ่ายภาพเก็บไว้',
+          C: 'เลือกของชิ้นหนึ่งที่มีความหมาย เพราะทำให้นึกถึงเพื่อนและช่วงเวลาที่เคยเล่นด้วยกัน',
+          D: 'แยกของสะสมตามสี ขนาด หรือรูปร่าง พร้อมสังเกตว่ามีชิ้นไหนหายไปหรือไม่'
         }
       },
       {
-        id: 13,
-        scene: 'ในสายตาของเพื่อนสนิท',
-        image: 'images/q13.jpg',
-        text: 'ถ้าถามเพื่อนว่าเวลาอยู่กับคุณแล้วนึกถึงอะไร เพื่อนน่าจะตอบว่า?',
+        id: 14, actNo: 2, crop: '48% 34%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'หากได้แต่งตัวให้ตุ๊กตา คุณจะสนุกกับส่วนไหนมากที่สุด?',
         choices: {
-          A: 'คนคุมเพลง ชอบแนะนำหนังและเล่าเรื่องต่างๆ ได้น่าฟัง',
-          B: 'ที่พักใจประจำกลุ่ม คอยรับฟังเวลาใครสักคนไม่สบายใจ',
-          C: 'ตัวเปิดกิจกรรม ชวนเพื่อนออกไปทำอะไรสนุกๆ อยู่เสมอ',
-          D: 'สายวางแผน ไหวพริบดี เล่นอะไรก็จริงจังจนเพื่อนต้องยอม'
+          A: 'เลือกชุดและจัดท่าทางตุ๊กตาเพื่อถ่ายภาพแฟชั่นโชว์',
+          B: 'จัดงานเลี้ยงน้ำชาให้ตุ๊กตาและเพื่อน ๆ ได้นั่งเล่นด้วยกัน',
+          C: 'ปรับเสื้อผ้าและเครื่องประดับชิ้นเล็ก ๆ ให้พอดีและสวยงาม',
+          D: 'สร้างภารกิจตามหาชุดลับหรือเครื่องประดับที่ซ่อนอยู่ในห้อง'
         }
       },
       {
-        id: 14,
-        scene: 'สมบัติที่หวงที่สุดตอนเด็ก',
-        image: 'images/q14.jpg',
-        text: 'สมัยเด็ก ถ้ามีคนมาขอหยิบของรักของคุณไปเล่น คุณจะหวงชิ้นไหนมากที่สุด?',
+        id: 15, actNo: 2, crop: '72% 72%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'หากต้องสร้างบ้านหลังสุดท้ายให้ตุ๊กตา คุณจะเลือกทำอะไร?',
         choices: {
-          A: 'ชุดตัวเก่งหรือเครื่องประดับที่เอาไว้ใส่เฉพาะวันพิเศษ',
-          B: 'ตุ๊กตาบาร์บี้ โมเดล หรือกันดั้มที่ตั้งใจจัดท่าไว้เป๊ะๆ',
-          C: 'กล่องเลโก้หรือลูกปัดที่แยกสีและต่อค้างเอาไว้',
-          D: 'แผ่นการ์ตูนหรือซีดีเพลงแผ่นโปรดที่กลัวจะเป็นรอย'
+          A: 'ชวนเพื่อนช่วยกันสร้างบ้านที่ทุกตัวอยู่ร่วมกันอย่างมีความสุข',
+          B: 'ตามหาของตกแต่งชิ้นเล็ก ๆ เพื่อทำให้บ้านสมบูรณ์ที่สุด',
+          C: 'ออกสำรวจรอบห้องเพื่อหาวัสดุใหม่ ๆ มาสร้างบ้าน',
+          D: 'ออกแบบบ้านในจินตนาการให้มีห้องลับและสิ่งมหัศจรรย์ต่าง ๆ'
         }
       },
       {
-        id: 15,
-        scene: 'คืนที่ฝนตกหนัก',
-        image: 'images/q15.jpg',
-        text: 'คืนที่ฝนเทลงมาจนออกไปไหนไม่ได้ บรรยากาศแบบไหนที่คุณชอบที่สุด?',
+        id: 16, actNo: 2, crop: '50% 46%',
+        scene: 'องก์ที่ 2 The Childhood',
+        text: 'เมื่อรู้ว่าของเล่นมีชีวิตเฉพาะตอนที่คุณสัมผัส คุณจะทำอย่างไร?',
         choices: {
-          A: 'ห่มผ้าหนาๆ กอดตุ๊กตาฟังเสียงฝนกระทบหน้าต่างเบาๆ',
-          B: 'เปิดโคมไฟอุ่นๆ นั่งจัดและเช็ดทำความสะอาดของสะสมชิ้นโปรด',
-          C: 'หยิบงานประดิษฐ์ รูบิค หรือของเล่นฝึกสมาธิมานั่งทำเพลินๆ',
-          D: 'เปิดหนังเรื่องโปรดหรือฟังเพลงเบาๆ คลอไปกับเสียงฝน'
+          A: 'สังเกตการเปลี่ยนแปลงเล็ก ๆ น้อย ๆ ของตุ๊กตาเมื่อสัมผัสและปล่อยมือ',
+          B: 'ทดลองแตะของเล่นหลาย ๆ ชิ้นเพื่อดูว่าแต่ละตัวจะมีท่าทางอย่างไร',
+          C: 'จินตนาการว่าของเล่นแต่ละตัวมีบุคลิกและเรื่องราวของตัวเอง',
+          D: 'คิดเกมที่ให้เพื่อนผลัดกันแตะของเล่นเพื่อทำภารกิจให้สำเร็จ'
+        }
+      },
+
+      // องก์ที่ 3 — THE AWAKENING
+      {
+        id: 17, actNo: 3, crop: '24% 34%',
+        scene: 'องก์ที่ 3 The Awakening',
+        text: 'หากมีเวลาเล่นกับเพื่อนอีกเพียงหนึ่งเกม คุณจะเลือกทำอะไร?',
+        choices: {
+          A: 'สร้างด่านผจญภัยสุดท้ายที่ต้องช่วยกันผ่านให้สำเร็จ',
+          B: 'แต่งเรื่องราวการเดินทางครั้งสุดท้ายของเหล่าตุ๊กตา',
+          C: 'เล่นเกมด่านสุดท้ายเพื่อทำคะแนนให้ดีที่สุด',
+          D: 'ร้องเพลงที่ชอบด้วยกันก่อนจบการเล่นในวันนี้'
         }
       },
       {
-        id: 16,
-        scene: 'โลกจำลองใบเล็กของคุณ',
-        image: 'images/q16.jpg',
-        text: 'ถ้าสร้างโลกเล็กๆ ของตัวเองขึ้นมาได้หนึ่งใบ มันจะมีหน้าตาเป็นแบบไหน?',
+        id: 18, actNo: 3, crop: '52% 46%',
+        scene: 'องก์ที่ 3 The Awakening',
+        text: 'หากต้องสร้างฉากสุดท้ายจากของเล่นทั้งหมด คุณจะเลือกทำอย่างไร?',
         choices: {
-          A: 'เมืองจิ๋วที่ทุกตึกและตัวละครมีรายละเอียดเล็กๆ น่ารักไปหมด',
-          B: 'ทุ่งหญ้ากว้างกับสวนสนุกกลางแจ้งที่วิ่งเล่นได้ไม่มีเบื่อ',
-          C: 'โลกพิกเซลหรือดินแดนแฟนตาซีที่มีภารกิจให้ผจญภัยไม่รู้จบ',
-          D: 'ห้องเก็บภาพที่รวบรวมทุกช่วงเวลาดีๆ ในชีวิตเอาไว้ด้วยกัน'
+          A: 'สร้างเรื่องราวและจัดวางตัวละครให้กลายเป็นฉากหนึ่งในจินตนาการ',
+          B: 'วางของเล่นเป็นลำดับและสร้างปริศนาให้เพื่อนลองเล่น',
+          C: 'เปิดเพลงหรือเล่นทำนองที่ทำให้ของเล่นทุกตัวเหมือนกำลังเต้นอยู่ด้วยกัน',
+          D: 'จัดวางของเล่นให้สวยงามและถ่ายภาพเก็บไว้เป็นความทรงจำ'
         }
       },
       {
-        id: 17,
-        scene: 'ความภูมิใจเงียบๆ ในใจ',
-        image: 'images/q17.jpg',
-        text: 'ช่วงเวลาไหนที่ทำให้คุณรู้สึกว่า “เราก็โตขึ้นมาได้ดีเหมือนกันนะ”?',
+        id: 19, actNo: 3, crop: '32% 62%',
+        scene: 'องก์ที่ 3 The Awakening',
+        text: 'เมื่อถึงเวลาต้องแยกย้ายกับเพื่อน คุณจะทำอะไร?',
         choices: {
-          A: 'ตอนที่กล้าออกไปลองทำอะไรใหม่ๆ ที่ไม่เคยทำมาก่อนจนสำเร็จ',
-          B: 'ตอนที่เปลี่ยนไอเดียในหัวให้กลายเป็นของจริงที่จับต้องได้',
-          C: 'ตอนที่เข้าใจความรู้สึกของตัวเองและเล่ามันออกมาได้ชัดขึ้น',
-          D: 'ตอนที่ยังรักษาความอ่อนโยนไว้ได้ แม้จะผ่านวันที่หนักหนามา'
+          A: 'เล่นเกมเล็ก ๆ ร่วมกันอีกครั้งและบันทึกคะแนนสุดท้ายเอาไว้',
+          B: 'ร้องเพลงที่เคยร้องด้วยกันเพื่อจดจำช่วงเวลานี้',
+          C: 'ถ่ายภาพคู่กับเพื่อนและตุ๊กตาทุกตัวไว้เป็นที่ระลึก',
+          D: 'บอกเพื่อนว่าดีใจที่ได้เล่นด้วยกันและอยากกลับมาเจอกันอีก'
         }
       },
       {
-        id: 18,
-        scene: 'ช่วงเวลาที่เผลอลืมดูนาฬิกา',
-        image: 'images/q18.jpg',
-        text: 'กิจกรรมแบบไหนที่พอได้เริ่มทำแล้ว เงยหน้ามาอีกทีก็ผ่านไปหลายชั่วโมง?',
+        id: 20, actNo: 3, crop: '42% 66%',
+        scene: 'องก์ที่ 3 The Awakening',
+        text: 'ก่อนจะหลับไป คุณอยากทำอะไรเป็นสิ่งสุดท้าย?',
         choices: {
-          A: 'การต่อบล็อก ร้อยลูกปัด หรือลองประดิษฐ์ของเล่นชิ้นใหม่',
-          B: 'การลงดันเจี้ยน สร้างบ้านใน Minecraft หรือเล่นเกมกับเพื่อน',
-          C: 'การเลือกชุด ถ่ายรูป และจัดเรียงภาพความทรงจำในอัลบั้ม',
-          D: 'การแต่งตัวตุ๊กตา จัดฉากถ่ายรูปโมเดล หรือประกอบหุ่นยนต์'
+          A: 'ฮัมเพลงเบา ๆ ให้ตัวเองและตุ๊กตาฟังจนเผลอหลับไป',
+          B: 'มองภาพถ่ายของตัวเองกับเพื่อน แล้วจดจำรายละเอียดของวันนั้นไว้',
+          C: 'กอดตุ๊กตาตัวโปรดเอาไว้ เพราะรู้สึกอบอุ่นและปลอดภัย',
+          D: 'มองตุ๊กตาตัวโปรดอีกครั้งและจดจำภาพนี้ไว้เป็นความทรงจำก่อนหลับ'
         }
       },
       {
-        id: 19,
-        scene: 'ก่อนปิดประตูห้องนอนเก่า',
-        image: 'images/q19.jpg',
-        text: 'ตอนที่หันกลับมามองห้องที่อยู่มาตั้งแต่เด็กเป็นครั้งสุดท้าย คุณคิดอะไรอยู่?',
+        id: 21, actNo: 3, crop: '64% 48%',
+        scene: 'องก์ที่ 3 The Awakening',
+        text: 'หากตุ๊กตาตัวโปรดขยับได้เล็กน้อยหลังจากคุณตื่นขึ้นมา คุณจะทำอย่างไร?',
         choices: {
-          A: 'เหมือนกำลังผ่านด่านแรก เพื่อไปเริ่มด่านใหม่ที่ท้าทายกว่าเดิม',
-          B: 'เหมือนฉากจบซีซันหนึ่งของหนัง ที่มีเพลงตอนจบค่อยๆ ดังขึ้น',
-          C: 'ขอบคุณห้องนี้นะ ที่คอยโอบกอดและเป็นที่พักใจให้เราเสมอมา',
-          D: 'พร้อมแล้ว ออกไปเจอกับโลกใบกว้างข้างนอกกันเถอะ'
-        }
-      },
-      {
-        id: 20,
-        scene: 'ของที่ระลึกก่อนเดินออก',
-        image: 'images/q20.jpg',
-        text: 'ก่อนเดินออกจากพิพิธภัณฑ์ใบเล็กนี้ คุณหยิบของติดมือกลับไปได้หนึ่งชิ้น คุณเลือก...',
-        choices: {
-          A: 'เทปคาสเซตต์ที่อัดเสียงเพลงและเรื่องราวตอนเด็กไว้ทั้งหมด',
-          B: 'รูปโพลารอยด์ใบเดียวที่เก็บภาพรอยยิ้มของคุณในวันวาน',
-          C: 'พวงกุญแจตุ๊กตาจิ๋วที่เป็นตัวแทนของโลกใบเล็กในใจคุณ',
-          D: 'กล่องชิ้นส่วนสารพัดนึกที่เอาไปต่อเป็นอะไรก็ได้ตามใจคิด'
-        }
-      },
-      {
-        id: 21,
-        scene: 'ข้อความสุดท้ายบนฝากล่อง',
-        image: 'images/q21.jpg',
-        text: 'ก่อนปิดฝากล่องความทรงจำเพื่อออกเดินทาง คุณอยากเขียนอะไรแปะไว้หน้ากล่อง?',
-        choices: {
-          A: 'ไม่ว่าจะโตไปไกลแค่ไหน วันวานของเธอก็ยังงดงามเสมอ',
-          B: 'ขอบคุณที่ยังอยู่ตรงนี้ คอยกอดเราไว้ในวันที่เหนื่อยนะ',
-          C: 'อย่าหยุดซน แล้วก็อย่าหยุดวิ่งตามความฝันข้างนอกนั่นนะ',
-          D: 'ไว้มาเริ่มเกมบทใหม่ไปด้วยกันนะ เจ้าเด็กน้อย'
+          A: 'ถ่ายภาพหรือเขียนบันทึกช่วงเวลานี้ไว้ เพื่อเก็บเป็นความทรงจำอีกหนึ่งเรื่อง',
+          B: 'หยิบตุ๊กตาขึ้นมากอดและยิ้มให้ เพราะรู้สึกเหมือนได้พบเพื่อนเก่าอีกครั้ง',
+          C: 'สังเกตตำแหน่งและรายละเอียดของตุ๊กตาอย่างใกล้ชิด เพื่อดูว่ามันเปลี่ยนไปอย่างไร',
+          D: 'ทดลองสัมผัสตุ๊กตาอีกครั้งเพื่อค้นหาว่ามันจะขยับได้อย่างไร'
         }
       }
     ];
 
     /* =====================================================
-       4. ข้อมูลทั้ง 7 ห้อง
+       4. ข้อมูลทั้ง 7 ห้อง (โทนสีตรงกับภาพวาดมือและโลโก้)
     ===================================================== */
     const roomResults = {
       H: {
@@ -1793,77 +2165,77 @@
         name: 'Hugs of Memories',
         subtitle: 'ห้องแห่งน้องเน่าและอ้อมกอด',
         image: 'images/room-H.jpg',
-        color: '#b6604a',
-        wash: '#f8ece8',
-        traits: ['อบอุ่น', 'อ่อนโยน', 'พื้นที่ปลอดภัย'],
-        personality: 'คุณเป็นคนที่ให้คุณค่ากับความสบายใจและความผูกพันมากกว่าสิ่งอื่นใด แม้ภายนอกจะเติบโตและดูเข้มแข็งแค่ไหน แต่ลึกๆ แล้วคุณมักเก็บมุมอ่อนโยนเอาไว้เสมอ และบ่อยครั้งคุณเองก็กลายเป็นพื้นที่ปลอดภัยที่คนรอบข้างอยากแวะมาพักพิง',
-        meaning: 'ห้องที่เก็บรักษาความนุ่มนวลจากตุ๊กตาคู่ใจ หมอนข้าง และอ้อมกอดในวันวาน เพื่อย้ำเตือนว่าความอ่อนโยนคือพลังที่ช่วยดูแลหัวใจเราได้เสมอ'
+        color: '#E86A17',
+        wash: '#FFF1E6',
+        traits: ['อบอุ่น', 'รักความสบายใจ'],
+        personality: 'คุณให้ความสำคัญกับความสบายใจและความผูกพัน คุณยังคงเก็บมุมอ่อนโยนของตัวเองไว้เสมอ คนใกล้ตัวจึงสบายใจเมื่อได้อยู่กับคุณ',
+        meaning: 'ห้องนี้รวมตุ๊กตาคู่ใจและหมอนใบเก่าจากวัยเด็ก ของเหล่านี้ช่วยปลอบใจคุณได้เสมอในวันที่เหนื่อย'
       },
       T: {
         zoneNo: '02',
         name: 'Tiny Treasures',
         subtitle: 'ห้องแห่งตุ๊กตาโมเดลและโลกใบจิ๋ว',
         image: 'images/room-T.jpg',
-        color: '#946274',
-        wash: '#f6edf0',
-        traits: ['ช่างสังเกต', 'ใส่ใจรายละเอียด', 'มีโลกส่วนตัว'],
-        personality: 'คุณมักมองเห็นเสน่ห์ในสิ่งเล็กๆ ที่คนอื่นเผลอมองข้าม มีรสนิยมและมุมมองเฉพาะตัว ชอบค่อยๆ จัดวางพื้นที่ของตัวเองให้ลงตัว และมีโลกแห่งจินตนาการเงียบๆ ที่แสนพิเศษซ่อนอยู่ในใจ',
-        meaning: 'ห้องที่รวบรวมโลกใบจิ๋วจากตุ๊กตา โมเดล กล่องจุ่ม และหุ่นยนต์ เพราะความสุขไม่ได้วัดกันที่ขนาด แต่อาจซ่อนอยู่ในรายละเอียดเล็กๆ ที่เราตั้งใจเก็บรักษาไว้'
+        color: '#D9458E',
+        wash: '#FEEBF4',
+        traits: ['ช่างสังเกต', 'มีโลกส่วนตัว'],
+        personality: 'คุณสังเกตเห็นรายละเอียดเล็ก ๆ ที่คนอื่นมองข้าม คุณมีรสนิยมชัดเจนและชอบจัดพื้นที่ของตัวเองให้เข้าที่',
+        meaning: 'ห้องนี้รวมตุ๊กตา โมเดล และของจิ๋วที่เก็บสะสมไว้ ของชิ้นเล็กแต่ละชิ้นมีความหมายในตัวมันเอง'
       },
       A: {
         zoneNo: '03',
         name: 'Adventures in Childhood',
         subtitle: 'ห้องแห่งการละเล่นและการผจญภัย',
         image: 'images/room-A.jpg',
-        color: '#5a7e69',
-        wash: '#edf4ef',
-        traits: ['รักอิสระ', 'กล้าลองสิ่งใหม่', 'สดใส'],
-        personality: 'เด็กน้อยในตัวคุณไม่เคยหยุดอยากรู้อยากเห็น คุณเรียนรู้ได้ดีที่สุดจากการลงมือทำจริง ชอบเปิดรับประสบการณ์ใหม่ๆ และมักพกพลังความสดใสที่เป็นธรรมชาติไปทำให้บรรยากาศรอบตัวมีชีวิตชีวาเสมอ',
-        meaning: 'ห้องแห่งความทรงจำกลางแจ้ง สนามเด็กเล่น และเสียงหัวเราะ เพื่อเตือนใจให้เรากล้าก้าวออกไปสำรวจโลกใบใหญ่ด้วยหัวใจที่ยังซุกซนเหมือนวันวาน'
+        color: '#1E9A53',
+        wash: '#E8F7EE',
+        traits: ['รักอิสระ', 'ชอบลงมือทำ'],
+        personality: 'คุณอยากลองสิ่งใหม่อยู่เสมอ คุณเรียนรู้ได้ดีเมื่อได้ลงมือทำจริง และมักชวนคนรอบตัวออกมาทำกิจกรรมด้วยกัน',
+        meaning: 'ห้องนี้เล่าถึงการละเล่นกลางแจ้งและสนามเด็กเล่นตอนเย็น ช่วงเวลาที่ได้วิ่งเล่นกับเพื่อนอย่างเต็มที่'
       },
       M: {
         zoneNo: '04',
         name: 'Moods with Toys',
         subtitle: 'ห้องแห่งของเล่นและจินตนาการ',
         image: 'images/room-M.jpg',
-        color: '#ad7b34',
-        wash: '#f8f2e6',
-        traits: ['ช่างคิด', 'ชอบลองผิดลองถูก', 'สนุกกับไอเดียใหม่'],
-        personality: 'คุณเป็นคนช่างคิดที่มองเห็นความเป็นไปได้ใหม่ๆ อยู่เสมอ ชอบหยิบจับสิ่งรอบตัวมาลองรื้อ ลองประกอบ และดัดแปลงในแบบของตัวเอง แม้เวลาเจอเรื่องยาก คุณก็มักหาทางออกที่ไม่เหมือนใครได้เสมอ',
-        meaning: 'ห้องที่เต็มไปด้วยลูกปัด รูบิค เลโก้ และของเล่นสารพัดชนิด เพื่อบอกว่าจินตนาการในวัยเด็กคือจุดเริ่มต้นของความคิดสร้างสรรค์ที่ยังพาเราไปต่อได้ในวันนี้'
+        color: '#0D47E8',
+        wash: '#EBF1FF',
+        traits: ['ช่างคิด', 'ชอบลองผิดลองถูก'],
+        personality: 'คุณชอบรื้อ ประกอบ และดัดแปลงของรอบตัวในแบบของตัวเอง เวลาเจอปัญหา คุณมักลองวิธีใหม่ที่ต่างจากเดิม',
+        meaning: 'ห้องนี้เต็มไปด้วยรูบิค เลโก้ และของเล่นประกอบ ของเล่นเหล่านี้เป็นจุดเริ่มต้นของความคิดสร้างสรรค์ในวันนี้'
       },
       P: {
         zoneNo: '05',
         name: 'Enjoy the Pixels',
         subtitle: 'ห้องแห่งเกมและโลกพิกเซล',
         image: 'images/room-P.jpg',
-        color: '#556a8e',
-        wash: '#edf1f7',
-        traits: ['ไหวพริบดี', 'โฟกัสเก่ง', 'ชอบความท้าทาย'],
-        personality: 'คุณเป็นคนหัวไว ช่างวางแผน และมองอุปสรรคเป็นเหมือนด่านที่รอให้ผ่านไปให้ได้ เมื่อสนใจหรือตั้งใจกับเรื่องไหนแล้วคุณจะทุ่มเทเต็มที่ และสนุกกับการค่อยๆ พัฒนาตัวเองให้เก่งขึ้นทีละนิด',
-        meaning: 'ห้องแห่งความสนุกหลังหน้าจอคอมพิวเตอร์และเครื่องเล่นเกม เพื่อย้ำเตือนว่าชีวิตก็มีทั้งด่านง่ายและด่านยาก และทุกครั้งที่พลาดคือโอกาสให้เรากลับมาเริ่มใหม่ได้ดีกว่าเดิม'
+        color: '#1A6FE3',
+        wash: '#E8F3FF',
+        traits: ['วางแผนเก่ง', 'โฟกัสดี'],
+        personality: 'คุณคิดไวและชอบวางแผนก่อนลงมือทำ เมื่อสนใจเรื่องไหน คุณจะตั้งใจทำจนกว่าจะผ่านไปได้',
+        meaning: 'ห้องนี้เก็บความทรงจำจากเครื่องเล่นเกมและหน้าจอคอมพิวเตอร์ ทุกครั้งที่เล่นพลาด คุณกลับมาเริ่มใหม่ให้ดีกว่าเดิมได้'
       },
       R: {
         zoneNo: '06',
         name: 'Travel Through Tunes',
         subtitle: 'ห้องแห่งหนัง เพลง และเรื่องเล่า',
         image: 'images/room-R.jpg',
-        color: '#4b767b',
-        wash: '#ecf3f4',
-        traits: ['ละเอียดอ่อน', 'เข้าใจความรู้สึก', 'อินกับเรื่องราว'],
-        personality: 'ความทรงจำของคุณมักผูกไว้กับเสียงเพลงและเรื่องราวที่ผ่านเข้ามา คุณเข้าใจความรู้สึกของคนอื่นได้ดี มีความลึกซึ้งทางอารมณ์ และมักมองเห็นความหมายเล็กๆ ที่งดงามซ่อนอยู่ในวันธรรมดา',
-        meaning: 'ห้องที่เก็บท่วงทำนองจากแผ่นซีดี การ์ตูน และหนังเรื่องโปรด เพราะเสียงเพลงกับเรื่องเล่าคือสิ่งที่พาเราย้อนกลับไปสัมผัสความรู้สึกในวันวานได้ชัดเจนที่สุด'
+        color: '#0E8BC2',
+        wash: '#E6F5FC',
+        traits: ['ละเอียดอ่อน', 'อินกับเรื่องเล่า'],
+        personality: 'ความทรงจำของคุณมักผูกกับเพลงและเรื่องเล่า คุณรับรู้ความรู้สึกของคนอื่นได้ดี และจำรายละเอียดของวันธรรมดาได้แม่น',
+        meaning: 'ห้องนี้รวมแผ่นซีดี เพลง และหนังจากวัยเด็ก ทำนองเก่า ๆ มักพาความทรงจำในวันนั้นกลับมาได้ทันที'
       },
       Y: {
         zoneNo: '07',
         name: 'Soon to Be Yesterday',
         subtitle: 'ห้องแห่งภาพวัยเด็กและชุดวันวาน',
         image: 'images/room-Y.jpg',
-        color: '#8d674a',
-        wash: '#f6efe9',
-        traits: ['ช่างจดจำ', 'เป็นตัวของตัวเอง', 'ให้คุณค่ากับเวลา'],
-        personality: 'คุณเป็นคนที่ให้คุณค่ากับร่องรอยของการเติบโต ช่างจดจำช่วงเวลาสำคัญ มีสไตล์และความเป็นตัวเองชัดเจน และเชื่อว่าทุกตัวตนของเราในอดีตล้วนเป็นส่วนหนึ่งที่ทำให้เราเป็นเราในวันนี้',
-        meaning: 'ห้องแห่งรูปถ่าย ตู้เสื้อผ้า และชุดวัยเด็ก เพื่อเฉลิมฉลองการเดินทางที่ผ่านมา และบอกว่าแม้ “วันนี้” จะกลายเป็น “เมื่อวาน” ในไม่ช้า แต่ความทรงจำจะยังอยู่กับเราเสมอ'
+        color: '#E8531C',
+        wash: '#FFEEE7',
+        traits: ['ช่างจดจำ', 'เป็นตัวของตัวเอง'],
+        personality: 'คุณชอบเก็บบันทึกช่วงเวลาสำคัญและจำเรื่องราวที่ผ่านมาได้ดี คุณมีสไตล์ชัดเจนและยอมรับทุกช่วงวัยที่ผ่านมาของตัวเอง',
+        meaning: 'ห้องนี้จัดแสดงรูปถ่ายและเสื้อผ้าในวัยเด็ก เพื่อเก็บช่วงเวลาวันนี้ไว้ก่อนจะกลายเป็นเมื่อวาน'
       }
     };
 
@@ -1871,6 +2243,7 @@
        5. STATE & FLOW CONTROLLER
     ===================================================== */
     let currentScreenName = 'cover';
+    let activeStoryChapter = storyChapters.act1;
     let currentStoryIdx = 0;
     let currentQIdx = 0;
     let userAnswers = {};
@@ -1890,6 +2263,7 @@
     function switchScreen(nextName, onBeforeEnter) {
       if (isTransitioning || currentScreenName === nextName) return;
       isTransitioning = true;
+      navLinks.classList.remove('open');
       clearFocus();
 
       const prevEl = screens[currentScreenName];
@@ -1905,54 +2279,70 @@
         nextEl.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        setTimeout(() => { isTransitioning = false; }, 220);
-      }, 190);
+        setTimeout(() => { isTransitioning = false; }, 190);
+      }, 160);
+    }
+
+    function openStoryChapter(chapterKey) {
+      activeStoryChapter = storyChapters[chapterKey];
+      currentStoryIdx = 0;
+      applyActTheme(activeStoryChapter.actNo);
+      const content = document.getElementById('storyContent');
+      content.style.opacity = '1';
+      switchScreen('story', () => renderStorySlide());
     }
 
     document.getElementById('btnStart').addEventListener('click', () => {
-      currentStoryIdx = 0;
-      switchScreen('story', () => renderStorySlide());
+      openStoryChapter('act1');
     });
 
     function renderStorySlide() {
-      const slide = teaserSlides[currentStoryIdx];
-      document.getElementById('storyCounter').textContent = `${currentStoryIdx + 1} / ${teaserSlides.length}`;
+      const slides = activeStoryChapter.slides;
+      const slide = slides[currentStoryIdx];
+      applyActTheme(activeStoryChapter.actNo);
+
+      document.getElementById('storyAct').textContent = activeStoryChapter.actLabel;
+      document.getElementById('storyCaption').textContent = slide.caption;
       document.getElementById('storyText').textContent = slide.text;
 
-      setImageSafe(
-        document.getElementById('storyImg'),
-        slide.image,
-        slide.artTitle,
-        slide.artSub,
-        '#b35940',
-        '#eee6d9'
-      );
+      const isLast = currentStoryIdx === slides.length - 1;
+      document.getElementById('storyTapHint').textContent = isLast
+        ? 'แตะหน้าจอเพื่อเข้าสู่คำถาม'
+        : 'แตะหน้าจอเพื่ออ่านต่อ';
 
-      document.getElementById('storyBars').innerHTML = teaserSlides
-        .map((_, i) => `<span class="${i <= currentStoryIdx ? 'active' : ''}"></span>`)
+      const storyImg = document.getElementById('storyImg');
+      const actTheme = actThemes[activeStoryChapter.actNo] || actThemes[1];
+      setSafeImage(storyImg, slide.image, activeStoryChapter.actLabel, slide.caption, actTheme.color);
+      storyImg.style.objectPosition = slide.focus || '50% 50%';
+      storyImg.style.transformOrigin = slide.focus || '50% 50%';
+      storyImg.style.transform = `scale(${slide.zoom || 1})`;
+
+      document.getElementById('storyDots').innerHTML = slides
+        .map((_, i) => `<span class="${i < currentStoryIdx ? 'done' : i === currentStoryIdx ? 'current' : ''}"></span>`)
         .join('');
 
-      replayAnim(document.getElementById('storyFrame'), 'photo-fade');
+      replayAnim(document.getElementById('storyFrame'), 'fade-in');
     }
 
     screens.story.addEventListener('click', () => {
       if (isTransitioning) return;
       currentStoryIdx++;
 
-      if (currentStoryIdx < teaserSlides.length) {
+      if (currentStoryIdx < activeStoryChapter.slides.length) {
         isTransitioning = true;
         const content = document.getElementById('storyContent');
-        content.style.transition = 'opacity 0.18s ease';
         content.style.opacity = '0';
 
         setTimeout(() => {
           renderStorySlide();
           content.style.opacity = '1';
-          setTimeout(() => { isTransitioning = false; }, 180);
-        }, 180);
+          setTimeout(() => { isTransitioning = false; }, 160);
+        }, 160);
       } else {
-        currentQIdx = 0;
-        userAnswers = {};
+        currentQIdx = activeStoryChapter.nextQIdx;
+        if (currentQIdx === 0) {
+          userAnswers = {};
+        }
         switchScreen('quiz', () => renderQuestion('next'));
       }
     });
@@ -1962,23 +2352,19 @@
 
       const q = questions[currentQIdx];
       const total = questions.length;
+      const theme = actThemes[q.actNo] || actThemes[1];
+      applyActTheme(q.actNo);
 
       document.getElementById('progressFill').style.width = `${((currentQIdx + 1) / total) * 100}%`;
       document.getElementById('progressLabel').textContent = `${currentQIdx + 1} / ${total}`;
-      document.getElementById('btnBack').textContent = currentQIdx === 0 ? '← กลับหน้าแรก' : '← ข้อก่อนหน้า';
+      document.getElementById('btnBack').textContent = currentQIdx === 0 ? 'หน้าแรก' : 'ย้อนกลับ';
       document.getElementById('questionScene').textContent = q.scene;
       document.getElementById('questionText').textContent = q.text;
 
-      setImageSafe(
-        document.getElementById('questionImg'),
-        q.image,
-        `ความทรงจำชิ้นที่ ${q.id}`,
-        q.scene,
-        '#b35940',
-        '#eee6d9'
-      );
-
-      replayAnim(document.getElementById('questionFrame'), 'photo-fade');
+      const qImg = document.getElementById('questionImg');
+      const targetSrc = q.customImage || theme.image;
+      setSafeImage(qImg, targetSrc, q.scene, `คำถามข้อที่ ${q.id}`, theme.color);
+      qImg.style.objectPosition = q.actNo === 2 ? '54% 46%' : '50% 50%';
 
       const choicesList = document.getElementById('choicesList');
       choicesList.style.pointerEvents = 'auto';
@@ -1988,9 +2374,8 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'choice-btn';
-        btn.style.animationDelay = `${0.04 + idx * 0.04}s`;
+        btn.style.animationDelay = `${0.02 + idx * 0.035}s`;
 
-        // แสดงสถานะ selected เฉพาะข้อที่ผู้ใช้เคยตอบไว้แล้วเท่านั้น (เช่นตอนกดย้อนกลับ)
         if (userAnswers[q.id] === letter) {
           btn.classList.add('selected');
         }
@@ -2010,7 +2395,6 @@
       if (isTransitioning) return;
       isTransitioning = true;
 
-      // ล็อกไม่ให้แตะซ้ำ และล้าง focus ทันทีเพื่อป้องกันปุ่มค้างบนมือถือ
       const choicesList = document.getElementById('choicesList');
       choicesList.style.pointerEvents = 'none';
       clickedBtn.blur();
@@ -2024,19 +2408,23 @@
       setTimeout(() => {
         currentQIdx++;
         if (currentQIdx < questions.length) {
-          const qStage = document.getElementById('qStage');
-          qStage.classList.add('anim-out');
-          setTimeout(() => {
-            renderQuestion('next');
+          const interludeKey = interludeBeforeQIdx[currentQIdx];
+          if (interludeKey) {
+            isTransitioning = false;
+            openStoryChapter(interludeKey);
+          } else {
+            const qStage = document.getElementById('qStage');
+            qStage.classList.add('anim-out');
             setTimeout(() => {
-              isTransitioning = false;
-            }, 180);
-          }, 145);
+              renderQuestion('next');
+              setTimeout(() => { isTransitioning = false; }, 140);
+            }, 125);
+          }
         } else {
           isTransitioning = false;
           processResult();
         }
-      }, 140);
+      }, 130);
     }
 
     document.getElementById('btnBack').addEventListener('click', () => {
@@ -2050,14 +2438,14 @@
         setTimeout(() => {
           currentQIdx--;
           renderQuestion('prev');
-          setTimeout(() => { isTransitioning = false; }, 180);
-        }, 145);
+          setTimeout(() => { isTransitioning = false; }, 140);
+        }, 125);
       } else {
         switchScreen('cover');
       }
     });
 
-    // ประมวลผลคะแนน 7 ห้อง -> แสดงห้องที่ชนะเพียง 1 ห้อง
+    // ประมวลผลคะแนน 7 ห้อง -> แสดงห้องที่ชนะ 1 ห้อง
     function processResult() {
       const scores = { H: 0, T: 0, A: 0, M: 0, P: 0, R: 0, Y: 0 };
       for (const [qId, chosenLetter] of Object.entries(userAnswers)) {
@@ -2087,28 +2475,26 @@
         document.documentElement.style.setProperty('--room-wash', currentResult.wash);
 
         switchScreen('result', () => {
-          document.getElementById('resZoneText').textContent = `โซน ${currentResult.zoneNo}`;
+          document.getElementById('resZoneText').textContent = `Zone ${currentResult.zoneNo}`;
           document.getElementById('resRoomName').textContent = currentResult.name;
           document.getElementById('resRoomSub').textContent = currentResult.subtitle;
           document.getElementById('resPersonality').textContent = currentResult.personality;
           document.getElementById('resMeaning').textContent = currentResult.meaning;
-
-          document.getElementById('resTraits').innerHTML = currentResult.traits
-            .map(t => `<span class="tag-chip">${t}</span>`)
-            .join('');
-
-          setImageSafe(
+          setSafeImage(
             document.getElementById('resImg'),
             currentResult.image,
             currentResult.name,
             currentResult.subtitle,
-            currentResult.color,
-            currentResult.wash
+            currentResult.color
           );
+
+          document.getElementById('resTraits').innerHTML = currentResult.traits
+            .map(t => `<span class="trait-pill">${t}</span>`)
+            .join('');
 
           populateStoryTemplate(currentResult);
         });
-      }, 1250);
+      }, 1150);
     }
 
     function populateStoryTemplate(res) {
@@ -2116,7 +2502,7 @@
       exportNode.style.setProperty('--room-color', res.color);
       exportNode.style.setProperty('--room-wash', res.wash);
 
-      document.getElementById('stZoneText').textContent = `โซน ${res.zoneNo}`;
+      document.getElementById('stZoneText').textContent = `Zone ${res.zoneNo}`;
       document.getElementById('stTitleEn').textContent = res.name;
       document.getElementById('stTitleTh').textContent = res.subtitle;
       document.getElementById('stPersonality').textContent = res.personality;
@@ -2125,18 +2511,7 @@
         .map(t => `<span class="st-tag">${t}</span>`)
         .join('');
 
-      const stPhoto = document.getElementById('stPhoto');
-      const fallbackUrl = makeEditorialArtwork(res.name, res.subtitle, res.color, res.wash);
-
-      const testImg = new Image();
-      testImg.crossOrigin = 'anonymous';
-      testImg.onload = () => {
-        stPhoto.style.backgroundImage = `url("${res.image}")`;
-      };
-      testImg.onerror = () => {
-        stPhoto.style.backgroundImage = `url("${fallbackUrl}")`;
-      };
-      testImg.src = res.image;
+      document.getElementById('stPhoto').style.backgroundImage = `url("${res.image}")`;
     }
 
     /* =====================================================
@@ -2161,7 +2536,7 @@
           scale: 2,
           width: 540,
           height: 960,
-          backgroundColor: '#f1eadf',
+          backgroundColor: '#FAF5E8',
           useCORS: true,
           logging: false
         });
@@ -2170,7 +2545,7 @@
         storyPreviewImg.src = generatedStoryDataUrl;
 
         generatedStoryBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        const fileName = `the-little-museum-zone-${currentResult.zoneNo}.png`;
+        const fileName = `inner-child-29-zone-${currentResult.zoneNo}.png`;
         const shareFile = generatedStoryBlob ? new File([generatedStoryBlob], fileName, { type: 'image/png' }) : null;
 
         if (shareFile && navigator.canShare && navigator.canShare({ files: [shareFile] })) {
@@ -2184,7 +2559,7 @@
         alert('ยังสร้างรูปไม่สำเร็จ ลองกดใหม่อีกครั้งนะครับ');
         console.error(err);
       } finally {
-        btn.textContent = 'บันทึกการ์ดไว้ลงสตอรี่';
+        btn.textContent = 'บันทึกการ์ดลงสตอรี่';
         btn.disabled = false;
       }
     });
@@ -2192,7 +2567,7 @@
     document.getElementById('btnDownloadStory').addEventListener('click', () => {
       if (!generatedStoryDataUrl || !currentResult) return;
       const link = document.createElement('a');
-      link.download = `the-little-museum-zone-${currentResult.zoneNo}.png`;
+      link.download = `inner-child-29-zone-${currentResult.zoneNo}.png`;
       link.href = generatedStoryDataUrl;
       link.click();
     });
@@ -2201,16 +2576,16 @@
       if (!generatedStoryBlob || !currentResult) return;
       const file = new File(
         [generatedStoryBlob],
-        `the-little-museum-zone-${currentResult.zoneNo}.png`,
+        `inner-child-29-zone-${currentResult.zoneNo}.png`,
         { type: 'image/png' }
       );
       try {
         await navigator.share({
           files: [file],
-          title: `The Little Museum — ${currentResult.name}`,
-          text: `ห้องความทรงจำของฉันคือ ${currentResult.name} จากงานนิทรรศการ inner child`
+          title: `INNER CHILD 29, ${currentResult.name}`,
+          text: `ห้องของคุณคือ ${currentResult.name} จากนิทรรศการ INNER CHILD 29`
         });
-      } catch (e) {}
+      } catch (e) { }
     });
 
     document.getElementById('btnCloseModal').addEventListener('click', () => {
@@ -2221,12 +2596,15 @@
     });
 
     document.getElementById('btnRestart').addEventListener('click', () => {
+      activeStoryChapter = storyChapters.act1;
       currentStoryIdx = 0;
       currentQIdx = 0;
       userAnswers = {};
       currentResult = null;
+      applyActTheme(1);
       switchScreen('cover');
     });
   </script>
 </body>
+
 </html>
